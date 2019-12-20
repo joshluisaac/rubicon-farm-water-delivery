@@ -17,7 +17,6 @@ public class WaterDeliveryRequest extends AbstractEntity {
   @Setter private WaterDeliveryStatus deliveryStatus;
   private String hash;
 
-
   @Builder
   public WaterDeliveryRequest(
       UUID farmId,
@@ -38,20 +37,20 @@ public class WaterDeliveryRequest extends AbstractEntity {
 
   private void checkOrderStartDate(LocalDateTime dateReceived, LocalDateTime orderStartDate) {
     Preconditions.checkArgument(
-            (orderStartDate.isAfter(dateReceived) || orderStartDate.isEqual(dateReceived)),
-            "Order start date cannot be in the past.");
+        (orderStartDate.isAfter(dateReceived) || orderStartDate.isEqual(dateReceived)),
+        "Order start date cannot be in the past.");
   }
 
-  private void checkSupplyDuration(int supplyDuration){
-    Preconditions.checkArgument(supplyDuration > 0, "Request supply duration cannot be less than 0");
+  private void checkSupplyDuration(int supplyDuration) {
+    Preconditions.checkArgument(
+        supplyDuration > 0, "Request supply duration cannot be less than 0");
   }
 
-  private String calculateHash(){
-      return "";
+  private String calculateHash() {
+    return "";
   }
 
-  public boolean isBetweenTimeFrameOf( WaterDeliveryRequest requestOrder ){
-      return true;
+  public boolean isBetweenTimeFrameOf(WaterDeliveryRequest requestOrder) {
+    return true;
   }
-
 }

@@ -1,17 +1,14 @@
 package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement;
 
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.DataStore;
-import com.rubiconwater.codingchallenge.joshluisaac.sharedkernel.EntityRepository;
-
 import java.util.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
  * The responsibility of this class is to provide CRUD operations for storing delivery requests.
- * It's got a dependency on {@link DataStore} where the actual delivery entries are stored.
- * It does not decide what you do with the returned values. It's left to the caller to make that decision.
+ * It's got a dependency on {@link DataStore} where the actual delivery entries are stored. It does
+ * not decide what you do with the returned values. It's left to the caller to make that decision.
  */
 @Repository
 public class WaterDeliveryRepository implements DeliveryRepository<WaterDeliveryRequest> {
@@ -34,16 +31,16 @@ public class WaterDeliveryRepository implements DeliveryRepository<WaterDelivery
   }
 
   @Override
-  public boolean isExisting(WaterDeliveryRequest requestOrder){
-      UUID farmId = requestOrder.getFarmId();
-      String hash = requestOrder.getHash();
-      //dataStore.
-      return false;
+  public boolean isExisting(WaterDeliveryRequest requestOrder) {
+    UUID farmId = requestOrder.getFarmId();
+    String hash = requestOrder.getHash();
+    // dataStore.
+    return false;
   }
 
   @Override
-  public List<WaterDeliveryRequest> findByFarmId(UUID farmId){
-      return Collections.emptyList();
+  public List<WaterDeliveryRequest> findByFarmId(UUID farmId) {
+    return Collections.emptyList();
   }
 
   @Override

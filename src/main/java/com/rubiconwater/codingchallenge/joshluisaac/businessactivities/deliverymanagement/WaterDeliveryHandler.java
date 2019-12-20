@@ -5,9 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-/**
- * This is a boundary object that communicates with the external world.
- */
+/** This is a boundary object that communicates with the external world. */
 @Controller
 public class WaterDeliveryHandler {
 

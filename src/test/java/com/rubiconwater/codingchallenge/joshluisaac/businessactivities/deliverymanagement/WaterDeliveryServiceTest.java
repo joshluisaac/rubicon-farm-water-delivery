@@ -7,7 +7,6 @@ import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.AbstractT
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.UuidUtils;
 import java.time.LocalDateTime;
 import java.util.UUID;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,9 +21,7 @@ public class WaterDeliveryServiceTest extends AbstractTest {
 
   @Mock private WaterDeliveryRepository waterDeliveryRepository;
 
-  public void beforeWaterDeliveryServiceTest(){
-
-  }
+  public void beforeWaterDeliveryServiceTest() {}
 
   @Test
   public void whenFarmerPlacesRequest_ShouldAcceptNewRequestOrder() {
@@ -44,26 +41,22 @@ public class WaterDeliveryServiceTest extends AbstractTest {
 
   @Test
   @DisplayName("Should reject an order if it already exists.")
-  //two request orders are equal if they are logically equal.
+  // two request orders are equal if they are logically equal.
   public void shouldRejectOrderIfExists() {
 
-      //take new order
-      //extract farmId from order
-      //compute hash of new order
-      //query all past orders belonging to that farmer which are in requested or in progress states
+    // take new order
+    // extract farmId from order
+    // compute hash of new order
+    // query all past orders belonging to that farmer which are in requested or in progress states
 
-      LocalDateTime dateOrderReceived = LocalDateTime.of(2019, 9, 12, 13, 45, 11);
-      LocalDateTime orderStartDate = LocalDateTime.of(2019, 10, 10, 6, 10, 11);
-      UUID farmId = UuidUtils.toUuid("1ddeab59-8bb1-4292-8fe4-7a6769411fe5");
-      WaterDeliveryRequest requestOrder =
-              createOrderRequest(farmId, dateOrderReceived, orderStartDate, 4);
+    LocalDateTime dateOrderReceived = LocalDateTime.of(2019, 9, 12, 13, 45, 11);
+    LocalDateTime orderStartDate = LocalDateTime.of(2019, 10, 10, 6, 10, 11);
+    UUID farmId = UuidUtils.toUuid("1ddeab59-8bb1-4292-8fe4-7a6769411fe5");
+    WaterDeliveryRequest requestOrder =
+        createOrderRequest(farmId, dateOrderReceived, orderStartDate, 4);
 
-      //query past orders using hash of new order
-      when(waterDeliveryRepository.isExisting(requestOrder)).thenReturn(true);
-      waterDeliveryService.acceptOrder(requestOrder);
-
-
-
-
+    // query past orders using hash of new order
+    when(waterDeliveryRepository.isExisting(requestOrder)).thenReturn(true);
+    waterDeliveryService.acceptOrder(requestOrder);
   }
 }

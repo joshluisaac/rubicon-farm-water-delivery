@@ -9,5 +9,4 @@ import lombok.Getter;
 public abstract class AbstractEntity implements BaseEntity {
 
   private final UUID id;
-
 }

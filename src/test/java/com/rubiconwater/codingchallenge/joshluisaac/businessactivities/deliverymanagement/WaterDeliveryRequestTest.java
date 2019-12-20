@@ -2,9 +2,7 @@ package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.delivery
 
 public class WaterDeliveryRequestTest {
 
-
-    // orderStartDateCannotBeInThePast
-    // orderDurationCannotBeNegativeValue
-
+  // orderStartDateCannotBeInThePast
+  // orderDurationCannotBeNegativeValue
 
 }
