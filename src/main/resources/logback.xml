@@ -1,0 +1,43 @@
+<configuration>
+    <appender name="CONSOLE_LOG"
+              class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <encoder>
+            <pattern>%d{ISO8601} %-5p %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- ch.qos.logback.core.rolling.RollingFileAppender -->
+
+    <appender name="DEBUG_LOG" class="ch.qos.logback.core.FileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <file>Application.log</file>
+        <encoder>
+            <pattern>%d{ISO8601} %-5p
+                %m%n
+            </pattern>
+        </encoder>
+    </appender>
+    <appender name="ERROR_LOG" class="ch.qos.logback.core.FileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <file>ApplicationError.log</file>
+        <encoder>
+            <pattern>%d{ISO8601}
+                %-5p %m%n
+            </pattern>
+        </encoder>
+    </appender>
+
+
+    <root level="DEBUG">
+        <appender-ref ref="CONSOLE_LOG"/>
+        <appender-ref ref="DEBUG_LOG"/>
+        <appender-ref ref="ERROR_LOG"/>
+    </root>
+</configuration>
