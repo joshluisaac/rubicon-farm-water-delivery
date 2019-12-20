@@ -15,6 +15,8 @@ public class WaterDeliveryRequest extends AbstractEntity {
   private LocalDateTime orderStartDate;
   private int supplyDuration;
   @Setter private WaterDeliveryStatus deliveryStatus;
+  private String hash;
+
 
   @Builder
   public WaterDeliveryRequest(
@@ -31,6 +33,7 @@ public class WaterDeliveryRequest extends AbstractEntity {
     this.orderStartDate = orderStartDate;
     this.supplyDuration = supplyDuration;
     this.deliveryStatus = deliveryStatus;
+    this.hash = calculateHash();
   }
 
   private void checkOrderStartDate(LocalDateTime dateReceived, LocalDateTime orderStartDate) {
@@ -41,6 +44,14 @@ public class WaterDeliveryRequest extends AbstractEntity {
 
   private void checkSupplyDuration(int supplyDuration){
     Preconditions.checkArgument(supplyDuration > 0, "Request supply duration cannot be less than 0");
+  }
+
+  private String calculateHash(){
+      return "";
+  }
+
+  public boolean isBetweenTimeFrameOf( WaterDeliveryRequest requestOrder ){
+      return true;
   }
 
 }

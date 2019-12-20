@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.rubiconwater.codingchallenge.joshluisaac</groupId>
-    <artifactId>farm-water-request</artifactId>
+    <artifactId>farm-water-delivery</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Farm Water Request</name>
-    <description>Farm Water Request</description>
+    <name>Farm Water Delivery</name>
+    <description>Farm Water Delivery</description>
 
     <properties>
         <java.version>11</java.version>
