@@ -14,7 +14,7 @@ public class WaterDeliveryRequestTest implements AbstractTest {
 
   private static final UUID FARM_ID = UuidUtils.toUuid("1ddeab59-8bb1-4292-8fe4-7a6769411fe5");
   private static final LocalDateTime ORDER_RECEIVED_DATE =
-      LocalDateTime.of(2019, 1, 12, 13, 45, 11);
+      LocalDateTime.parse("2019-01-12T13:45:11");
 
   void logSituation(WaterDeliveryRequest exitingOrder, WaterDeliveryRequest newOrder) {
     System.out.println(
@@ -65,11 +65,9 @@ public class WaterDeliveryRequestTest implements AbstractTest {
   @Test
   void shouldReturn_True_WhenStartDateMatches_StartDateOfExistingTimeFrame() {
     LocalDateTime orderStartDate = LocalDateTime.of(2019, 2, 10, 1, 10, 11);
-    WaterDeliveryRequest exitingOrder =
-        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 4);
+    var exitingOrder = createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 4);
     LocalDateTime newOrderStartDate = LocalDateTime.of(2019, 2, 10, 1, 10, 11);
-    WaterDeliveryRequest newOrder =
-        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 15);
+    var newOrder = createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 15);
     assertThat(exitingOrder.getTimeFrame().isBetweenTimeFrameOf(newOrder.getTimeFrame())).isTrue();
   }
 
@@ -89,11 +87,9 @@ public class WaterDeliveryRequestTest implements AbstractTest {
   @Test
   void shouldReturn_True_WhenStartDateOverlapsInto_ExistingTimeFrame() {
     LocalDateTime orderStartDate = LocalDateTime.of(2019, 2, 10, 1, 10, 11);
-    WaterDeliveryRequest exitingOrder =
-        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 4);
+    var exitingOrder = createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 4);
     LocalDateTime newOrderStartDate = LocalDateTime.of(2019, 2, 10, 3, 10, 11);
-    WaterDeliveryRequest newOrder =
-        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 15);
+    var newOrder = createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 15);
     assertThat(exitingOrder.getTimeFrame().isBetweenTimeFrameOf(newOrder.getTimeFrame())).isTrue();
   }
 
@@ -113,11 +109,9 @@ public class WaterDeliveryRequestTest implements AbstractTest {
   @Test
   void shouldReturn_True_WhenStartDateMatches_EndDateOfExistingTimeFrame() {
     LocalDateTime orderStartDate = LocalDateTime.of(2019, 2, 10, 1, 10, 11);
-    WaterDeliveryRequest exitingOrder =
-        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 4);
+    var exitingOrder = createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 4);
     LocalDateTime newOrderStartDate = LocalDateTime.of(2019, 2, 10, 5, 10, 11);
-    WaterDeliveryRequest newOrder =
-        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 15);
+    var newOrder = createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 15);
     assertThat(exitingOrder.getTimeFrame().isBetweenTimeFrameOf(newOrder.getTimeFrame())).isTrue();
   }
 
@@ -139,11 +133,9 @@ public class WaterDeliveryRequestTest implements AbstractTest {
   // @OnErrorLogSituation or @LogSituationOnError
   void shouldReturn_True_WhenEndDateMatches_StartDateOfExistingTimeFrame() {
     LocalDateTime orderStartDate = LocalDateTime.of(2019, 5, 10, 6, 10, 11);
-    WaterDeliveryRequest exitingOrder =
-        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 100);
+    var exitingOrder = createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 100);
     LocalDateTime newOrderStartDate = LocalDateTime.of(2019, 5, 8, 6, 10, 11);
-    WaterDeliveryRequest newOrder =
-        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 48);
+    var newOrder = createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 48);
     assertThat(exitingOrder.getTimeFrame().isBetweenTimeFrameOf(newOrder.getTimeFrame())).isTrue();
   }
 
@@ -163,11 +155,9 @@ public class WaterDeliveryRequestTest implements AbstractTest {
   @Test
   void shouldReturn_True_WhenEndDateOverlapsInto_ExistingTimeFrame() {
     LocalDateTime orderStartDate = LocalDateTime.of(2019, 5, 10, 6, 10, 11);
-    WaterDeliveryRequest exitingOrder =
-        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 100);
+    var exitingOrder = createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 100);
     LocalDateTime newOrderStartDate = LocalDateTime.of(2019, 5, 8, 6, 10, 11);
-    WaterDeliveryRequest newOrder =
-        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 100);
+    var newOrder = createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 100);
     assertThat(exitingOrder.getTimeFrame().isBetweenTimeFrameOf(newOrder.getTimeFrame())).isTrue();
   }
 
@@ -188,33 +178,27 @@ public class WaterDeliveryRequestTest implements AbstractTest {
   // @OnErrorLogSituation or @LogSituationOnError
   void shouldReturn_True_WhenEndDateMatches_EndDateOfExistingTimeFrame() {
     LocalDateTime orderStartDate = LocalDateTime.of(2019, 5, 10, 6, 10, 11);
-    WaterDeliveryRequest exitingOrder =
-        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 100);
+    var exitingOrder = createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 100);
     LocalDateTime newOrderStartDate = LocalDateTime.of(2019, 5, 8, 6, 10, 11);
-    WaterDeliveryRequest newOrder =
-        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 148);
+    var newOrder = createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 148);
     assertThat(exitingOrder.getTimeFrame().isBetweenTimeFrameOf(newOrder.getTimeFrame())).isTrue();
   }
 
   @Test
   void shouldReturn_False_WhenTimeFrameOfNewOrder_IsAfterExistingOrder() {
     LocalDateTime orderStartDate = LocalDateTime.of(2019, 2, 10, 6, 10, 11);
-    WaterDeliveryRequest exitingOrder =
-        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 4);
+    var exitingOrder = createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 4);
     LocalDateTime newOrderStartDate = LocalDateTime.of(2019, 9, 10, 6, 10, 11);
-    WaterDeliveryRequest newOrder =
-        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 100);
+    var newOrder = createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 100);
     assertThat(exitingOrder.getTimeFrame().isBetweenTimeFrameOf(newOrder.getTimeFrame())).isFalse();
   }
 
   @Test
   void shouldReturn_False_WhenTimeFrameOfNewOrder_IsBeforeExistingOrder() {
     LocalDateTime orderStartDate = LocalDateTime.of(2020, 2, 10, 6, 10, 11);
-    WaterDeliveryRequest exitingOrder =
-        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 4);
+    var exitingOrder = createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 4);
     LocalDateTime newOrderStartDate = LocalDateTime.of(2019, 9, 10, 6, 10, 11);
-    WaterDeliveryRequest newOrder =
-        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 100);
+    var newOrder = createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 100);
     assertThat(exitingOrder.getTimeFrame().isBetweenTimeFrameOf(newOrder.getTimeFrame())).isFalse();
   }
 }

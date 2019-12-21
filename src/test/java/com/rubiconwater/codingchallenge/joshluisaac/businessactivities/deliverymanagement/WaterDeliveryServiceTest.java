@@ -26,8 +26,7 @@ public class WaterDeliveryServiceTest implements AbstractTest {
     LocalDateTime dateOrderReceived = LocalDateTime.of(2019, 9, 12, 13, 45, 11);
     LocalDateTime orderStartDate = LocalDateTime.of(2019, 10, 10, 6, 10, 11);
     UUID farmId = UuidUtils.toUuid("1ddeab59-8bb1-4292-8fe4-7a6769411fe5");
-    WaterDeliveryRequest requestOrder =
-        createOrderRequest(farmId, dateOrderReceived, orderStartDate, 4);
+    var requestOrder = createOrderRequest(farmId, dateOrderReceived, orderStartDate, 4);
     when(waterDeliveryRepository.isExisting(requestOrder)).thenReturn(false);
     waterDeliveryService.acceptOrder(requestOrder);
     verify(waterDeliveryRepository, times(1)).save(requestOrder);
@@ -44,8 +43,7 @@ public class WaterDeliveryServiceTest implements AbstractTest {
     LocalDateTime dateOrderReceived = LocalDateTime.of(2019, 9, 12, 13, 45, 11);
     LocalDateTime orderStartDate = LocalDateTime.of(2019, 10, 10, 6, 10, 11);
     UUID farmId = UuidUtils.toUuid("1ddeab59-8bb1-4292-8fe4-7a6769411fe5");
-    WaterDeliveryRequest requestOrder =
-        createOrderRequest(farmId, dateOrderReceived, orderStartDate, 4);
+    var requestOrder = createOrderRequest(farmId, dateOrderReceived, orderStartDate, 4);
     when(waterDeliveryRepository.isExisting(requestOrder)).thenReturn(true);
     Throwable throwable = catchThrowable(() -> waterDeliveryService.acceptOrder(requestOrder));
     assertThat(throwable).isInstanceOf(IllegalArgumentException.class);

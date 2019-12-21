@@ -6,7 +6,6 @@ import java.util.UUID;
 import lombok.*;
 
 @Getter
-@Setter
 @AllArgsConstructor
 public class ApiDeliveryRequest {
 
