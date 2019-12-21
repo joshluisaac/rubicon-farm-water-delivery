@@ -61,12 +61,21 @@ public class WaterDeliveryRequest extends AbstractEntity {
     return DigestUtils.md5DigestAsHex(stringBuilder.toString().getBytes());
   }
 
+  //pass in the time frame reference and not requestOrder
   public boolean isBetweenTimeFrameOf(WaterDeliveryRequest requestOrder) {
     System.out.println(getTimeFrame().getStartDate());
     System.out.println(getTimeFrame().getEndDate());
 
     System.out.println(requestOrder.getTimeFrame().getStartDate());
     System.out.println(requestOrder.getTimeFrame().getEndDate());
+
+
+    LocalDateTime newOrderStartDate = requestOrder.getTimeFrame().getStartDate();
+    LocalDateTime newOrderEndDate = requestOrder.getTimeFrame().getEndDate();
+
+   boolean isBetween =  (newOrderStartDate.isEqual(orderStartDate) || newOrderStartDate.isAfter(orderStartDate)) && (newOrderStartDate.isBefore(deliveryEndDate()) || newOrderStartDate.isEqual(deliveryEndDate()));
+
+
     return true;
   }
 
@@ -77,4 +86,17 @@ public class WaterDeliveryRequest extends AbstractEntity {
   public TimeFrame getTimeFrame() {
     return TimeFrame.builder().startDate(orderStartDate).endDate(deliveryEndDate()).build();
   }
+
+
+  public boolean isAfterOrEqualToOrderStartDate(WaterDeliveryRequest requestOrder){
+    LocalDateTime newOrderStartDate = requestOrder.getTimeFrame().getStartDate();
+    return (newOrderStartDate.isEqual(orderStartDate) || newOrderStartDate.isAfter(orderStartDate));
+  }
+
+  public boolean isBetweenOrderEndDate(WaterDeliveryRequest requestOrder){
+    LocalDateTime newOrderStartDate = requestOrder.getTimeFrame().getStartDate();
+    return (newOrderStartDate.isBefore(deliveryEndDate()) || newOrderStartDate.isEqual(deliveryEndDate()));
+  }
+
+
 }

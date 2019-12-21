@@ -4,9 +4,9 @@ import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverym
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public abstract class AbstractTest {
+public interface AbstractTest {
 
-  public static WaterDeliveryRequest createOrderRequest(
+  default WaterDeliveryRequest createOrderRequest(
       UUID farmId,
       LocalDateTime dateOrderReceived,
       LocalDateTime orderStartDate,

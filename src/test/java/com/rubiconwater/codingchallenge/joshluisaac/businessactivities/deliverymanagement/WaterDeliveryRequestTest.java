@@ -9,14 +9,13 @@ import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class WaterDeliveryRequestTest extends AbstractTest {
+public class WaterDeliveryRequestTest implements AbstractTest {
 
   private static final UUID FARM_ID = UuidUtils.toUuid("1ddeab59-8bb1-4292-8fe4-7a6769411fe5");
 
   @Test
   @DisplayName("Should throw an exception if order start date is in the past.")
   void throwException_WhenOrderStartDate_InThePast() {
-    // when a farmer submits a water order request
     LocalDateTime dateOrderReceived = LocalDateTime.of(2019, 9, 12, 13, 45, 11);
     LocalDateTime orderStartDate = LocalDateTime.of(2016, 10, 10, 6, 10, 11);
     Throwable throwable =
@@ -29,7 +28,6 @@ public class WaterDeliveryRequestTest extends AbstractTest {
   @Test
   @DisplayName("Should throw an exception when supply duration is negative.")
   void throwException_WhenSupplyDuration_IsNegative() {
-    // when a farmer submits a water order request
     LocalDateTime dateOrderReceived = LocalDateTime.of(2019, 9, 12, 13, 45, 11);
     LocalDateTime orderStartDate = LocalDateTime.of(2020, 10, 10, 6, 10, 11);
     Throwable throwable =

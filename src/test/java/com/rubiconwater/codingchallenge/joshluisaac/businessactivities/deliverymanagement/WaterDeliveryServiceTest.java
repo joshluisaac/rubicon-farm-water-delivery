@@ -14,7 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class WaterDeliveryServiceTest extends AbstractTest {
+public class WaterDeliveryServiceTest implements AbstractTest {
 
   @InjectMocks private WaterDeliveryService waterDeliveryService;
 
@@ -33,6 +33,8 @@ public class WaterDeliveryServiceTest extends AbstractTest {
     verify(waterDeliveryRepository, times(1)).save(requestOrder);
     assertThat(requestOrder.getDeliveryStatus())
         .isEqualByComparingTo(WaterDeliveryStatus.REQUESTED);
+
+    //assertThat(LocalDateTime.now()).isBeforeOrEqualTo((LocalDateTime.now())
   }
 
   @Test
