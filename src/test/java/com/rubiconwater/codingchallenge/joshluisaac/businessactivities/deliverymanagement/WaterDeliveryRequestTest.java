@@ -29,11 +29,9 @@ public class WaterDeliveryRequestTest implements AbstractTest {
   @Test
   @DisplayName("Should throw an exception if order start date is in the past.")
   void throwException_WhenOrderStartDate_InThePast() {
-
     LocalDateTime orderStartDate = LocalDateTime.of(2016, 10, 10, 6, 10, 11);
     Throwable throwable =
         catchThrowable(() -> createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 4));
-
     assertThat(throwable)
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessageStartingWith("Order start date cannot be in the past");
@@ -42,11 +40,9 @@ public class WaterDeliveryRequestTest implements AbstractTest {
   @Test
   @DisplayName("Should throw an exception when supply duration is negative.")
   void throwException_WhenSupplyDuration_IsNegative() {
-
     LocalDateTime orderStartDate = LocalDateTime.of(2020, 10, 10, 6, 10, 11);
     Throwable throwable =
         catchThrowable(() -> createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, -4));
-
     assertThat(throwable)
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessageStartingWith("Request supply duration cannot be");
@@ -68,11 +64,9 @@ public class WaterDeliveryRequestTest implements AbstractTest {
    */
   @Test
   void shouldReturn_True_WhenStartDateMatches_StartDateOfExistingTimeFrame() {
-
     LocalDateTime orderStartDate = LocalDateTime.of(2019, 2, 10, 1, 10, 11);
     WaterDeliveryRequest exitingOrder =
         createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 4);
-
     LocalDateTime newOrderStartDate = LocalDateTime.of(2019, 2, 10, 1, 10, 11);
     WaterDeliveryRequest newOrder =
         createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 15);
@@ -94,11 +88,9 @@ public class WaterDeliveryRequestTest implements AbstractTest {
    */
   @Test
   void shouldReturn_True_WhenStartDateOverlapsInto_ExistingTimeFrame() {
-
     LocalDateTime orderStartDate = LocalDateTime.of(2019, 2, 10, 1, 10, 11);
     WaterDeliveryRequest exitingOrder =
         createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 4);
-
     LocalDateTime newOrderStartDate = LocalDateTime.of(2019, 2, 10, 3, 10, 11);
     WaterDeliveryRequest newOrder =
         createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 15);
@@ -120,11 +112,9 @@ public class WaterDeliveryRequestTest implements AbstractTest {
    */
   @Test
   void shouldReturn_True_WhenStartDateMatches_EndDateOfExistingTimeFrame() {
-
     LocalDateTime orderStartDate = LocalDateTime.of(2019, 2, 10, 1, 10, 11);
     WaterDeliveryRequest exitingOrder =
         createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 4);
-
     LocalDateTime newOrderStartDate = LocalDateTime.of(2019, 2, 10, 5, 10, 11);
     WaterDeliveryRequest newOrder =
         createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 15);
@@ -148,11 +138,9 @@ public class WaterDeliveryRequestTest implements AbstractTest {
   @Test
   // @OnErrorLogSituation or @LogSituationOnError
   void shouldReturn_True_WhenEndDateMatches_StartDateOfExistingTimeFrame() {
-
     LocalDateTime orderStartDate = LocalDateTime.of(2019, 5, 10, 6, 10, 11);
     WaterDeliveryRequest exitingOrder =
         createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 100);
-
     LocalDateTime newOrderStartDate = LocalDateTime.of(2019, 5, 8, 6, 10, 11);
     WaterDeliveryRequest newOrder =
         createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 48);
@@ -174,11 +162,9 @@ public class WaterDeliveryRequestTest implements AbstractTest {
    */
   @Test
   void shouldReturn_True_WhenEndDateOverlapsInto_ExistingTimeFrame() {
-
     LocalDateTime orderStartDate = LocalDateTime.of(2019, 5, 10, 6, 10, 11);
     WaterDeliveryRequest exitingOrder =
         createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 100);
-
     LocalDateTime newOrderStartDate = LocalDateTime.of(2019, 5, 8, 6, 10, 11);
     WaterDeliveryRequest newOrder =
         createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 100);
@@ -201,11 +187,9 @@ public class WaterDeliveryRequestTest implements AbstractTest {
   @Test
   // @OnErrorLogSituation or @LogSituationOnError
   void shouldReturn_True_WhenEndDateMatches_EndDateOfExistingTimeFrame() {
-
     LocalDateTime orderStartDate = LocalDateTime.of(2019, 5, 10, 6, 10, 11);
     WaterDeliveryRequest exitingOrder =
         createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 100);
-
     LocalDateTime newOrderStartDate = LocalDateTime.of(2019, 5, 8, 6, 10, 11);
     WaterDeliveryRequest newOrder =
         createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 148);
@@ -214,11 +198,9 @@ public class WaterDeliveryRequestTest implements AbstractTest {
 
   @Test
   void shouldReturn_False_WhenTimeFrameOfNewOrder_IsAfterExistingOrder() {
-
     LocalDateTime orderStartDate = LocalDateTime.of(2019, 2, 10, 6, 10, 11);
     WaterDeliveryRequest exitingOrder =
         createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 4);
-
     LocalDateTime newOrderStartDate = LocalDateTime.of(2019, 9, 10, 6, 10, 11);
     WaterDeliveryRequest newOrder =
         createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 100);
@@ -227,11 +209,9 @@ public class WaterDeliveryRequestTest implements AbstractTest {
 
   @Test
   void shouldReturn_False_WhenTimeFrameOfNewOrder_IsBeforeExistingOrder() {
-
     LocalDateTime orderStartDate = LocalDateTime.of(2020, 2, 10, 6, 10, 11);
     WaterDeliveryRequest exitingOrder =
         createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 4);
-
     LocalDateTime newOrderStartDate = LocalDateTime.of(2019, 9, 10, 6, 10, 11);
     WaterDeliveryRequest newOrder =
         createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 100);
