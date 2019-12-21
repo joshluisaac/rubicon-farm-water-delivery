@@ -34,17 +34,13 @@ public class WaterDeliveryServiceTest implements AbstractTest {
     assertThat(requestOrder.getDeliveryStatus())
         .isEqualByComparingTo(WaterDeliveryStatus.REQUESTED);
 
-    //assertThat(LocalDateTime.now()).isBeforeOrEqualTo((LocalDateTime.now())
+    // assertThat(LocalDateTime.now()).isBeforeOrEqualTo((LocalDateTime.now())
   }
 
   @Test
   // two request orders are equal if they are logically equal.
+  // logical equality uses the combination of farmId,order start and end dates.
   void shouldRejectOrderIfExists() {
-    // take new order
-    // extract farmId from order
-    // compute hash of new order
-    // query all past orders belonging to that farmer which are in requested or in progress states
-
     LocalDateTime dateOrderReceived = LocalDateTime.of(2019, 9, 12, 13, 45, 11);
     LocalDateTime orderStartDate = LocalDateTime.of(2019, 10, 10, 6, 10, 11);
     UUID farmId = UuidUtils.toUuid("1ddeab59-8bb1-4292-8fe4-7a6769411fe5");

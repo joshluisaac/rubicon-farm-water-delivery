@@ -2,9 +2,9 @@ package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.delivery
 
 import com.google.common.base.Preconditions;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.UuidUtils;
+import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.WaterDeliveryUtils;
 import com.rubiconwater.codingchallenge.joshluisaac.sharedkernel.AbstractEntity;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 import lombok.*;
 import org.springframework.util.DigestUtils;
@@ -56,47 +56,12 @@ public class WaterDeliveryRequest extends AbstractEntity {
     StringBuilder stringBuilder = new StringBuilder();
     stringBuilder
         .append(farmId.toString())
-        .append(toIsoLocalDateTime(orderStartDate))
-        .append(toIsoLocalDateTime(deliveryEndDate()));
+        .append(WaterDeliveryUtils.toIsoLocalDateTime(orderStartDate))
+        .append(WaterDeliveryUtils.toIsoLocalDateTime(deliveryEndDate()));
     return DigestUtils.md5DigestAsHex(stringBuilder.toString().getBytes());
-  }
-
-  //pass in the time frame reference and not requestOrder
-  public boolean isBetweenTimeFrameOf(WaterDeliveryRequest requestOrder) {
-    System.out.println(getTimeFrame().getStartDate());
-    System.out.println(getTimeFrame().getEndDate());
-
-    System.out.println(requestOrder.getTimeFrame().getStartDate());
-    System.out.println(requestOrder.getTimeFrame().getEndDate());
-
-
-    LocalDateTime newOrderStartDate = requestOrder.getTimeFrame().getStartDate();
-    LocalDateTime newOrderEndDate = requestOrder.getTimeFrame().getEndDate();
-
-   boolean isBetween =  (newOrderStartDate.isEqual(orderStartDate) || newOrderStartDate.isAfter(orderStartDate)) && (newOrderStartDate.isBefore(deliveryEndDate()) || newOrderStartDate.isEqual(deliveryEndDate()));
-
-
-    return true;
-  }
-
-  private static String toIsoLocalDateTime(LocalDateTime dateTime) {
-    return dateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
   }
 
   public TimeFrame getTimeFrame() {
     return TimeFrame.builder().startDate(orderStartDate).endDate(deliveryEndDate()).build();
   }
-
-
-  public boolean isAfterOrEqualToOrderStartDate(WaterDeliveryRequest requestOrder){
-    LocalDateTime newOrderStartDate = requestOrder.getTimeFrame().getStartDate();
-    return (newOrderStartDate.isEqual(orderStartDate) || newOrderStartDate.isAfter(orderStartDate));
-  }
-
-  public boolean isBetweenOrderEndDate(WaterDeliveryRequest requestOrder){
-    LocalDateTime newOrderStartDate = requestOrder.getTimeFrame().getStartDate();
-    return (newOrderStartDate.isBefore(deliveryEndDate()) || newOrderStartDate.isEqual(deliveryEndDate()));
-  }
-
-
 }

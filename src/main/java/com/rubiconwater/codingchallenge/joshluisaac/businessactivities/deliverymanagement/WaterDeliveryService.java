@@ -72,7 +72,8 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryRequest>
         waterDeliveryRepository
             .findByFarmId(requestOrder.getFarmId())
             .stream()
-            .anyMatch(entry -> entry.isBetweenTimeFrameOf(requestOrder));
+            .anyMatch(
+                entry -> entry.getTimeFrame().isBetweenTimeFrameOf(requestOrder.getTimeFrame()));
     if (isPresent)
       throw new IllegalArgumentException(
           "The requested order falls within the time frame of another order");
