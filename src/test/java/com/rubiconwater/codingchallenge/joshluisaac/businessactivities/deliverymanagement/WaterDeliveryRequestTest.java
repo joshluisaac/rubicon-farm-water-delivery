@@ -81,8 +81,7 @@ public class WaterDeliveryRequestTest implements AbstractTest {
   }
 
   /**
-   * When an existing order is booked in the future and the end date of a new order is collides with
-   * this time frame.
+   * When the end date of a new order overlaps into an existing order.
    *
    * <p>For example, <code>
    *  Existing order start date: 2019-05-10T06:10:11
@@ -106,6 +105,18 @@ public class WaterDeliveryRequestTest implements AbstractTest {
     assertThat(exitingOrder.getTimeFrame().isBetweenTimeFrameOf(newOrder.getTimeFrame())).isTrue();
   }
 
+    /**
+     * When the end date of a new order is collides with the end date of an existing time frame.
+     *
+     * <p>For example, <code>
+     *  Existing order start date: 2019-05-10T06:10:11
+     *  Existing end start date: 2019-05-14T10:10:11
+     *  New order start date: 2019-05-08T06:10:11
+     *  New order end date: 2019-05-14T10:10:11
+     * </code>
+     *
+     * <p>Notice that, 2019-05-14T10:10:11 is between 2019-05-10T06:10:11 and 2019-05-14T10:10:11
+     */
   @Test
   // @OnErrorLogSituation or @LogSituationOnError
   void shouldReturn_True_WhenEndDateMatches_EndDateOfExistingTimeFrame() {
