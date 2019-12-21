@@ -1,4 +1,4 @@
-package com.rubiconwater.codingchallenge.joshluisaac.businessactivities;
+package com.rubiconwater.codingchallenge.joshluisaac;
 
 import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.WaterDeliveryRequest;
 import java.time.LocalDateTime;

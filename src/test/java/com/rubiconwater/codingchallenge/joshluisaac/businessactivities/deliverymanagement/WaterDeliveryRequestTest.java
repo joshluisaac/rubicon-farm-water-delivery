@@ -2,7 +2,7 @@ package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.delivery
 
 import static org.assertj.core.api.Assertions.*;
 
-import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.AbstractTest;
+import com.rubiconwater.codingchallenge.joshluisaac.AbstractTest;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.UuidUtils;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.WaterDeliveryUtils;
 import java.time.LocalDateTime;
@@ -21,7 +21,6 @@ public class WaterDeliveryRequestTest implements AbstractTest {
         WaterDeliveryUtils.toIsoLocalDateTime(exitingOrder.getTimeFrame().getStartDate()));
     System.out.println(
         WaterDeliveryUtils.toIsoLocalDateTime(exitingOrder.getTimeFrame().getEndDate()));
-
     System.out.println(
         WaterDeliveryUtils.toIsoLocalDateTime(newOrder.getTimeFrame().getStartDate()));
     System.out.println(WaterDeliveryUtils.toIsoLocalDateTime(newOrder.getTimeFrame().getEndDate()));
@@ -54,11 +53,12 @@ public class WaterDeliveryRequestTest implements AbstractTest {
   }
 
   /**
-   * When the start date of a new order is collides with the start date of an existing order.
-   * For example, <code>
+   * When the start date of a new order is collides with the start date of an existing order. For
+   * example, <code>
    *
    * Existing order start date: 2019-02-10T01:10:11
    * Existing order end date: 2019-02-10T05:10:11
+   *
    * New order start date: 2019-02-10T01:10:11
    * New order end date: 2019-02-10T16:10:11
    *  </code>
@@ -70,65 +70,66 @@ public class WaterDeliveryRequestTest implements AbstractTest {
   void shouldReturn_True_WhenStartDateMatches_StartDateOfExistingTimeFrame() {
 
     LocalDateTime orderStartDate = LocalDateTime.of(2019, 2, 10, 1, 10, 11);
-    WaterDeliveryRequest requestOrder =
+    WaterDeliveryRequest exitingOrder =
         createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 4);
 
-    LocalDateTime orderStartDate2 = LocalDateTime.of(2019, 2, 10, 1, 10, 11);
-    WaterDeliveryRequest requestOrder2 =
-        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate2, 15);
-
-    // logSituation(requestOrder, requestOrder2);
-
-    assertThat(requestOrder.getTimeFrame().isBetweenTimeFrameOf(requestOrder2.getTimeFrame()))
-        .isTrue();
+    LocalDateTime newOrderStartDate = LocalDateTime.of(2019, 2, 10, 1, 10, 11);
+    WaterDeliveryRequest newOrder =
+        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 15);
+    assertThat(exitingOrder.getTimeFrame().isBetweenTimeFrameOf(newOrder.getTimeFrame())).isTrue();
   }
 
+  /**
+   * When the start date of a new order overlaps into an existing order.
+   *
+   * <p>For example, <code>
+   *  Existing order start date: 2019-02-10T01:10:11
+   *  Existing end start date: 2019-02-10T05:10:11
+   *
+   *  New order start date: 2019-02-10T03:10:11
+   *  New order end date: 2019-02-10T18:10:11
+   * </code>
+   *
+   * <p>Notice that, 2019-02-10T03:10:11 is between 2019-02-10T01:10:11 and 2019-02-10T05:10:11
+   */
   @Test
   void shouldReturn_True_WhenStartDateOverlapsInto_ExistingTimeFrame() {
 
     LocalDateTime orderStartDate = LocalDateTime.of(2019, 2, 10, 1, 10, 11);
-    WaterDeliveryRequest requestOrder =
+    WaterDeliveryRequest exitingOrder =
         createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 4);
 
-    LocalDateTime orderStartDate2 = LocalDateTime.of(2019, 2, 10, 3, 10, 11);
-    WaterDeliveryRequest requestOrder2 =
-        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate2, 15);
-
-    assertThat(requestOrder.getTimeFrame().isBetweenTimeFrameOf(requestOrder2.getTimeFrame()))
-        .isTrue();
+    LocalDateTime newOrderStartDate = LocalDateTime.of(2019, 2, 10, 3, 10, 11);
+    WaterDeliveryRequest newOrder =
+        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 15);
+    assertThat(exitingOrder.getTimeFrame().isBetweenTimeFrameOf(newOrder.getTimeFrame())).isTrue();
   }
 
-    /**
-     * When the start date of a new order is collides with the end date of an existing order.
-     * For example, <code>
-     *
-     * Existing order start date: 2019-02-10T01:10:11
-     * Existing order end date: 2019-02-10T05:10:11
-     *
-     * New order start date: 2019-02-10T05:10:11
-     * New order end date: 2019-02-10T16:10:11
-     *  </code>
-     *
-     * <p>Notice that, 2019-02-10T05:10:11 collides with Existing order end date:
-     * 2019-02-10T05:10:11
-     */
-    @Test
-    void shouldReturn_True_WhenStartDateMatches_EndDateOfExistingTimeFrame() {
+  /**
+   * When the start date of a new order is collides with the end date of an existing order. For
+   * example, <code>
+   *
+   * Existing order start date: 2019-02-10T01:10:11
+   * Existing order end date: 2019-02-10T05:10:11
+   *
+   * New order start date: 2019-02-10T05:10:11
+   * New order end date: 2019-02-10T16:10:11
+   *  </code>
+   *
+   * <p>Notice that, 2019-02-10T05:10:11 collides with Existing order end date: 2019-02-10T05:10:11
+   */
+  @Test
+  void shouldReturn_True_WhenStartDateMatches_EndDateOfExistingTimeFrame() {
 
-        LocalDateTime orderStartDate = LocalDateTime.of(2019, 2, 10, 1, 10, 11);
-        WaterDeliveryRequest requestOrder =
-                createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 4);
+    LocalDateTime orderStartDate = LocalDateTime.of(2019, 2, 10, 1, 10, 11);
+    WaterDeliveryRequest exitingOrder =
+        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 4);
 
-        LocalDateTime orderStartDate2 = LocalDateTime.of(2019, 2, 10, 5, 10, 11);
-        WaterDeliveryRequest requestOrder2 =
-                createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate2, 15);
-
-        // logSituation(requestOrder, requestOrder2);
-
-        assertThat(requestOrder.getTimeFrame().isBetweenTimeFrameOf(requestOrder2.getTimeFrame()))
-                .isTrue();
-    }
-
+    LocalDateTime newOrderStartDate = LocalDateTime.of(2019, 2, 10, 5, 10, 11);
+    WaterDeliveryRequest newOrder =
+        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 15);
+    assertThat(exitingOrder.getTimeFrame().isBetweenTimeFrameOf(newOrder.getTimeFrame())).isTrue();
+  }
 
   /**
    * When the end date of a new order is collides with the start date of an existing order.
@@ -152,81 +153,88 @@ public class WaterDeliveryRequestTest implements AbstractTest {
     WaterDeliveryRequest exitingOrder =
         createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 100);
 
-    LocalDateTime orderStartDate2 = LocalDateTime.of(2019, 5, 8, 6, 10, 11);
+    LocalDateTime newOrderStartDate = LocalDateTime.of(2019, 5, 8, 6, 10, 11);
     WaterDeliveryRequest newOrder =
-        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate2, 48);
-
-    logSituation(exitingOrder, newOrder);
+        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 48);
     assertThat(exitingOrder.getTimeFrame().isBetweenTimeFrameOf(newOrder.getTimeFrame())).isTrue();
   }
 
-    /**
-     * When the end date of a new order overlaps into an existing order.
-     *
-     * <p>For example, <code>
-     *  Existing order start date: 2019-05-10T06:10:11
-     *  Existing end start date: 2019-05-14T10:10:11
-     *  New order start date: 2019-05-08T06:10:11
-     *  New order end date: 2019-05-12T10:10:11
-     * </code>
-     *
-     * <p>Notice that, 2019-05-12T10:10:11 is between 2019-05-10T06:10:11 and 2019-05-14T10:10:11
-     */
-    @Test
-    void shouldReturn_True_WhenEndDateOverlapsInto_ExistingTimeFrame() {
+  /**
+   * When the end date of a new order overlaps into an existing order.
+   *
+   * <p>For example, <code>
+   *  Existing order start date: 2019-05-10T06:10:11
+   *  Existing end start date: 2019-05-14T10:10:11
+   *
+   *  New order start date: 2019-05-08T06:10:11
+   *  New order end date: 2019-05-12T10:10:11
+   * </code>
+   *
+   * <p>Notice that, 2019-05-12T10:10:11 is between 2019-05-10T06:10:11 and 2019-05-14T10:10:11
+   */
+  @Test
+  void shouldReturn_True_WhenEndDateOverlapsInto_ExistingTimeFrame() {
 
-        LocalDateTime orderStartDate = LocalDateTime.of(2019, 5, 10, 6, 10, 11);
-        WaterDeliveryRequest exitingOrder =
-                createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 100);
+    LocalDateTime orderStartDate = LocalDateTime.of(2019, 5, 10, 6, 10, 11);
+    WaterDeliveryRequest exitingOrder =
+        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 100);
 
-        LocalDateTime orderStartDate2 = LocalDateTime.of(2019, 5, 8, 6, 10, 11);
-        WaterDeliveryRequest newOrder =
-                createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate2, 100);
-        assertThat(exitingOrder.getTimeFrame().isBetweenTimeFrameOf(newOrder.getTimeFrame())).isTrue();
-    }
+    LocalDateTime newOrderStartDate = LocalDateTime.of(2019, 5, 8, 6, 10, 11);
+    WaterDeliveryRequest newOrder =
+        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 100);
+    assertThat(exitingOrder.getTimeFrame().isBetweenTimeFrameOf(newOrder.getTimeFrame())).isTrue();
+  }
 
-    /**
-     * When the end date of a new order is collides with the end date of an existing order.
-     *
-     * <p>For example, <code>
-     *  Existing order start date: 2019-05-10T06:10:11
-     *  Existing end start date: 2019-05-14T10:10:11
-     *  New order start date: 2019-05-08T06:10:11
-     *  New order end date: 2019-05-14T10:10:11
-     * </code>
-     *
-     * <p>Notice that, 2019-05-14T10:10:11 collides with Existing end start date: 2019-05-14T10:10:11
-     */
-    @Test
-    // @OnErrorLogSituation or @LogSituationOnError
-    void shouldReturn_True_WhenEndDateMatches_EndDateOfExistingTimeFrame() {
+  /**
+   * When the end date of a new order is collides with the end date of an existing order.
+   *
+   * <p>For example, <code>
+   *  Existing order start date: 2019-05-10T06:10:11
+   *  Existing end start date: 2019-05-14T10:10:11
+   *
+   *  New order start date: 2019-05-08T06:10:11
+   *  New order end date: 2019-05-14T10:10:11
+   * </code>
+   *
+   * <p>Notice that, 2019-05-14T10:10:11 collides with Existing end start date: 2019-05-14T10:10:11
+   */
+  @Test
+  // @OnErrorLogSituation or @LogSituationOnError
+  void shouldReturn_True_WhenEndDateMatches_EndDateOfExistingTimeFrame() {
 
-        LocalDateTime orderStartDate = LocalDateTime.of(2019, 5, 10, 6, 10, 11);
-        WaterDeliveryRequest exitingOrder =
-                createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 100);
+    LocalDateTime orderStartDate = LocalDateTime.of(2019, 5, 10, 6, 10, 11);
+    WaterDeliveryRequest exitingOrder =
+        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 100);
 
-        LocalDateTime orderStartDate2 = LocalDateTime.of(2019, 5, 8, 6, 10, 11);
-        WaterDeliveryRequest newOrder =
-                createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate2, 148);
-        assertThat(exitingOrder.getTimeFrame().isBetweenTimeFrameOf(newOrder.getTimeFrame())).isTrue();
-    }
+    LocalDateTime newOrderStartDate = LocalDateTime.of(2019, 5, 8, 6, 10, 11);
+    WaterDeliveryRequest newOrder =
+        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 148);
+    assertThat(exitingOrder.getTimeFrame().isBetweenTimeFrameOf(newOrder.getTimeFrame())).isTrue();
+  }
 
-
-
-
-
-
-  //@Test
-  void shouldReturn_False_WhenTimeFrameNotOverlap() {
+  @Test
+  void shouldReturn_False_WhenTimeFrameOfNewOrder_IsAfterExistingOrder() {
 
     LocalDateTime orderStartDate = LocalDateTime.of(2019, 2, 10, 6, 10, 11);
     WaterDeliveryRequest exitingOrder =
         createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 4);
 
-    LocalDateTime orderStartDate2 = LocalDateTime.of(2019, 9, 10, 6, 10, 11);
+    LocalDateTime newOrderStartDate = LocalDateTime.of(2019, 9, 10, 6, 10, 11);
     WaterDeliveryRequest newOrder =
-        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate2, 100);
+        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 100);
+    assertThat(exitingOrder.getTimeFrame().isBetweenTimeFrameOf(newOrder.getTimeFrame())).isFalse();
+  }
 
+  @Test
+  void shouldReturn_False_WhenTimeFrameOfNewOrder_IsBeforeExistingOrder() {
+
+    LocalDateTime orderStartDate = LocalDateTime.of(2020, 2, 10, 6, 10, 11);
+    WaterDeliveryRequest exitingOrder =
+        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 4);
+
+    LocalDateTime newOrderStartDate = LocalDateTime.of(2019, 9, 10, 6, 10, 11);
+    WaterDeliveryRequest newOrder =
+        createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, newOrderStartDate, 100);
     assertThat(exitingOrder.getTimeFrame().isBetweenTimeFrameOf(newOrder.getTimeFrame())).isFalse();
   }
 }
