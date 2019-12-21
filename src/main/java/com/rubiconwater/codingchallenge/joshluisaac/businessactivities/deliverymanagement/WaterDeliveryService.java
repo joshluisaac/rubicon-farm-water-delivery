@@ -17,8 +17,14 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryRequest>
     this.waterDeliveryRepository = waterDeliveryRepository;
   }
 
+  /**
+   * Accepts an order if it meets certain conditions.
+   *
+   * @param requestOrder
+   */
   public void acceptOrder(WaterDeliveryRequest requestOrder) {
     checkExitingOrder(requestOrder);
+    checkTimeFrameCollision(requestOrder);
     requestOrder.setDeliveryStatus(WaterDeliveryStatus.REQUESTED);
     waterDeliveryRepository.save(requestOrder);
   }
@@ -56,20 +62,19 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryRequest>
     return requestOrder.getDeliveryStatus();
   }
 
-  private void rejectOperation() {}
-
   private void checkExitingOrder(WaterDeliveryRequest requestOrder) {
-    if (waterDeliveryRepository.isExisting(requestOrder)) {
+    if (waterDeliveryRepository.isExisting(requestOrder))
       throw new IllegalArgumentException("The requested order exists.");
-    }
-    waterDeliveryRepository
-        .findByFarmId(requestOrder.getFarmId())
-        .stream()
-        .filter(entry -> entry.isBetweenTimeFrameOf(requestOrder))
-        .findAny()
-        .orElseThrow(
-            () ->
-                new IllegalArgumentException(
-                    "The requested order falls within the time frame of another order"));
+  }
+
+  private void checkTimeFrameCollision(WaterDeliveryRequest requestOrder) {
+    boolean isPresent =
+        waterDeliveryRepository
+            .findByFarmId(requestOrder.getFarmId())
+            .stream()
+            .anyMatch(entry -> entry.isBetweenTimeFrameOf(requestOrder));
+    if (isPresent)
+      throw new IllegalArgumentException(
+          "The requested order falls within the time frame of another order");
   }
 }
