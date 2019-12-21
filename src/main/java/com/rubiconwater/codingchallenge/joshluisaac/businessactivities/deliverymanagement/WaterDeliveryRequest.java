@@ -1,5 +1,6 @@
 package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import com.google.common.base.Preconditions;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.UuidUtils;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.WaterDeliveryUtils;
@@ -9,6 +10,7 @@ import java.util.UUID;
 import lombok.*;
 import org.springframework.util.DigestUtils;
 
+@JsonIgnoreType
 @Getter
 public class WaterDeliveryRequest extends AbstractEntity {
 

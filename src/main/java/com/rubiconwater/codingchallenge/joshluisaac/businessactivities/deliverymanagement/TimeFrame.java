@@ -1,11 +1,13 @@
 package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Data;
 
 @Builder
 @Data
+@JsonIgnoreType
 public class TimeFrame {
 
   private LocalDateTime startDate;

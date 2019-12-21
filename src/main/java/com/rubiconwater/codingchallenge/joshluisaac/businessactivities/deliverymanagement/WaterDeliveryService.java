@@ -1,6 +1,7 @@
 package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement;
 
 import com.rubiconwater.codingchallenge.joshluisaac.sharedkernel.EntityService;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,10 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryRequest>
             () ->
                 new IllegalArgumentException(String.format("%s does not exists", requestOrderId)));
     return requestOrder.getDeliveryStatus();
+  }
+
+  public List<WaterDeliveryRequest> getActiveOrders(UUID farmId) {
+    return waterDeliveryRepository.findByFarmId(farmId);
   }
 
   private void checkExitingOrder(WaterDeliveryRequest requestOrder) {

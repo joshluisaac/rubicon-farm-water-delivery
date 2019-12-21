@@ -8,5 +8,5 @@ public interface DeliveryRepository<T extends WaterDeliveryRequest> extends Enti
 
   boolean isExisting(WaterDeliveryRequest requestOrder);
 
-  public List<WaterDeliveryRequest> findByFarmId(UUID farmId);
+  List<WaterDeliveryRequest> findByFarmId(UUID farmId);
 }
