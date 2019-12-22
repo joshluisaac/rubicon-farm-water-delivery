@@ -1,0 +1,681 @@
+[ {
+  "requestId" : "c627fb19-4757-450d-956a-423bd8c1b52c",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customers",
+  "requestUrl" : "http://localhost:8887/customers",
+  "requestDateTime" : "",
+  "runningTime" : 3
+}, {
+  "requestId" : "55d8bf38-57a4-4fad-b8f2-5a56afccb683",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customers",
+  "requestUrl" : "http://localhost:8887/customers",
+  "requestDateTime" : "04-12-2019 @ 21:53:39 PM",
+  "runningTime" : 15
+}, {
+  "requestId" : "75a69fba-4421-40dc-9524-ce1f37c0998e",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customers",
+  "requestUrl" : "http://localhost:8887/customers",
+  "requestDateTime" : "04-12-2019 @ 21:54:00 PM",
+  "runningTime" : 0
+}, {
+  "requestId" : "75004239-9d10-434a-ad3a-b291b5f4e7d5",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/newCustomer",
+  "requestUrl" : "http://localhost:8887/newCustomer",
+  "requestDateTime" : "04-12-2019 @ 22:01:16 PM",
+  "runningTime" : 5
+}, {
+  "requestId" : "b3c25b3c-d7f9-405c-8d8c-213f5b6e346d",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customers",
+  "requestUrl" : "http://localhost:8887/customers",
+  "requestDateTime" : "04-12-2019 @ 22:01:18 PM",
+  "runningTime" : 2
+}, {
+  "requestId" : "322e564d-aeef-4f82-867d-3746ff564f0b",
+  "contentType" : null,
+  "queryString" : "customerId=af9d0a6e-c7bb-44b6-8af0-a568e8220dea",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customerDestroy",
+  "requestUrl" : "http://localhost:8887/customerDestroy",
+  "requestDateTime" : "04-12-2019 @ 22:04:04 PM",
+  "runningTime" : 9
+}, {
+  "requestId" : "a458f5f1-77fe-4cc9-a645-3164dee8f413",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/api/customer/bea24ff9-8b63-4e54-aca1-abdfa88e856e",
+  "requestUrl" : "http://localhost:8887/api/customer/bea24ff9-8b63-4e54-aca1-abdfa88e856e",
+  "requestDateTime" : "04-12-2019 @ 22:04:09 PM",
+  "runningTime" : 14
+}, {
+  "requestId" : "bfd6e1e3-1d14-4d68-8636-3ac81cab9830",
+  "contentType" : null,
+  "queryString" : "customerId=fb31c562-208b-452a-83f4-b42949c79ec5",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customerEdit",
+  "requestUrl" : "http://localhost:8887/customerEdit",
+  "requestDateTime" : "04-12-2019 @ 22:04:13 PM",
+  "runningTime" : 1
+}, {
+  "requestId" : "d42a8406-16cc-48c9-881f-c65dd1258079",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/newCustomer",
+  "requestUrl" : "http://localhost:8887/newCustomer",
+  "requestDateTime" : "04-12-2019 @ 22:04:19 PM",
+  "runningTime" : 0
+}, {
+  "requestId" : "7d5b4926-0718-41e6-a0c1-dd621b5d7c67",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customers",
+  "requestUrl" : "http://localhost:8887/customers",
+  "requestDateTime" : "04-12-2019 @ 22:04:20 PM",
+  "runningTime" : 0
+}, {
+  "requestId" : "39d3751f-8211-4d86-98fc-8fad151c929e",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/api/customer/bea24ff9-8b63-4e54-aca1-abdfa88e856e",
+  "requestUrl" : "http://localhost:8887/api/customer/bea24ff9-8b63-4e54-aca1-abdfa88e856e",
+  "requestDateTime" : "04-12-2019 @ 22:04:23 PM",
+  "runningTime" : 7
+}, {
+  "requestId" : "d18fe8c5-b1e7-43eb-b59f-dfc18ceffc17",
+  "contentType" : null,
+  "queryString" : "customerId=bea24ff9-8b63-4e54-aca1-abdfa88e856e",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/contacts",
+  "requestUrl" : "http://localhost:8887/contacts",
+  "requestDateTime" : "04-12-2019 @ 22:04:29 PM",
+  "runningTime" : 5
+}, {
+  "requestId" : "8be4255e-df1c-40e2-94a6-f2e2d1554b5c",
+  "contentType" : null,
+  "queryString" : "customerId=56796ff1-00d3-48fc-a055-41b64450d2ed",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/contacts",
+  "requestUrl" : "http://localhost:8887/contacts",
+  "requestDateTime" : "04-12-2019 @ 22:04:32 PM",
+  "runningTime" : 1
+}, {
+  "requestId" : "f595ae3c-72e9-45cf-aaef-f9c8502af9ab",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customers",
+  "requestUrl" : "http://localhost:8887/customers",
+  "requestDateTime" : "04-12-2019 @ 22:05:18 PM",
+  "runningTime" : 0
+}, {
+  "requestId" : "9739e7b2-b473-490d-8059-5acbf13cbbba",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customers",
+  "requestUrl" : "http://localhost:8887/customers",
+  "requestDateTime" : "04-12-2019 @ 22:06:55 PM",
+  "runningTime" : 15
+}, {
+  "requestId" : "7623c04f-acdd-4cf7-9f06-d9983e0f935a",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customers",
+  "requestUrl" : "http://localhost:8887/customers",
+  "requestDateTime" : "04-12-2019 @ 22:13:56 pm",
+  "runningTime" : 8
+}, {
+  "requestId" : "0026125b-f45d-45b9-ab5b-d714dfa665df",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customers",
+  "requestUrl" : "http://localhost:8887/customers",
+  "requestDateTime" : "04-12-2019 @ 22:14:05 pm",
+  "runningTime" : 1
+}, {
+  "requestId" : "38302099-b8c8-4ba8-ba23-ac135f1e568f",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customers",
+  "requestUrl" : "http://localhost:8887/customers",
+  "requestDateTime" : "04-12-2019 @ 22:14:08 pm",
+  "runningTime" : 1
+}, {
+  "requestId" : "63725c6e-dc75-445f-8931-7734062bd989",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/newCustomer",
+  "requestUrl" : "http://localhost:8887/newCustomer",
+  "requestDateTime" : "04-12-2019 @ 22:14:09 pm",
+  "runningTime" : 0
+}, {
+  "requestId" : "436d94cf-d1ef-42c1-bd50-5c1dd5a87491",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customers",
+  "requestUrl" : "http://localhost:8887/customers",
+  "requestDateTime" : "04-12-2019 @ 22:15:24 pm",
+  "runningTime" : 0
+}, {
+  "requestId" : "59749a32-82f4-4dc3-b1f5-b2f1959bac57",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/newCustomer",
+  "requestUrl" : "http://localhost:8887/newCustomer",
+  "requestDateTime" : "04-12-2019 @ 22:15:27 pm",
+  "runningTime" : 0
+}, {
+  "requestId" : "66de1b13-caf5-4ef8-a936-c2a0f1bd3f48",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customers",
+  "requestUrl" : "http://localhost:8887/customers",
+  "requestDateTime" : "04-12-2019 @ 22:15:28 pm",
+  "runningTime" : 0
+}, {
+  "requestId" : "77ed9c59-630d-4559-9d32-afda6c0edf3e",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customers",
+  "requestUrl" : "http://localhost:8887/customers",
+  "requestDateTime" : "04-12-2019 @ 22:15:32 pm",
+  "runningTime" : 1
+}, {
+  "requestId" : "287376aa-03d1-4b8d-a6e0-4d84a13779b0",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customers",
+  "requestUrl" : "http://localhost:8887/customers",
+  "requestDateTime" : "04-12-2019 @ 22:43:09 pm",
+  "runningTime" : 7
+}, {
+  "requestId" : "b9751ce7-ce76-45fd-96c8-7e8879fb336f",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/api/customer/52e013a1-bb3c-4e39-9c74-efe4ff3f0cec",
+  "requestUrl" : "http://localhost:8887/api/customer/52e013a1-bb3c-4e39-9c74-efe4ff3f0cec",
+  "requestDateTime" : "04-12-2019 @ 22:59:59 pm",
+  "runningTime" : 19
+}, {
+  "requestId" : "5de935d2-bd3c-44e4-9290-f9a6435f3f79",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/newCustomer",
+  "requestUrl" : "http://localhost:8887/newCustomer",
+  "requestDateTime" : "04-12-2019 @ 23:29:35 pm",
+  "runningTime" : 7
+}, {
+  "requestId" : "d3d99bd9-3de0-4236-a75c-2224cf744e83",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/newCustomer",
+  "requestUrl" : "http://localhost:8887/newCustomer",
+  "requestDateTime" : "04-12-2019 @ 23:29:42 pm",
+  "runningTime" : 0
+}, {
+  "requestId" : "f4356391-ebf5-4bc9-8447-5158fad94bc0",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/api/customer/bea24ff9-8b63-4e54-aca1-abdfa88e856e",
+  "requestUrl" : "http://localhost:8887/api/customer/bea24ff9-8b63-4e54-aca1-abdfa88e856e",
+  "requestDateTime" : "04-12-2019 @ 23:30:34 pm",
+  "runningTime" : 31
+}, {
+  "requestId" : "655f5bc6-120c-4606-a030-256f70adfc28",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/newCustomer",
+  "requestUrl" : "http://localhost:8887/newCustomer",
+  "requestDateTime" : "04-12-2019 @ 23:31:20 pm",
+  "runningTime" : 0
+}, {
+  "requestId" : "81cf86a1-5fc9-4ef5-bb24-768993dbd583",
+  "contentType" : "application/x-www-form-urlencoded",
+  "queryString" : "NoQueryString",
+  "method" : "POST",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customer/add",
+  "requestUrl" : "http://localhost:8887/customer/add",
+  "requestDateTime" : "04-12-2019 @ 23:31:46 pm",
+  "runningTime" : 6
+}, {
+  "requestId" : "670ace8d-e94e-4ae6-86e2-903982898cf2",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customers",
+  "requestUrl" : "http://localhost:8887/customers",
+  "requestDateTime" : "04-12-2019 @ 23:31:46 pm",
+  "runningTime" : 1
+}, {
+  "requestId" : "47dddbf6-c183-4f47-9bbc-00df9b9ff13b",
+  "contentType" : null,
+  "queryString" : "customerId=205905d7-1dc3-4fd1-99a0-7dca9d99ce9d",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customerEdit",
+  "requestUrl" : "http://localhost:8887/customerEdit",
+  "requestDateTime" : "04-12-2019 @ 23:32:25 pm",
+  "runningTime" : 4
+}, {
+  "requestId" : "864a0b9d-91b6-4dec-9f49-4396c781ecd9",
+  "contentType" : null,
+  "queryString" : "customerId=af9d0a6e-c7bb-44b6-8af0-a568e8220dea",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customerEdit",
+  "requestUrl" : "http://localhost:8887/customerEdit",
+  "requestDateTime" : "04-12-2019 @ 23:37:49 pm",
+  "runningTime" : 1
+}, {
+  "requestId" : "61ec1f89-ff90-4258-9f7f-1c504eadc61e",
+  "contentType" : null,
+  "queryString" : "customerId=af9d0a6e-c7bb-44b6-8af0-a568e8220dea",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customerDestroy",
+  "requestUrl" : "http://localhost:8887/customerDestroy",
+  "requestDateTime" : "04-12-2019 @ 23:44:11 pm",
+  "runningTime" : 20
+}, {
+  "requestId" : "f5efbbeb-2ae8-4616-8e8d-2261d902bdf2",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customers",
+  "requestUrl" : "http://localhost:8887/customers",
+  "requestDateTime" : "04-12-2019 @ 23:45:30 pm",
+  "runningTime" : 2
+}, {
+  "requestId" : "b0075c96-ac35-45d9-9210-9636187c9156",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/newCustomer",
+  "requestUrl" : "http://localhost:8887/newCustomer",
+  "requestDateTime" : "04-12-2019 @ 23:45:36 pm",
+  "runningTime" : 1
+}, {
+  "requestId" : "41ffed1a-cf73-40d3-bc51-f1ad94b3870c",
+  "contentType" : null,
+  "queryString" : "customerId=af9d0a6e-c7bb-44b6-8af0-a568e8220dea",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customerDestroy",
+  "requestUrl" : "http://localhost:8887/customerDestroy",
+  "requestDateTime" : "04-12-2019 @ 23:46:12 pm",
+  "runningTime" : 1
+}, {
+  "requestId" : "737662d4-364a-4ead-a998-1e15850066f8",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/api/customer/bea24ff9-8b63-4e54-aca1-abdfa88e856e",
+  "requestUrl" : "http://localhost:8887/api/customer/bea24ff9-8b63-4e54-aca1-abdfa88e856e",
+  "requestDateTime" : "04-12-2019 @ 23:53:37 pm",
+  "runningTime" : 25
+}, {
+  "requestId" : "6dda05ae-dc7b-4909-b2e7-83d93d630c2f",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/api/customer/bea24ff9-8b63-4e54-aca1-abdfa88e856e",
+  "requestUrl" : "http://localhost:8887/api/customer/bea24ff9-8b63-4e54-aca1-abdfa88e856e",
+  "requestDateTime" : "05-12-2019 @ 00:00:38 am",
+  "runningTime" : 26
+}, {
+  "requestId" : "827c8172-fdad-4359-b00f-3e0300c08bb0",
+  "contentType" : null,
+  "queryString" : "customerId=af9d0a6e-c7bb-44b6-8af0-a568e8220dea",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customerDestroy",
+  "requestUrl" : "http://localhost:8887/customerDestroy",
+  "requestDateTime" : "05-12-2019 @ 00:01:04 am",
+  "runningTime" : 7
+}, {
+  "requestId" : "471df309-f347-43f8-b2c3-a6161858c529",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customers",
+  "requestUrl" : "http://localhost:8887/customers",
+  "requestDateTime" : "05-12-2019 @ 00:01:21 am",
+  "runningTime" : 2
+}, {
+  "requestId" : "3a9add6d-491a-491d-999a-c4b370c0c390",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customers",
+  "requestUrl" : "http://localhost:8887/customers",
+  "requestDateTime" : "05-12-2019 @ 00:07:51 am",
+  "runningTime" : 14
+}, {
+  "requestId" : "c82c3b6e-d13d-4202-97c8-3c02b9790a29",
+  "contentType" : null,
+  "queryString" : "customerId=af9d0a6e-c7bb-44b6-8af0-a568e8220dea",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customerDestroy",
+  "requestUrl" : "http://localhost:8887/customerDestroy",
+  "requestDateTime" : "05-12-2019 @ 00:08:57 am",
+  "runningTime" : 12
+}, {
+  "requestId" : "fc2e0b85-a4a6-429a-b736-3893e867a7c3",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "192.168.1.102",
+  "requestUri" : "/customers",
+  "requestUrl" : "http://192.168.1.107:8887/customers",
+  "requestDateTime" : "05-12-2019 @ 00:13:49 am",
+  "runningTime" : 1
+}, {
+  "requestId" : "ac81419b-3f17-4661-b849-a504ab33360b",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "192.168.1.102",
+  "requestUri" : "/customers",
+  "requestUrl" : "http://192.168.1.107:8887/customers",
+  "requestDateTime" : "05-12-2019 @ 00:14:09 am",
+  "runningTime" : 1
+}, {
+  "requestId" : "609e5651-f846-45c0-ae1f-60cf5af13ee6",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "192.168.1.102",
+  "requestUri" : "/customers",
+  "requestUrl" : "http://192.168.1.107:8887/customers",
+  "requestDateTime" : "05-12-2019 @ 00:14:11 am",
+  "runningTime" : 1
+}, {
+  "requestId" : "ec397e7f-3b77-46d0-87fc-ba3253dd6f45",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "192.168.1.102",
+  "requestUri" : "/customers",
+  "requestUrl" : "http://192.168.1.107:8887/customers",
+  "requestDateTime" : "05-12-2019 @ 00:16:10 am",
+  "runningTime" : 19
+}, {
+  "requestId" : "af5d7c75-0991-4b2d-8368-a85781caaa84",
+  "contentType" : null,
+  "queryString" : "customerId=52e013a1-bb3c-4e39-9c74-efe4ff3f0cec",
+  "method" : "GET",
+  "remoteAddress" : "192.168.1.102",
+  "requestUri" : "/customerEdit",
+  "requestUrl" : "http://192.168.1.107:8887/customerEdit",
+  "requestDateTime" : "05-12-2019 @ 00:16:16 am",
+  "runningTime" : 27
+}, {
+  "requestId" : "b7550f66-3ff3-415b-8dc8-85fecaac2bfa",
+  "contentType" : null,
+  "queryString" : "customerId=52e013a1-bb3c-4e39-9c74-efe4ff3f0cec",
+  "method" : "GET",
+  "remoteAddress" : "192.168.1.102",
+  "requestUri" : "/customerEdit",
+  "requestUrl" : "http://192.168.1.107:8887/customerEdit",
+  "requestDateTime" : "05-12-2019 @ 00:16:30 am",
+  "runningTime" : 1
+}, {
+  "requestId" : "1c600223-e848-43b0-93dc-c0d00d3cafe5",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "192.168.1.102",
+  "requestUri" : "/customers",
+  "requestUrl" : "http://192.168.1.107:8887/customers",
+  "requestDateTime" : "05-12-2019 @ 00:16:50 am",
+  "runningTime" : 1
+}, {
+  "requestId" : "b3a9411b-15bf-4f83-ae40-bd9ec3f7c4e6",
+  "contentType" : null,
+  "queryString" : "customerId=56796ff1-00d3-48fc-a055-41b64450d2ed&mode=addContact",
+  "method" : "GET",
+  "remoteAddress" : "192.168.1.102",
+  "requestUri" : "/contact",
+  "requestUrl" : "http://192.168.1.107:8887/contact",
+  "requestDateTime" : "05-12-2019 @ 00:16:57 am",
+  "runningTime" : 5
+}, {
+  "requestId" : "b8af9dca-2c14-41f1-be15-d794d4147f78",
+  "contentType" : "application/x-www-form-urlencoded",
+  "queryString" : "NoQueryString",
+  "method" : "POST",
+  "remoteAddress" : "192.168.1.102",
+  "requestUri" : "/contact/add",
+  "requestUrl" : "http://192.168.1.107:8887/contact/add",
+  "requestDateTime" : "05-12-2019 @ 00:17:42 am",
+  "runningTime" : 18
+}, {
+  "requestId" : "99359446-bfe8-4432-9cbb-a672e8e68965",
+  "contentType" : null,
+  "queryString" : "customerId=56796ff1-00d3-48fc-a055-41b64450d2ed",
+  "method" : "GET",
+  "remoteAddress" : "192.168.1.102",
+  "requestUri" : "/contacts;jsessionid=node01x1gtd8zcbpwmr72f0xramste0.node0",
+  "requestUrl" : "http://192.168.1.107:8887/contacts;jsessionid=node01x1gtd8zcbpwmr72f0xramste0.node0",
+  "requestDateTime" : "05-12-2019 @ 00:17:42 am",
+  "runningTime" : 1
+}, {
+  "requestId" : "f75c2dab-fdc9-4561-a063-6244a1b90f32",
+  "contentType" : null,
+  "queryString" : "contactId=b6513731-8bd6-4510-ba23-56643f7957e2&customerId=56796ff1-00d3-48fc-a055-41b64450d2ed&mode=editContact",
+  "method" : "GET",
+  "remoteAddress" : "192.168.1.102",
+  "requestUri" : "/contact",
+  "requestUrl" : "http://192.168.1.107:8887/contact",
+  "requestDateTime" : "05-12-2019 @ 00:17:48 am",
+  "runningTime" : 3
+}, {
+  "requestId" : "88889380-4984-47ba-95a2-e4cfc2812120",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "192.168.1.102",
+  "requestUri" : "/customers",
+  "requestUrl" : "http://192.168.1.107:8887/customers",
+  "requestDateTime" : "05-12-2019 @ 00:25:16 am",
+  "runningTime" : 24
+}, {
+  "requestId" : "2b3a1397-9f78-46f9-8e89-de2fd95c7880",
+  "contentType" : null,
+  "queryString" : "customerId=56796ff1-00d3-48fc-a055-41b64450d2ed",
+  "method" : "GET",
+  "remoteAddress" : "192.168.1.102",
+  "requestUri" : "/contacts",
+  "requestUrl" : "http://192.168.1.107:8887/contacts",
+  "requestDateTime" : "05-12-2019 @ 00:25:25 am",
+  "runningTime" : 24
+}, {
+  "requestId" : "73459ef1-df11-440b-be51-a488e56db948",
+  "contentType" : null,
+  "queryString" : "customerId=56796ff1-00d3-48fc-a055-41b64450d2ed",
+  "method" : "GET",
+  "remoteAddress" : "192.168.1.102",
+  "requestUri" : "/contacts",
+  "requestUrl" : "http://192.168.1.107:8887/contacts",
+  "requestDateTime" : "05-12-2019 @ 00:26:50 am",
+  "runningTime" : 1
+}, {
+  "requestId" : "f11beae8-de3a-4fd4-b922-f56141819c4b",
+  "contentType" : null,
+  "queryString" : "customerId=56796ff1-00d3-48fc-a055-41b64450d2ed&mode=addContact",
+  "method" : "GET",
+  "remoteAddress" : "192.168.1.107",
+  "requestUri" : "/contact",
+  "requestUrl" : "http://192.168.1.107:8887/contact",
+  "requestDateTime" : "05-12-2019 @ 00:28:24 am",
+  "runningTime" : 1
+}, {
+  "requestId" : "60f58785-f64b-4ea4-a9ea-e0ac95e1691a",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "192.168.1.102",
+  "requestUri" : "/customers",
+  "requestUrl" : "http://192.168.1.107:8887/customers",
+  "requestDateTime" : "05-12-2019 @ 00:30:16 am",
+  "runningTime" : 14
+}, {
+  "requestId" : "1c1c6721-5123-4b50-bc47-288e9418ca80",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "192.168.1.102",
+  "requestUri" : "/customers",
+  "requestUrl" : "http://192.168.1.107:8887/customers",
+  "requestDateTime" : "05-12-2019 @ 00:30:31 am",
+  "runningTime" : 1
+}, {
+  "requestId" : "3cc5cd70-c412-4e91-bdb4-4b7364fd44e7",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customers",
+  "requestUrl" : "http://localhost:8887/customers",
+  "requestDateTime" : "09-12-2019 @ 20:50:28 pm",
+  "runningTime" : 8
+}, {
+  "requestId" : "6232fc7e-871b-4cd1-8772-c2920a426288",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/newCustomer",
+  "requestUrl" : "http://localhost:8887/newCustomer",
+  "requestDateTime" : "09-12-2019 @ 20:55:17 pm",
+  "runningTime" : 0
+}, {
+  "requestId" : "29948784-e20e-4a56-b9fc-40cfb182eb66",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customers",
+  "requestUrl" : "http://localhost:8887/customers",
+  "requestDateTime" : "09-12-2019 @ 20:55:19 pm",
+  "runningTime" : 1
+}, {
+  "requestId" : "59e98896-c0d2-4b56-96c8-ae038adc05b7",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customers",
+  "requestUrl" : "http://localhost:8887/customers",
+  "requestDateTime" : "09-12-2019 @ 20:56:45 pm",
+  "runningTime" : 0
+}, {
+  "requestId" : "acbd8879-fea2-4bf4-b1cc-ae52139431f1",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customers",
+  "requestUrl" : "http://localhost:8887/customers",
+  "requestDateTime" : "09-12-2019 @ 21:56:23 pm",
+  "runningTime" : 1
+}, {
+  "requestId" : "ea24c0e7-b379-43ec-8aea-e87c37feae4e",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/customers",
+  "requestUrl" : "http://localhost:8887/customers",
+  "requestDateTime" : "09-12-2019 @ 21:56:29 pm",
+  "runningTime" : 0
+}, {
+  "requestId" : "0e704788-9b64-4583-b77d-18c574988590",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/api/customer/56796ff1-00d3-48fc-a055-41b64450d2ed",
+  "requestUrl" : "http://localhost:8887/api/customer/56796ff1-00d3-48fc-a055-41b64450d2ed",
+  "requestDateTime" : "09-12-2019 @ 22:02:16 pm",
+  "runningTime" : 11
+}, {
+  "requestId" : "be7a6345-ad1b-4a8a-9599-4317f2908fed",
+  "contentType" : null,
+  "queryString" : "NoQueryString",
+  "method" : "GET",
+  "remoteAddress" : "0:0:0:0:0:0:0:1",
+  "requestUri" : "/api/customer/8e7f8924-81b1-4276-8c00-5e394a061550",
+  "requestUrl" : "http://localhost:8887/api/customer/8e7f8924-81b1-4276-8c00-5e394a061550",
+  "requestDateTime" : "09-12-2019 @ 22:02:32 pm",
+  "runningTime" : 9
+} ]

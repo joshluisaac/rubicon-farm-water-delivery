@@ -1,17 +1,18 @@
-package com.rubiconwater.codingchallenge.joshluisaac.sharedkernel;
+package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.api;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.rubiconwater.codingchallenge.joshluisaac.sharedkernel.BaseEntity;
 import org.springframework.http.HttpStatus;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class ApiResponseResult {
+public class ApiResponseOld {
 
   private final HttpStatus httpStatus;
   private final String message;
   private final Object beanHolder;
   private final ApiResponseFlagType flagType;
 
-  public ApiResponseResult(
+  public ApiResponseOld(
       Object beanHolder, ApiResponseFlagType flagType, HttpStatus httpStatus, String message) {
     this.beanHolder = beanHolder;
     this.flagType = flagType;
@@ -19,17 +20,17 @@ public class ApiResponseResult {
     this.message = message;
   }
 
-  private static ApiResponseResult create(
+  private static ApiResponseOld create(
       Object beanHolder, ApiResponseFlagType flagType, HttpStatus httpStatus, String message) {
-    return new ApiResponseResult(beanHolder, flagType, httpStatus, message);
+    return new ApiResponseOld(beanHolder, flagType, httpStatus, message);
   }
 
-  private static ApiResponseResult createSuccess(Object beanHolder) {
+  private static ApiResponseOld createSuccess(Object beanHolder) {
     return create(
         beanHolder, ApiResponseFlagType.SUCCESS, HttpStatus.OK, HttpStatus.OK.getReasonPhrase());
   }
 
-  private static ApiResponseResult createFailed(Object beanHolder) {
+  private static ApiResponseOld createFailed(Object beanHolder) {
     return create(
         beanHolder,
         ApiResponseFlagType.ERROR,
@@ -37,7 +38,7 @@ public class ApiResponseResult {
         "Request was processed but could not return result.");
   }
 
-  public static <T extends BaseEntity> ApiResponseResult toApiResponse(T t) {
+  public static <T extends BaseEntity> ApiResponseOld toApiResponse(T t) {
     if (t != null) {
       return createSuccess(t);
     }

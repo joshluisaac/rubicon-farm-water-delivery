@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.*;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.rubiconwater.codingchallenge.joshluisaac.AbstractTest;
-import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.api.ApiDeliveryRequest;
+import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.api.ApiRequest;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
@@ -22,20 +22,18 @@ public class JsonMappersTest implements AbstractTest {
 
   @Test
   void serializeApiRequest() throws JsonProcessingException {
-    var apiRequest =
-        new ApiDeliveryRequest(FARM_ID, LocalDateTime.parse("2019-05-10T06:10:11"), 100);
+    var apiRequest = new ApiRequest(FARM_ID, LocalDateTime.parse("2019-05-10T06:10:11"), 100);
     String jsonText =
-        JsonMappers.buildWriter().forType(ApiDeliveryRequest.class).writeValueAsString(apiRequest);
+        JsonMappers.buildWriter().forType(ApiRequest.class).writeValueAsString(apiRequest);
+    System.out.println(jsonText);
     assertThat(jsonText.trim()).isEqualTo(JSON_SINGLE_REQUEST_BODY.trim());
   }
 
   @Test
   void deserializeSingleApiRequest() throws JsonProcessingException {
     var apiRequest =
-        JsonMappers.buildReader()
-            .forType(ApiDeliveryRequest.class)
-            .readValue(JSON_SINGLE_REQUEST_BODY);
-    var expected = new ApiDeliveryRequest(FARM_ID, LocalDateTime.parse("2019-05-10T06:10:11"), 100);
+        JsonMappers.buildReader().forType(ApiRequest.class).readValue(JSON_SINGLE_REQUEST_BODY);
+    var expected = new ApiRequest(FARM_ID, LocalDateTime.parse("2019-05-10T06:10:11"), 100);
     assertThat(apiRequest).isEqualToComparingFieldByField(expected);
   }
 }

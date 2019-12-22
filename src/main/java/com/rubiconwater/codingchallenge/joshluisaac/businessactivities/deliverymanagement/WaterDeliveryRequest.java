@@ -1,16 +1,16 @@
 package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import com.google.common.base.Preconditions;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.UuidUtils;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.WaterDeliveryUtils;
 import com.rubiconwater.codingchallenge.joshluisaac.sharedkernel.AbstractEntity;
+import java.beans.ConstructorProperties;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.*;
 import org.springframework.util.DigestUtils;
 
-@JsonIgnoreType
+// @JsonIgnoreType
 @Getter
 public class WaterDeliveryRequest extends AbstractEntity {
 
@@ -22,12 +22,12 @@ public class WaterDeliveryRequest extends AbstractEntity {
   private String hash;
 
   @Builder
+  @ConstructorProperties({"farmId", "dateReceived", "orderStartDate", "supplyDuration"})
   public WaterDeliveryRequest(
-      UUID farmId,
-      LocalDateTime dateReceived,
-      LocalDateTime orderStartDate,
-      int supplyDuration,
-      WaterDeliveryStatus deliveryStatus) {
+      @NonNull UUID farmId,
+      @NonNull LocalDateTime dateReceived,
+      @NonNull LocalDateTime orderStartDate,
+      int supplyDuration) {
     super(UuidUtils.create());
     checkOrderStartDate(dateReceived, orderStartDate);
     checkSupplyDuration(supplyDuration);
@@ -35,7 +35,7 @@ public class WaterDeliveryRequest extends AbstractEntity {
     this.dateReceived = dateReceived;
     this.orderStartDate = orderStartDate;
     this.supplyDuration = supplyDuration;
-    this.deliveryStatus = deliveryStatus;
+    this.deliveryStatus = WaterDeliveryStatus.REQUESTED;
     this.hash = createHash();
   }
 

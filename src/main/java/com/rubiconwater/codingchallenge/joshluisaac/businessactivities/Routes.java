@@ -3,9 +3,13 @@ package com.rubiconwater.codingchallenge.joshluisaac.businessactivities;
 public class Routes {
 
   public static class Farmers {
-    public static final String FARMERS_ALL = "/api/farmers";
-    public static final String FARMER_BY_ID = "/api/farmers/{id}";
+    public static final String FARMERS = "/api/farmers";
+    public static final String FARMER = "/api/farmers/{farmId}";
   }
+
+  // api/farmers/:farm_id/orders/:request_order_id?cancel=true
+
+  // api/farmers/:farm_id/orders/:request_order_id?cancel=true
 
   public static class Requests {
     public static final String REQUESTS_AS_JSON = "/api/requests";

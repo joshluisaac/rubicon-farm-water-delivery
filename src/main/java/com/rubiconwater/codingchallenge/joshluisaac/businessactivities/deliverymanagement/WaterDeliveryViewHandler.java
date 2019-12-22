@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /** This is a boundary object that communicates with the external world. */
 @Controller
-public class WaterDeliveryHandler {
+public class WaterDeliveryViewHandler {
 
-  @GetMapping(value = Routes.Farmers.FARMERS_ALL)
+  @GetMapping(value = Routes.Farmers.FARMERS)
   @ResponseBody
   public String getFarmOrders() {
     return "Farm orders";
@@ -26,8 +26,6 @@ public class WaterDeliveryHandler {
   public String myIndex2() {
     return "My index page";
   }
-
-  public void createOrder() {}
 
   public void cancelOrder() {}
 

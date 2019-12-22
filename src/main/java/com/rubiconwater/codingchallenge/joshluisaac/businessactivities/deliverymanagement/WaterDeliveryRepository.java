@@ -40,7 +40,7 @@ public class WaterDeliveryRepository implements DeliveryRepository<WaterDelivery
 
   @Override
   public List<WaterDeliveryRequest> findByFarmId(UUID farmId) {
-    return Collections.emptyList();
+    return dataStore.findByFarmId(farmId);
   }
 
   @Override

@@ -11,11 +11,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.csrf().disable();
-    // http.authorizeRequests().antMatchers("/",
-    // Routes.Farmers.FARMERS_ALL).permitAll().anyRequest().authenticated();
-
     http.authorizeRequests()
-        .antMatchers("/", Routes.Farmers.FARMERS_ALL)
+        .antMatchers("/", "/api/farmers/**", Routes.Farmers.FARMERS)
         .permitAll()
         .anyRequest()
         .authenticated()
