@@ -1,18 +1,24 @@
 package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement;
 
 public enum WaterDeliveryStatus {
-  REQUESTED(true),
-  IN_PROGRESS(true),
-  DELIVERED(false),
-  CANCELLED(false);
+  REQUESTED("Requested", true),
+  IN_PROGRESS("InProgress", true),
+  DELIVERED("Delivered", false),
+  CANCELLED("Cancelled", false);
 
   private final boolean allowCancel;
+  private final String description;
 
-  WaterDeliveryStatus(boolean allowCancel) {
+  WaterDeliveryStatus(String description, boolean allowCancel) {
+    this.description = description;
     this.allowCancel = allowCancel;
   }
 
   public boolean isAllowCancel() {
     return allowCancel;
+  }
+
+  public String getDescription() {
+    return description;
   }
 }

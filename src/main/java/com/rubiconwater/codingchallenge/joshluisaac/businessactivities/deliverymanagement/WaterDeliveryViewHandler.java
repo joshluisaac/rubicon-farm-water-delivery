@@ -1,6 +1,5 @@
 package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement;
 
-import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.Routes;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -8,12 +7,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /** This is a boundary object that communicates with the external world. */
 @Controller
 public class WaterDeliveryViewHandler {
-
-  @GetMapping(value = Routes.Farmers.FARMERS)
-  @ResponseBody
-  public String getFarmOrders() {
-    return "Farm orders";
-  }
 
   @GetMapping(value = "/index")
   @ResponseBody

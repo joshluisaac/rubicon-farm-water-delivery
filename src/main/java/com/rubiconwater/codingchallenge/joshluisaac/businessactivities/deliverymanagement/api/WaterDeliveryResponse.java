@@ -1,7 +1,6 @@
 package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.WaterDeliveryStatus;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.Builder;
@@ -15,7 +14,7 @@ public class WaterDeliveryResponse {
   private UUID orderId;
 
   @JsonProperty(value = "delivery_status")
-  private WaterDeliveryStatus deliveryStatus;
+  private String deliveryStatus;
 
   @JsonProperty("delivery_start_date")
   private LocalDateTime deliveryStartDate;

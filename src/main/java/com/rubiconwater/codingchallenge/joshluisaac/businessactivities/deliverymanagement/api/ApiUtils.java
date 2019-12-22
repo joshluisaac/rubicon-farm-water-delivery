@@ -33,7 +33,7 @@ public class ApiUtils {
   // takes in a delivery order and returns an API response
   public static WaterDeliveryResponse toDeliveryResponse(WaterDeliveryRequest deliveryOrder) {
     return WaterDeliveryResponse.builder()
-        .deliveryStatus(deliveryOrder.getDeliveryStatus())
+        .deliveryStatus(deliveryOrder.getDeliveryStatus().getDescription())
         .deliveryStartDate(deliveryOrder.getTimeFrame().getStartDate())
         .deliveryEndDate(deliveryOrder.getTimeFrame().getEndDate())
         .duration(deliveryOrder.getSupplyDuration())

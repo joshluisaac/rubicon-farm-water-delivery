@@ -29,7 +29,7 @@ public class DataStore {
   Map<UUID, List<WaterDeliveryRequest>> cache = new HashMap<>();
 
   @PostConstruct
-  public void load() throws IOException {
+  private void load() throws IOException {
     preconditions();
     InputStream inputStream = resource.getInputStream();
     cache =
@@ -47,7 +47,7 @@ public class DataStore {
     }
   }
 
-  void add(WaterDeliveryRequest requestOrder) {
+  public void add(WaterDeliveryRequest requestOrder) {
     boolean farmRecordExists = cache.containsKey(requestOrder.getFarmId());
     if (farmRecordExists) {
       cache.get(requestOrder.getFarmId()).add(requestOrder);
@@ -59,7 +59,7 @@ public class DataStore {
     updateDatabase();
   }
 
-  boolean delete(WaterDeliveryRequest requestOrder) {
+  public boolean delete(WaterDeliveryRequest requestOrder) {
     UUID requestId = requestOrder.getId();
     boolean result =
         cache.get(requestOrder.getFarmId()).removeIf(entry -> entry.getId().equals(requestId));
@@ -103,6 +103,7 @@ public class DataStore {
               .writeValueAsString(cache);
       File file = resource.getFile();
       FileUtils.flushToDisk(jsonValue, file);
+      System.out.println(cache.size());
       LOG.info("Wrote updates to data store @ {}", file.getAbsolutePath());
     } catch (IOException ex) {
       // catching and re-throwing as runtime exception

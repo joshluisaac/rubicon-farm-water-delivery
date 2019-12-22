@@ -2,11 +2,12 @@ package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.delivery
 
 import com.rubiconwater.codingchallenge.joshluisaac.sharedkernel.EntityRepository;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface DeliveryRepository<T extends WaterDeliveryRequest> extends EntityRepository<T> {
 
-  boolean isExisting(WaterDeliveryRequest requestOrder);
+  List<WaterDeliveryRequest> find(UUID farmId);
 
-  List<WaterDeliveryRequest> findByFarmId(UUID farmId);
+  Optional<WaterDeliveryRequest> find(UUID farmId, UUID requestOrderId);
 }

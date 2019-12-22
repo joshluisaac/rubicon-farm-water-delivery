@@ -1,6 +1,5 @@
 package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.api;
 
-import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.Routes;
 import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.WaterDeliveryService;
 import java.util.List;
 import java.util.UUID;
@@ -11,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/farmers/")
+@RequestMapping("/api/")
 public class WaterDeliveryApiHandler {
 
   private final WaterDeliveryService deliveryService;
@@ -21,7 +20,7 @@ public class WaterDeliveryApiHandler {
     this.deliveryService = deliveryService;
   }
 
-  @PostMapping(value = Routes.Farmers.FARMERS)
+  @PostMapping(value = "farmers")
   public ResponseEntity<ApiResponseOld> placeOrder(@RequestBody ApiRequest apiRequest) {
     deliveryService.acceptOrder(ApiUtils.toDeliveryRequest(apiRequest));
 
@@ -32,26 +31,22 @@ public class WaterDeliveryApiHandler {
     return new ResponseEntity<>(ApiResponseOld.toApiResponse(apiRequest), HttpStatus.CREATED);
   }
 
-  @GetMapping(value = "{farmId}")
+  @GetMapping(value = "farmers/{farmId}")
   public ResponseEntity<ApiResponse> getAllFarmOrders(@PathVariable UUID farmId) {
     List<WaterDeliveryResponse> activeOrders =
         deliveryService
             .getActiveOrders(farmId)
             .stream()
             .map(ApiUtils::toDeliveryResponse)
-            .collect(Collectors.toList());
+            .collect(Collectors.toUnmodifiableList());
     return ApiUtils.buildResponseEntity(activeOrders, HttpStatus.OK);
   }
 
-  @GetMapping(value = "{farmId}/orders/{orderId}")
+  @GetMapping(value = "farmers/{farmId}/orders/{orderId}")
   public ResponseEntity<ApiResponse> getFarmOrder(
       @PathVariable UUID farmId, @PathVariable UUID orderId) {
-    List<WaterDeliveryResponse> activeOrders =
-        deliveryService
-            .getActiveOrders(farmId)
-            .stream()
-            .map(ApiUtils::toDeliveryResponse)
-            .collect(Collectors.toList());
-    return ApiUtils.buildResponseEntity(activeOrders, HttpStatus.OK);
+    return ApiUtils.buildResponseEntity(
+        List.of(ApiUtils.toDeliveryResponse(deliveryService.getActiveOrder(farmId, orderId))),
+        HttpStatus.OK);
   }
 }

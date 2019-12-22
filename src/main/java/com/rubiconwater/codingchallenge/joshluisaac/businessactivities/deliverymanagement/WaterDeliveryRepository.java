@@ -21,36 +21,29 @@ public class WaterDeliveryRepository implements DeliveryRepository<WaterDelivery
   }
 
   @Override
-  public Optional<WaterDeliveryRequest> findById(UUID requestOrderId) {
-    return Optional.empty();
-  }
-
-  @Override
-  public Collection<WaterDeliveryRequest> findAll() {
-    return null;
-  }
-
-  @Override
-  public boolean isExisting(WaterDeliveryRequest requestOrder) {
-    UUID farmId = requestOrder.getFarmId();
-    String hash = requestOrder.getHash();
-    // dataStore.
-    return false;
-  }
-
-  @Override
-  public List<WaterDeliveryRequest> findByFarmId(UUID farmId) {
+  public List<WaterDeliveryRequest> find(UUID farmId) {
     return dataStore.findByFarmId(farmId);
   }
 
   @Override
-  public void delete(WaterDeliveryRequest requestOrder) {}
+  public Optional<WaterDeliveryRequest> find(UUID farmId, UUID requestOrderId) {
+    return dataStore.find(farmId, requestOrderId);
+  }
 
   @Override
-  public void save(WaterDeliveryRequest requestOrder) {}
+  public void delete(WaterDeliveryRequest requestOrder) {
+    dataStore.delete(requestOrder);
+  }
 
   @Override
-  public void update(WaterDeliveryRequest requestOrder) {}
+  public void save(WaterDeliveryRequest requestOrder) {
+    dataStore.add(requestOrder);
+  }
+
+  @Override
+  public void update(WaterDeliveryRequest requestOrder) {
+    dataStore.update(requestOrder);
+  }
 
   @Override
   public void deleteById(UUID id) {}
