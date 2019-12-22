@@ -1,6 +1,8 @@
 package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.api;
 
+import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.WaterDeliveryOrder;
 import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.WaterDeliveryService;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -21,19 +23,24 @@ public class WaterDeliveryApiHandler {
   }
 
   @PostMapping(value = "farmers")
-  public ResponseEntity<ApiResponseOld> placeOrder(@RequestBody ApiRequest apiRequest) {
-    deliveryService.acceptOrder(ApiUtils.toDeliveryOrder(apiRequest));
-
-    System.out.println(apiRequest.getFarmId());
-    System.out.println(apiRequest.getOrderStartDate());
-    System.out.println(apiRequest.getSupplyDuration());
-
-    return new ResponseEntity<>(ApiResponseOld.toApiResponse(apiRequest), HttpStatus.CREATED);
+  public ResponseEntity<ApiResponse> placeOrder(@RequestBody ApiRequest apiRequest) {
+    List<WaterDeliveryOrder> orders = new ArrayList<>();
+    apiRequest
+        .getOrders()
+        .forEach(
+            entry -> {
+              var deliveryOrder =
+                  deliveryService.acceptOrder(ApiUtils.toDeliveryOrder(apiRequest, entry));
+              orders.add(deliveryOrder);
+            });
+    var activeOrders =
+        orders.stream().map(ApiUtils::toDeliveryResponse).collect(Collectors.toUnmodifiableList());
+    return ApiUtils.buildResponseEntity(activeOrders, HttpStatus.CREATED);
   }
 
   @GetMapping(value = "farmers/{farmId}")
   public ResponseEntity<ApiResponse> getAllFarmOrders(@PathVariable UUID farmId) {
-    List<WaterDeliveryResponse> activeOrders =
+    var activeOrders =
         deliveryService
             .getActiveOrders(farmId)
             .stream()

@@ -26,11 +26,11 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryOrder> {
    *
    * @param requestOrder
    */
-  public void acceptOrder(WaterDeliveryOrder requestOrder) {
+  public WaterDeliveryOrder acceptOrder(WaterDeliveryOrder requestOrder) {
     checkExitingOrder(requestOrder);
     checkTimeFrameCollision(requestOrder);
     requestOrder.setDeliveryStatus(WaterDeliveryStatus.REQUESTED);
-    repository.save(requestOrder);
+    return repository.save(requestOrder);
   }
 
   /**

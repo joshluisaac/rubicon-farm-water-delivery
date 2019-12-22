@@ -47,7 +47,7 @@ public class DataStore {
     }
   }
 
-  public void add(WaterDeliveryOrder requestOrder) {
+  public WaterDeliveryOrder add(WaterDeliveryOrder requestOrder) {
     boolean farmRecordExists = cache.containsKey(requestOrder.getFarmId());
     if (farmRecordExists) {
       cache.get(requestOrder.getFarmId()).add(requestOrder);
@@ -57,6 +57,7 @@ public class DataStore {
       cache.put(requestOrder.getFarmId(), farmRequests);
     }
     updateDatabase();
+    return requestOrder;
   }
 
   public boolean delete(WaterDeliveryOrder requestOrder) {
@@ -103,7 +104,6 @@ public class DataStore {
               .writeValueAsString(cache);
       File file = resource.getFile();
       FileUtils.flushToDisk(jsonValue, file);
-      System.out.println(cache.size());
       LOG.info("Wrote updates to data store @ {}", file.getAbsolutePath());
     } catch (IOException ex) {
       // catching and re-throwing as runtime exception

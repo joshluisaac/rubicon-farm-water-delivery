@@ -6,7 +6,7 @@ public interface EntityRepository<T extends BaseEntity> {
 
   void delete(T t);
 
-  void save(T t);
+  T save(T t);
 
   void update(T t);
 

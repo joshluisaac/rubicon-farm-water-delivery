@@ -36,8 +36,8 @@ public class WaterDeliveryRepository implements DeliveryRepository<WaterDelivery
   }
 
   @Override
-  public void save(WaterDeliveryOrder requestOrder) {
-    dataStore.add(requestOrder);
+  public WaterDeliveryOrder save(WaterDeliveryOrder requestOrder) {
+    return dataStore.add(requestOrder);
   }
 
   @Override

@@ -21,11 +21,11 @@ public class ApiUtils {
   }
 
   // takes an API request and returns a delivery request
-  public static WaterDeliveryOrder toDeliveryOrder(ApiRequest request) {
+  public static WaterDeliveryOrder toDeliveryOrder(ApiRequest request, ApiRequest.Order order) {
     return WaterDeliveryOrder.builder()
         .farmId(request.getFarmId())
-        .orderStartDate(request.getOrderStartDate())
-        .supplyDuration(request.getSupplyDuration())
+        .orderStartDate(order.getOrderStartDate())
+        .supplyDuration(order.getSupplyDuration())
         .dateReceived(LocalDateTime.now())
         .build();
   }

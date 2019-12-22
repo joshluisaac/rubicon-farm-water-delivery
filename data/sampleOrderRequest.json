@@ -1,0 +1,21 @@
+{
+  "farm_id": "975eebdd-b9fa-493b-ac55-273383b02c86",
+  "orders": [
+
+    {
+      "order_start_date": "2019-12-23T06:10:11",
+      "duration": 7
+    },
+
+    {
+      "order_start_date": "2020-01-10T06:10:11",
+      "duration": 4
+    },
+
+    {
+      "order_start_date": "2020-01-15T06:10:11",
+      "duration": 10
+    }
+  ]
+
+}
