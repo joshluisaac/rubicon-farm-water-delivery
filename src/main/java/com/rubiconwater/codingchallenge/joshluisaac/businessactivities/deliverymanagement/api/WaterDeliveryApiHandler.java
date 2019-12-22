@@ -1,9 +1,7 @@
 package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.api;
 
 import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.Routes;
-import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.WaterDeliveryRequest;
 import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.WaterDeliveryService;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -25,7 +23,7 @@ public class WaterDeliveryApiHandler {
 
   @PostMapping(value = Routes.Farmers.FARMERS)
   public ResponseEntity<ApiResponseOld> placeOrder(@RequestBody ApiRequest apiRequest) {
-    deliveryService.acceptOrder(toDeliveryRequest(apiRequest));
+    deliveryService.acceptOrder(ApiUtils.toDeliveryRequest(apiRequest));
 
     System.out.println(apiRequest.getFarmId());
     System.out.println(apiRequest.getOrderStartDate());
@@ -40,54 +38,20 @@ public class WaterDeliveryApiHandler {
         deliveryService
             .getActiveOrders(farmId)
             .stream()
-            .map(this::toDeliveryResponse)
+            .map(ApiUtils::toDeliveryResponse)
             .collect(Collectors.toList());
-    return new ResponseEntity<>(
-        ApiResponse.builder()
-            .waterDeliveryResponses(activeOrders)
-            .status(HttpStatus.OK)
-            .httpResponseCode(HttpStatus.OK.value())
-            .requestDate(LocalDateTime.now())
-            .build(),
-        HttpStatus.OK);
+    return ApiUtils.buildResponseEntity(activeOrders, HttpStatus.OK);
   }
 
-  @GetMapping(value = "{farmId}")
-  public ResponseEntity<ApiResponse> getFarmOrder(@PathVariable UUID farmId) {
+  @GetMapping(value = "{farmId}/orders/{orderId}")
+  public ResponseEntity<ApiResponse> getFarmOrder(
+      @PathVariable UUID farmId, @PathVariable UUID orderId) {
     List<WaterDeliveryResponse> activeOrders =
         deliveryService
             .getActiveOrders(farmId)
             .stream()
-            .map(this::toDeliveryResponse)
+            .map(ApiUtils::toDeliveryResponse)
             .collect(Collectors.toList());
-    return new ResponseEntity<>(
-        ApiResponse.builder()
-            .waterDeliveryResponses(activeOrders)
-            .status(HttpStatus.OK)
-            .httpResponseCode(HttpStatus.OK.value())
-            .requestDate(LocalDateTime.now())
-            .build(),
-        HttpStatus.OK);
-  }
-
-  // takes an API request and returns a delivery request
-  private WaterDeliveryRequest toDeliveryRequest(ApiRequest request) {
-    return WaterDeliveryRequest.builder()
-        .farmId(request.getFarmId())
-        .orderStartDate(request.getOrderStartDate())
-        .supplyDuration(request.getSupplyDuration())
-        .dateReceived(LocalDateTime.now())
-        .build();
-  }
-
-  // takes in a delivery order and returns an API response
-  private WaterDeliveryResponse toDeliveryResponse(WaterDeliveryRequest deliveryOrder) {
-    return WaterDeliveryResponse.builder()
-        .deliveryStatus(deliveryOrder.getDeliveryStatus())
-        .deliveryStartDate(deliveryOrder.getTimeFrame().getStartDate())
-        .deliveryEndDate(deliveryOrder.getTimeFrame().getEndDate())
-        .duration(deliveryOrder.getSupplyDuration())
-        .orderId(deliveryOrder.getId())
-        .build();
+    return ApiUtils.buildResponseEntity(activeOrders, HttpStatus.OK);
   }
 }
