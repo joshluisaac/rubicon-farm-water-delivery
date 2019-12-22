@@ -84,8 +84,7 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryOrder> {
           "The requested order falls within the time frame of another order");
   }
 
-  private boolean checkStream(
-          WaterDeliveryOrder requestOrder, Predicate<WaterDeliveryOrder> pred) {
+  private boolean checkStream(WaterDeliveryOrder requestOrder, Predicate<WaterDeliveryOrder> pred) {
     return activeOrderStream(requestOrder).anyMatch(pred);
   }
 
