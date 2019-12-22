@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
  * not decide what you do with the returned values. It's left to the caller to make that decision.
  */
 @Repository
-public class WaterDeliveryRepository implements DeliveryRepository<WaterDeliveryRequest> {
+public class WaterDeliveryRepository implements DeliveryRepository<WaterDeliveryOrder> {
 
   private final DataStore dataStore;
 
@@ -21,27 +21,27 @@ public class WaterDeliveryRepository implements DeliveryRepository<WaterDelivery
   }
 
   @Override
-  public List<WaterDeliveryRequest> find(UUID farmId) {
+  public List<WaterDeliveryOrder> find(UUID farmId) {
     return dataStore.findByFarmId(farmId);
   }
 
   @Override
-  public Optional<WaterDeliveryRequest> find(UUID farmId, UUID requestOrderId) {
+  public Optional<WaterDeliveryOrder> find(UUID farmId, UUID requestOrderId) {
     return dataStore.find(farmId, requestOrderId);
   }
 
   @Override
-  public void delete(WaterDeliveryRequest requestOrder) {
+  public void delete(WaterDeliveryOrder requestOrder) {
     dataStore.delete(requestOrder);
   }
 
   @Override
-  public void save(WaterDeliveryRequest requestOrder) {
+  public void save(WaterDeliveryOrder requestOrder) {
     dataStore.add(requestOrder);
   }
 
   @Override
-  public void update(WaterDeliveryRequest requestOrder) {
+  public void update(WaterDeliveryOrder requestOrder) {
     dataStore.update(requestOrder);
   }
 

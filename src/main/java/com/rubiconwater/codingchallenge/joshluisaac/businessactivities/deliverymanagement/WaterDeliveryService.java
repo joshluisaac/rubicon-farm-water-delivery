@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
 
 /** The responsibility of this class is to process delivery requests. */
 @Service
-public class WaterDeliveryService implements EntityService<WaterDeliveryRequest> {
+public class WaterDeliveryService implements EntityService<WaterDeliveryOrder> {
 
-  private final DeliveryRepository<WaterDeliveryRequest> repository;
+  private final DeliveryRepository<WaterDeliveryOrder> repository;
 
   @Autowired
-  public WaterDeliveryService(DeliveryRepository<WaterDeliveryRequest> repository) {
+  public WaterDeliveryService(DeliveryRepository<WaterDeliveryOrder> repository) {
     this.repository = repository;
   }
 
@@ -26,7 +26,7 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryRequest>
    *
    * @param requestOrder
    */
-  public void acceptOrder(WaterDeliveryRequest requestOrder) {
+  public void acceptOrder(WaterDeliveryOrder requestOrder) {
     checkExitingOrder(requestOrder);
     checkTimeFrameCollision(requestOrder);
     requestOrder.setDeliveryStatus(WaterDeliveryStatus.REQUESTED);
@@ -40,8 +40,8 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryRequest>
    * @param requestOrderId
    */
   public void cancelOrder(UUID farmId, UUID requestOrderId) {
-    Optional<WaterDeliveryRequest> maybeRequestOrder = repository.find(farmId, requestOrderId);
-    WaterDeliveryRequest requestOrder =
+    Optional<WaterDeliveryOrder> maybeRequestOrder = repository.find(farmId, requestOrderId);
+    WaterDeliveryOrder requestOrder =
         maybeRequestOrder.orElseThrow(
             () ->
                 new IllegalArgumentException(String.format("%s does not exists", requestOrderId)));
@@ -56,7 +56,7 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryRequest>
             requestOrderId));
   }
 
-  public List<WaterDeliveryRequest> getActiveOrders(UUID farmId) {
+  public List<WaterDeliveryOrder> getActiveOrders(UUID farmId) {
     var result = repository.find(farmId);
     if (result != null) {
       return result;
@@ -64,17 +64,17 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryRequest>
     return Collections.emptyList();
   }
 
-  public WaterDeliveryRequest getActiveOrder(UUID farmId, UUID requestOrderId) {
+  public WaterDeliveryOrder getActiveOrder(UUID farmId, UUID requestOrderId) {
     return repository.find(farmId, requestOrderId).orElseThrow();
   }
 
-  private void checkExitingOrder(WaterDeliveryRequest requestOrder) {
+  private void checkExitingOrder(WaterDeliveryOrder requestOrder) {
     boolean result =
         checkStream(requestOrder, entry -> entry.getHash().equals(requestOrder.getHash()));
     if (result) throw new IllegalArgumentException("The requested order exists.");
   }
 
-  private void checkTimeFrameCollision(WaterDeliveryRequest requestOrder) {
+  private void checkTimeFrameCollision(WaterDeliveryOrder requestOrder) {
     boolean result =
         checkStream(
             requestOrder,
@@ -85,11 +85,11 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryRequest>
   }
 
   private boolean checkStream(
-      WaterDeliveryRequest requestOrder, Predicate<WaterDeliveryRequest> pred) {
+          WaterDeliveryOrder requestOrder, Predicate<WaterDeliveryOrder> pred) {
     return activeOrderStream(requestOrder).anyMatch(pred);
   }
 
-  private Stream<WaterDeliveryRequest> activeOrderStream(WaterDeliveryRequest requestOrder) {
+  private Stream<WaterDeliveryOrder> activeOrderStream(WaterDeliveryOrder requestOrder) {
     return getActiveOrders(requestOrder.getFarmId()).stream();
   }
 }

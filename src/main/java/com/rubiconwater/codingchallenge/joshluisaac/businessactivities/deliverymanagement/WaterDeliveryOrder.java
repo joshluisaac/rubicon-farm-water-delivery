@@ -12,7 +12,7 @@ import org.springframework.util.DigestUtils;
 
 // @JsonIgnoreType
 @Getter
-public class WaterDeliveryRequest extends AbstractEntity {
+public class WaterDeliveryOrder extends AbstractEntity {
 
   private UUID farmId;
   private LocalDateTime dateReceived;
@@ -23,7 +23,7 @@ public class WaterDeliveryRequest extends AbstractEntity {
 
   @Builder
   @ConstructorProperties({"farmId", "dateReceived", "orderStartDate", "supplyDuration"})
-  public WaterDeliveryRequest(
+  public WaterDeliveryOrder(
       @NonNull UUID farmId,
       @NonNull LocalDateTime dateReceived,
       @NonNull LocalDateTime orderStartDate,

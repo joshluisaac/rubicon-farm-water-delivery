@@ -1,17 +1,17 @@
 package com.rubiconwater.codingchallenge.joshluisaac;
 
-import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.WaterDeliveryRequest;
+import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.WaterDeliveryOrder;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 public interface AbstractTest {
 
-  default WaterDeliveryRequest createOrderRequest(
+  default WaterDeliveryOrder createOrderRequest(
       UUID farmId,
       LocalDateTime dateOrderReceived,
       LocalDateTime orderStartDate,
       int supplyDuration) {
-    return WaterDeliveryRequest.builder()
+    return WaterDeliveryOrder.builder()
         .farmId(farmId)
         .dateReceived(dateOrderReceived)
         .orderStartDate(orderStartDate)

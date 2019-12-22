@@ -22,7 +22,7 @@ public class WaterDeliveryApiHandler {
 
   @PostMapping(value = "farmers")
   public ResponseEntity<ApiResponseOld> placeOrder(@RequestBody ApiRequest apiRequest) {
-    deliveryService.acceptOrder(ApiUtils.toDeliveryRequest(apiRequest));
+    deliveryService.acceptOrder(ApiUtils.toDeliveryOrder(apiRequest));
 
     System.out.println(apiRequest.getFarmId());
     System.out.println(apiRequest.getOrderStartDate());

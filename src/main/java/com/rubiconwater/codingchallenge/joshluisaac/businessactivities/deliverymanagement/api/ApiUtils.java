@@ -1,6 +1,7 @@
 package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.api;
 
-import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.WaterDeliveryRequest;
+import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.WaterDeliveryOrder;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.http.HttpStatus;
@@ -21,8 +22,8 @@ public class ApiUtils {
   }
 
   // takes an API request and returns a delivery request
-  public static WaterDeliveryRequest toDeliveryRequest(ApiRequest request) {
-    return WaterDeliveryRequest.builder()
+  public static WaterDeliveryOrder toDeliveryOrder(ApiRequest request) {
+    return WaterDeliveryOrder.builder()
         .farmId(request.getFarmId())
         .orderStartDate(request.getOrderStartDate())
         .supplyDuration(request.getSupplyDuration())
@@ -31,7 +32,7 @@ public class ApiUtils {
   }
 
   // takes in a delivery order and returns an API response
-  public static WaterDeliveryResponse toDeliveryResponse(WaterDeliveryRequest deliveryOrder) {
+  public static WaterDeliveryResponse toDeliveryResponse(WaterDeliveryOrder deliveryOrder) {
     return WaterDeliveryResponse.builder()
         .deliveryStatus(deliveryOrder.getDeliveryStatus().getDescription())
         .deliveryStartDate(deliveryOrder.getTimeFrame().getStartDate())

@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface DeliveryRepository<T extends WaterDeliveryRequest> extends EntityRepository<T> {
+public interface DeliveryRepository<T extends WaterDeliveryOrder> extends EntityRepository<T> {
 
-  List<WaterDeliveryRequest> find(UUID farmId);
+  List<WaterDeliveryOrder> find(UUID farmId);
 
-  Optional<WaterDeliveryRequest> find(UUID farmId, UUID requestOrderId);
+  Optional<WaterDeliveryOrder> find(UUID farmId, UUID requestOrderId);
 }

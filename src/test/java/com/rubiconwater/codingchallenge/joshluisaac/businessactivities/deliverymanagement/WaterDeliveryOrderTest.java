@@ -10,13 +10,13 @@ import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class WaterDeliveryRequestTest implements AbstractTest {
+public class WaterDeliveryOrderTest implements AbstractTest {
 
   private static final UUID FARM_ID = UuidUtils.toUuid("1ddeab59-8bb1-4292-8fe4-7a6769411fe5");
   private static final LocalDateTime ORDER_RECEIVED_DATE =
       LocalDateTime.parse("2019-01-12T13:45:11");
 
-  void logSituation(WaterDeliveryRequest exitingOrder, WaterDeliveryRequest newOrder) {
+  void logSituation(WaterDeliveryOrder exitingOrder, WaterDeliveryOrder newOrder) {
     System.out.println(
         WaterDeliveryUtils.toIsoLocalDateTime(exitingOrder.getTimeFrame().getStartDate()));
     System.out.println(

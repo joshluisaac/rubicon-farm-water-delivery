@@ -1,7 +1,7 @@
 package com.rubiconwater.codingchallenge.joshluisaac.infrastructure;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.WaterDeliveryRequest;
+import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.WaterDeliveryOrder;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.FileUtils;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.JsonMappers;
 import java.io.File;
@@ -22,11 +22,11 @@ public class DataStore {
 
   private static final Logger LOG = LoggerFactory.getLogger(DataStore.class);
 
-  @Value("file:data/RequestDataSet.json")
+  @Value("file:data/DeliveryOrderDataSet.json")
   private Resource resource;
 
   // contains requests which are either in REQUESTED or IN_PROGRESS states
-  Map<UUID, List<WaterDeliveryRequest>> cache = new HashMap<>();
+  Map<UUID, List<WaterDeliveryOrder>> cache = new HashMap<>();
 
   @PostConstruct
   private void load() throws IOException {
@@ -34,7 +34,7 @@ public class DataStore {
     InputStream inputStream = resource.getInputStream();
     cache =
         JsonMappers.buildReader()
-            .forType(new TypeReference<Map<UUID, List<WaterDeliveryRequest>>>() {})
+            .forType(new TypeReference<Map<UUID, List<WaterDeliveryOrder>>>() {})
             .readValue(inputStream);
 
     LOG.info("Loaded and initialized dataset from  {}", resource.getFile().getAbsolutePath());
@@ -47,19 +47,19 @@ public class DataStore {
     }
   }
 
-  public void add(WaterDeliveryRequest requestOrder) {
+  public void add(WaterDeliveryOrder requestOrder) {
     boolean farmRecordExists = cache.containsKey(requestOrder.getFarmId());
     if (farmRecordExists) {
       cache.get(requestOrder.getFarmId()).add(requestOrder);
     } else {
-      List<WaterDeliveryRequest> farmRequests = new ArrayList<>();
+      List<WaterDeliveryOrder> farmRequests = new ArrayList<>();
       farmRequests.add(requestOrder);
       cache.put(requestOrder.getFarmId(), farmRequests);
     }
     updateDatabase();
   }
 
-  public boolean delete(WaterDeliveryRequest requestOrder) {
+  public boolean delete(WaterDeliveryOrder requestOrder) {
     UUID requestId = requestOrder.getId();
     boolean result =
         cache.get(requestOrder.getFarmId()).removeIf(entry -> entry.getId().equals(requestId));
@@ -67,8 +67,8 @@ public class DataStore {
     return result;
   }
 
-  public boolean update(WaterDeliveryRequest updatedRequestOrder) {
-    Optional<WaterDeliveryRequest> oldRequestOrder =
+  public boolean update(WaterDeliveryOrder updatedRequestOrder) {
+    Optional<WaterDeliveryOrder> oldRequestOrder =
         find(updatedRequestOrder.getFarmId(), updatedRequestOrder.getId());
     if (oldRequestOrder.isPresent()) {
       oldRequestOrder.get().setDeliveryStatus(updatedRequestOrder.getDeliveryStatus());
@@ -84,11 +84,11 @@ public class DataStore {
    * @param farmId
    * @return
    */
-  public List<WaterDeliveryRequest> findByFarmId(UUID farmId) {
+  public List<WaterDeliveryOrder> findByFarmId(UUID farmId) {
     return cache.get(farmId);
   }
 
-  public Optional<WaterDeliveryRequest> find(UUID farmId, UUID requestOrderId) {
+  public Optional<WaterDeliveryOrder> find(UUID farmId, UUID requestOrderId) {
     return findByFarmId(farmId)
         .stream()
         .filter(entry -> entry.getId().equals(requestOrderId))
@@ -99,7 +99,7 @@ public class DataStore {
     try {
       String jsonValue =
           JsonMappers.buildWriter()
-              .forType(new TypeReference<Map<UUID, List<WaterDeliveryRequest>>>() {})
+              .forType(new TypeReference<Map<UUID, List<WaterDeliveryOrder>>>() {})
               .writeValueAsString(cache);
       File file = resource.getFile();
       FileUtils.flushToDisk(jsonValue, file);
