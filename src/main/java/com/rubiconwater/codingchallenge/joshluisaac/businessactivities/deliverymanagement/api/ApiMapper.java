@@ -5,8 +5,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 
-public class ApiUtils {
+@Component
+public class ApiMapper {
 
   public static ResponseEntity<ApiResponse> buildResponseEntity(
       List<WaterDeliveryResponse> activeOrders, HttpStatus status) {
@@ -21,7 +23,7 @@ public class ApiUtils {
   }
 
   // takes an API request and returns a delivery request
-  public static WaterDeliveryOrder toDeliveryOrder(
+  public WaterDeliveryOrder toDeliveryOrder(
       AcceptOrderRequest request, AcceptOrderRequest.Order order) {
     return WaterDeliveryOrder.builder()
         .farmId(request.getFarmId())

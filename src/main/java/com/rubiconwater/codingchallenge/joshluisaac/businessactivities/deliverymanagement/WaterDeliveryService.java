@@ -39,12 +39,6 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryOrder> {
    * @param requestOrder
    */
   public WaterDeliveryOrder cancelOrder(WaterDeliveryOrder requestOrder) {
-    /*    Optional<WaterDeliveryOrder> maybeRequestOrder = repository.find(farmId, requestOrderId);
-    WaterDeliveryOrder requestOrder =
-        maybeRequestOrder.orElseThrow(
-            () ->
-                new IllegalArgumentException(String.format("%s does not exists", requestOrderId)));*/
-
     if (requestOrder.getDeliveryStatus().isAllowCancel()) {
       requestOrder.setDeliveryStatus(WaterDeliveryStatus.CANCELLED);
       repository.update(requestOrder);

@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.*;
 public class WaterDeliveryApiHandler {
 
   private final WaterDeliveryService deliveryService;
+  private final ApiMapper apiMapper;
 
   @Autowired
-  public WaterDeliveryApiHandler(WaterDeliveryService deliveryService) {
+  public WaterDeliveryApiHandler(WaterDeliveryService deliveryService, ApiMapper apiMapper) {
     this.deliveryService = deliveryService;
+    this.apiMapper = apiMapper;
   }
 
   /**
@@ -36,13 +38,13 @@ public class WaterDeliveryApiHandler {
         .getOrders()
         .forEach(
             entry -> {
-              var deliveryOrder =
-                  deliveryService.acceptOrder(ApiUtils.toDeliveryOrder(acceptOrderRequest, entry));
+              WaterDeliveryOrder deliveryOrder =
+                  deliveryService.acceptOrder(apiMapper.toDeliveryOrder(acceptOrderRequest, entry));
               orders.add(deliveryOrder);
             });
     var activeOrders =
-        orders.stream().map(ApiUtils::toDeliveryResponse).collect(Collectors.toUnmodifiableList());
-    return ApiUtils.buildResponseEntity(activeOrders, HttpStatus.CREATED);
+        orders.stream().map(ApiMapper::toDeliveryResponse).collect(Collectors.toUnmodifiableList());
+    return ApiMapper.buildResponseEntity(activeOrders, HttpStatus.CREATED);
   }
 
   /**
@@ -67,8 +69,8 @@ public class WaterDeliveryApiHandler {
               orders.add(deliveryOrder);
             });
     var cancelledOrders =
-        orders.stream().map(ApiUtils::toDeliveryResponse).collect(Collectors.toUnmodifiableList());
-    return ApiUtils.buildResponseEntity(cancelledOrders, HttpStatus.OK);
+        orders.stream().map(ApiMapper::toDeliveryResponse).collect(Collectors.toUnmodifiableList());
+    return ApiMapper.buildResponseEntity(cancelledOrders, HttpStatus.OK);
   }
 
   /**
@@ -83,9 +85,9 @@ public class WaterDeliveryApiHandler {
         deliveryService
             .getDeliveryOrders(farmId)
             .stream()
-            .map(ApiUtils::toDeliveryResponse)
+            .map(ApiMapper::toDeliveryResponse)
             .collect(Collectors.toUnmodifiableList());
-    return ApiUtils.buildResponseEntity(activeOrders, HttpStatus.OK);
+    return ApiMapper.buildResponseEntity(activeOrders, HttpStatus.OK);
   }
 
   /**
@@ -97,8 +99,8 @@ public class WaterDeliveryApiHandler {
   @GetMapping(value = "farmers/{farmId}/orders/{orderId}")
   public ResponseEntity<ApiResponse> getFarmOrder(
       @PathVariable UUID farmId, @PathVariable UUID orderId) {
-    return ApiUtils.buildResponseEntity(
-        List.of(ApiUtils.toDeliveryResponse(deliveryService.getDeliveryOrder(farmId, orderId))),
+    return ApiMapper.buildResponseEntity(
+        List.of(ApiMapper.toDeliveryResponse(deliveryService.getDeliveryOrder(farmId, orderId))),
         HttpStatus.OK);
   }
 }

@@ -44,7 +44,4 @@ public class WaterDeliveryRepository implements DeliveryRepository<WaterDelivery
   public void update(WaterDeliveryOrder requestOrder) {
     dataStore.update(requestOrder);
   }
-
-  @Override
-  public void deleteById(UUID id) {}
 }
