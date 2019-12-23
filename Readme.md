@@ -54,3 +54,6 @@ The following invariants and preconditions must be met for `Order` to be in a va
 * Bulk order cancellation server-side logs
 
 The following will be written to log file when 
+
+
+1. Document overlapping condition

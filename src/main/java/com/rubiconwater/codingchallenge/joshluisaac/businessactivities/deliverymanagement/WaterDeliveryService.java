@@ -52,11 +52,13 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryOrder> {
     }
     throw new IllegalArgumentException(
         String.format(
-            "Cancel order operation not allowed. %n Please check order delivery status for orderId (%s)",
+            "Cancel order operation not allowed. "
+                + "You cannot cancel what has already been delivered or previously cancelled. %n "
+                + "Please check order delivery status for orderId (%s)",
             requestOrder.getId()));
   }
 
-  public List<WaterDeliveryOrder> getActiveOrders(UUID farmId) {
+  public List<WaterDeliveryOrder> getDeliveryOrders(UUID farmId) {
     var result = repository.find(farmId);
     if (result != null) {
       return result;
@@ -64,8 +66,10 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryOrder> {
     return Collections.emptyList();
   }
 
-  public WaterDeliveryOrder getActiveOrder(UUID farmId, UUID requestOrderId) {
-    return repository.find(farmId, requestOrderId).orElseThrow();
+  public WaterDeliveryOrder getDeliveryOrder(UUID farmId, UUID requestOrderId) {
+    return repository
+        .find(farmId, requestOrderId)
+        .orElseThrow(() -> new IllegalArgumentException("Order not found."));
   }
 
   private void checkExitingOrder(WaterDeliveryOrder requestOrder) {
@@ -89,6 +93,6 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryOrder> {
   }
 
   private Stream<WaterDeliveryOrder> activeOrderStream(WaterDeliveryOrder requestOrder) {
-    return getActiveOrders(requestOrder.getFarmId()).stream();
+    return getDeliveryOrders(requestOrder.getFarmId()).stream();
   }
 }

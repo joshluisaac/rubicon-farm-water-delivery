@@ -64,6 +64,6 @@ public class WaterDeliveryOrder extends AbstractEntity {
   }
 
   public TimeFrame getTimeFrame() {
-    return TimeFrame.builder().startDate(orderStartDate).endDate(deliveryEndDate()).build();
+    return new TimeFrame(orderStartDate, deliveryEndDate());
   }
 }

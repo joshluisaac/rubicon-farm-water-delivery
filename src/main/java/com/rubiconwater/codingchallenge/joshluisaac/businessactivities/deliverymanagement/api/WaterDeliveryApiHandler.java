@@ -62,7 +62,7 @@ public class WaterDeliveryApiHandler {
         .forEach(
             entry -> {
               var deliveryOrder =
-                  deliveryService.getActiveOrder(cancelOrderRequest.getFarmId(), entry);
+                  deliveryService.getDeliveryOrder(cancelOrderRequest.getFarmId(), entry);
               deliveryService.cancelOrder(deliveryOrder);
               orders.add(deliveryOrder);
             });
@@ -71,32 +71,34 @@ public class WaterDeliveryApiHandler {
     return ApiUtils.buildResponseEntity(cancelledOrders, HttpStatus.OK);
   }
 
-    /**
-     * Controller endpoint to fetch all orders related to a farmId
-     * @param farmId
-     * @return
-     */
+  /**
+   * Controller endpoint to fetch all orders related to a farmId
+   *
+   * @param farmId
+   * @return
+   */
   @GetMapping(value = "farmers/{farmId}")
   public ResponseEntity<ApiResponse> getAllFarmOrders(@PathVariable UUID farmId) {
     var activeOrders =
         deliveryService
-            .getActiveOrders(farmId)
+            .getDeliveryOrders(farmId)
             .stream()
             .map(ApiUtils::toDeliveryResponse)
             .collect(Collectors.toUnmodifiableList());
     return ApiUtils.buildResponseEntity(activeOrders, HttpStatus.OK);
   }
 
-    /**
-     * Controller endpoint to fetch an order related to a farmId
-     * @param farmId
-     * @return
-     */
+  /**
+   * Controller endpoint to fetch an order related to a farmId
+   *
+   * @param farmId
+   * @return
+   */
   @GetMapping(value = "farmers/{farmId}/orders/{orderId}")
   public ResponseEntity<ApiResponse> getFarmOrder(
       @PathVariable UUID farmId, @PathVariable UUID orderId) {
     return ApiUtils.buildResponseEntity(
-        List.of(ApiUtils.toDeliveryResponse(deliveryService.getActiveOrder(farmId, orderId))),
+        List.of(ApiUtils.toDeliveryResponse(deliveryService.getDeliveryOrder(farmId, orderId))),
         HttpStatus.OK);
   }
 }
