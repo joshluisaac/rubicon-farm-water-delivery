@@ -9,7 +9,7 @@ import lombok.*;
 
 @Getter
 @AllArgsConstructor
-public class ApiRequest implements BaseEntity {
+public class AcceptOrderRequest implements BaseEntity {
 
   @JsonProperty("farm_id")
   private UUID farmId;

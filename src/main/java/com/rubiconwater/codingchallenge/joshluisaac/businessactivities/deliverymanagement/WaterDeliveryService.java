@@ -3,7 +3,6 @@ package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.delivery
 import com.rubiconwater.codingchallenge.joshluisaac.sharedkernel.EntityService;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -37,23 +36,24 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryOrder> {
    * Cancels an order if it is in any of {@link WaterDeliveryStatus#IN_PROGRESS} or {@link
    * WaterDeliveryStatus#REQUESTED} states
    *
-   * @param requestOrderId
+   * @param requestOrder
    */
-  public void cancelOrder(UUID farmId, UUID requestOrderId) {
-    Optional<WaterDeliveryOrder> maybeRequestOrder = repository.find(farmId, requestOrderId);
+  public WaterDeliveryOrder cancelOrder(WaterDeliveryOrder requestOrder) {
+    /*    Optional<WaterDeliveryOrder> maybeRequestOrder = repository.find(farmId, requestOrderId);
     WaterDeliveryOrder requestOrder =
         maybeRequestOrder.orElseThrow(
             () ->
-                new IllegalArgumentException(String.format("%s does not exists", requestOrderId)));
+                new IllegalArgumentException(String.format("%s does not exists", requestOrderId)));*/
+
     if (requestOrder.getDeliveryStatus().isAllowCancel()) {
       requestOrder.setDeliveryStatus(WaterDeliveryStatus.CANCELLED);
       repository.update(requestOrder);
-      return;
+      return requestOrder;
     }
     throw new IllegalArgumentException(
         String.format(
             "Cancel order operation not allowed. %n Please check order delivery status for orderId (%s)",
-            requestOrderId));
+            requestOrder.getId()));
   }
 
   public List<WaterDeliveryOrder> getActiveOrders(UUID farmId) {

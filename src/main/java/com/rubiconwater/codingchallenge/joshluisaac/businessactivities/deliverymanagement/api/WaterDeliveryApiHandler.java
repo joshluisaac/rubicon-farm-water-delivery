@@ -23,14 +23,15 @@ public class WaterDeliveryApiHandler {
   }
 
   @PostMapping(value = "farmers")
-  public ResponseEntity<ApiResponse> placeOrder(@RequestBody ApiRequest apiRequest) {
+  public ResponseEntity<ApiResponse> placeOrder(
+      @RequestBody AcceptOrderRequest acceptOrderRequest) {
     List<WaterDeliveryOrder> orders = new ArrayList<>();
-    apiRequest
+    acceptOrderRequest
         .getOrders()
         .forEach(
             entry -> {
               var deliveryOrder =
-                  deliveryService.acceptOrder(ApiUtils.toDeliveryOrder(apiRequest, entry));
+                  deliveryService.acceptOrder(ApiUtils.toDeliveryOrder(acceptOrderRequest, entry));
               orders.add(deliveryOrder);
             });
     var activeOrders =
@@ -55,5 +56,24 @@ public class WaterDeliveryApiHandler {
     return ApiUtils.buildResponseEntity(
         List.of(ApiUtils.toDeliveryResponse(deliveryService.getActiveOrder(farmId, orderId))),
         HttpStatus.OK);
+  }
+
+  @PutMapping(value = "farmers")
+  public ResponseEntity<ApiResponse> updateFarmOrder(
+      @RequestBody CancelOrderRequest cancelOrderRequest, @RequestParam boolean cancel) {
+
+    List<WaterDeliveryOrder> orders = new ArrayList<>();
+    cancelOrderRequest
+        .getDeliveryIds()
+        .forEach(
+            entry -> {
+              WaterDeliveryOrder deliveryOrder =
+                  deliveryService.getActiveOrder(cancelOrderRequest.getFarmId(), entry);
+              deliveryService.cancelOrder(deliveryOrder);
+              orders.add(deliveryOrder);
+            });
+    var cancelledOrders =
+        orders.stream().map(ApiUtils::toDeliveryResponse).collect(Collectors.toUnmodifiableList());
+    return ApiUtils.buildResponseEntity(cancelledOrders, HttpStatus.OK);
   }
 }

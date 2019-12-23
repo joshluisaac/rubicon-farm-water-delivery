@@ -5,7 +5,7 @@
     "orderStartDate" : "2019-12-23T06:10:11",
     "supplyDuration" : 7,
     "id" : "1334d383-78a1-4cd9-ac9d-c5faf980d6b4",
-    "deliveryStatus" : "REQUESTED",
+    "deliveryStatus" : "CANCELLED",
     "hash" : "e7f336ed0d15519bbc444e725395ffc4"
   }, {
     "farmId" : "975eebdd-b9fa-493b-ac55-273383b02c86",
@@ -13,7 +13,7 @@
     "orderStartDate" : "2020-01-10T06:10:11",
     "supplyDuration" : 4,
     "id" : "9ef5c0f7-1d1f-4955-a051-ce9ba1eb2812",
-    "deliveryStatus" : "REQUESTED",
+    "deliveryStatus" : "CANCELLED",
     "hash" : "b49c60ce9fa042a74d3ffd975cff9b02"
   }, {
     "farmId" : "975eebdd-b9fa-493b-ac55-273383b02c86",
@@ -21,7 +21,7 @@
     "orderStartDate" : "2020-01-15T06:10:11",
     "supplyDuration" : 10,
     "id" : "736038b4-481a-41a7-96d6-be9f3fd95fc4",
-    "deliveryStatus" : "REQUESTED",
+    "deliveryStatus" : "CANCELLED",
     "hash" : "3f3babdd1542c3b10b38a3beafcc8f47"
   } ]
 }

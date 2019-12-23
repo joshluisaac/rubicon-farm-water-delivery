@@ -25,7 +25,7 @@ public class DataStore {
   @Value("file:data/DeliveryOrderDataSet.json")
   private Resource resource;
 
-  // contains requests which are either in REQUESTED or IN_PROGRESS states
+  // contains requests in all delivery states
   Map<UUID, List<WaterDeliveryOrder>> cache = new HashMap<>();
 
   @PostConstruct
