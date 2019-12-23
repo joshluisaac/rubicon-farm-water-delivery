@@ -22,6 +22,12 @@ public class WaterDeliveryApiHandler {
     this.deliveryService = deliveryService;
   }
 
+  /**
+   * Controller endpoint to place an order.
+   *
+   * @param acceptOrderRequest
+   * @return
+   */
   @PostMapping(value = "farmers")
   public ResponseEntity<ApiResponse> placeOrder(
       @RequestBody AcceptOrderRequest acceptOrderRequest) {
@@ -39,6 +45,37 @@ public class WaterDeliveryApiHandler {
     return ApiUtils.buildResponseEntity(activeOrders, HttpStatus.CREATED);
   }
 
+  /**
+   * Controller endpoint to cancel an order.
+   *
+   * @param cancelOrderRequest
+   * @param cancel
+   * @return
+   */
+  @PutMapping(value = "farmers")
+  public ResponseEntity<ApiResponse> updateFarmOrder(
+      @RequestBody CancelOrderRequest cancelOrderRequest, @RequestParam boolean cancel) {
+    if (!cancel) {}
+    List<WaterDeliveryOrder> orders = new ArrayList<>();
+    cancelOrderRequest
+        .getDeliveryIds()
+        .forEach(
+            entry -> {
+              var deliveryOrder =
+                  deliveryService.getActiveOrder(cancelOrderRequest.getFarmId(), entry);
+              deliveryService.cancelOrder(deliveryOrder);
+              orders.add(deliveryOrder);
+            });
+    var cancelledOrders =
+        orders.stream().map(ApiUtils::toDeliveryResponse).collect(Collectors.toUnmodifiableList());
+    return ApiUtils.buildResponseEntity(cancelledOrders, HttpStatus.OK);
+  }
+
+    /**
+     * Controller endpoint to fetch all orders related to a farmId
+     * @param farmId
+     * @return
+     */
   @GetMapping(value = "farmers/{farmId}")
   public ResponseEntity<ApiResponse> getAllFarmOrders(@PathVariable UUID farmId) {
     var activeOrders =
@@ -50,30 +87,16 @@ public class WaterDeliveryApiHandler {
     return ApiUtils.buildResponseEntity(activeOrders, HttpStatus.OK);
   }
 
+    /**
+     * Controller endpoint to fetch an order related to a farmId
+     * @param farmId
+     * @return
+     */
   @GetMapping(value = "farmers/{farmId}/orders/{orderId}")
   public ResponseEntity<ApiResponse> getFarmOrder(
       @PathVariable UUID farmId, @PathVariable UUID orderId) {
     return ApiUtils.buildResponseEntity(
         List.of(ApiUtils.toDeliveryResponse(deliveryService.getActiveOrder(farmId, orderId))),
         HttpStatus.OK);
-  }
-
-  @PutMapping(value = "farmers")
-  public ResponseEntity<ApiResponse> updateFarmOrder(
-      @RequestBody CancelOrderRequest cancelOrderRequest, @RequestParam boolean cancel) {
-
-    List<WaterDeliveryOrder> orders = new ArrayList<>();
-    cancelOrderRequest
-        .getDeliveryIds()
-        .forEach(
-            entry -> {
-              WaterDeliveryOrder deliveryOrder =
-                  deliveryService.getActiveOrder(cancelOrderRequest.getFarmId(), entry);
-              deliveryService.cancelOrder(deliveryOrder);
-              orders.add(deliveryOrder);
-            });
-    var cancelledOrders =
-        orders.stream().map(ApiUtils::toDeliveryResponse).collect(Collectors.toUnmodifiableList());
-    return ApiUtils.buildResponseEntity(cancelledOrders, HttpStatus.OK);
   }
 }

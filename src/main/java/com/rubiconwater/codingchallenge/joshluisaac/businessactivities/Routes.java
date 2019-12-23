@@ -4,7 +4,7 @@ public class Routes {
 
   public static class Farmers {
     public static final String FARMERS = "/api/farmers";
-    public static final String FARMER = "/api/farmers/{farmId}";
+    public static final String FARMER = "farmers/{farmId}/orders/{orderId}";
   }
 
   // api/farmers/:farm_id/orders/:request_order_id?cancel=true
