@@ -26,10 +26,10 @@ public class DataStore {
   private Resource resource;
 
   // contains requests in all delivery states
-  Map<UUID, List<WaterDeliveryOrder>> cache = new HashMap<>();
+  private Map<UUID, List<WaterDeliveryOrder>> cache = new HashMap<>();
 
   @PostConstruct
-  private void load() throws IOException {
+  void load() throws IOException {
     preconditions();
     InputStream inputStream = resource.getInputStream();
     cache =

@@ -7,6 +7,8 @@ import java.io.OutputStream;
 
 public class FileUtils {
 
+  private FileUtils() {}
+
   public static void flushToDisk(String jsonValue, File file) throws IOException {
     try (OutputStream outputStream = new FileOutputStream(file, false)) {
       outputStream.write(jsonValue.getBytes());
