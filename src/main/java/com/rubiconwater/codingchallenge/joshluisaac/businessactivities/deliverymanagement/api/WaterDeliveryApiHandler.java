@@ -33,6 +33,16 @@ public class WaterDeliveryApiHandler {
   @PostMapping(value = "farmers")
   public ResponseEntity<ApiResponse> placeOrder(
       @RequestBody AcceptOrderRequest acceptOrderRequest) {
+
+    var activeOrders =
+        doPlaceOrder(acceptOrderRequest)
+            .stream()
+            .map(ApiMapper::toDeliveryResponse)
+            .collect(Collectors.toUnmodifiableList());
+    return ApiMapper.buildResponseEntity(activeOrders, HttpStatus.CREATED);
+  }
+
+  private List<WaterDeliveryOrder> doPlaceOrder(AcceptOrderRequest acceptOrderRequest) {
     List<WaterDeliveryOrder> orders = new ArrayList<>();
     acceptOrderRequest
         .getOrders()
@@ -42,9 +52,7 @@ public class WaterDeliveryApiHandler {
                   deliveryService.acceptOrder(apiMapper.toDeliveryOrder(acceptOrderRequest, entry));
               orders.add(deliveryOrder);
             });
-    var activeOrders =
-        orders.stream().map(ApiMapper::toDeliveryResponse).collect(Collectors.toUnmodifiableList());
-    return ApiMapper.buildResponseEntity(activeOrders, HttpStatus.CREATED);
+    return orders;
   }
 
   /**
@@ -57,7 +65,16 @@ public class WaterDeliveryApiHandler {
   @PutMapping(value = "farmers")
   public ResponseEntity<ApiResponse> updateFarmOrder(
       @RequestBody CancelOrderRequest cancelOrderRequest, @RequestParam boolean cancel) {
-    if (!cancel) {}
+    if (!cancel) throw new IllegalArgumentException("JUN: Consider creating a custom exception");
+    var cancelledOrders =
+        doCancelOrder(cancelOrderRequest)
+            .stream()
+            .map(ApiMapper::toDeliveryResponse)
+            .collect(Collectors.toUnmodifiableList());
+    return ApiMapper.buildResponseEntity(cancelledOrders, HttpStatus.OK);
+  }
+
+  private List<WaterDeliveryOrder> doCancelOrder(CancelOrderRequest cancelOrderRequest) {
     List<WaterDeliveryOrder> orders = new ArrayList<>();
     cancelOrderRequest
         .getDeliveryIds()
@@ -68,9 +85,7 @@ public class WaterDeliveryApiHandler {
               deliveryService.cancelOrder(deliveryOrder);
               orders.add(deliveryOrder);
             });
-    var cancelledOrders =
-        orders.stream().map(ApiMapper::toDeliveryResponse).collect(Collectors.toUnmodifiableList());
-    return ApiMapper.buildResponseEntity(cancelledOrders, HttpStatus.OK);
+    return orders;
   }
 
   /**
