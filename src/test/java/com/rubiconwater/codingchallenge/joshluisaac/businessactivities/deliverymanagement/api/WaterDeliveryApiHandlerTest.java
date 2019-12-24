@@ -74,7 +74,8 @@ public class WaterDeliveryApiHandlerTest implements AbstractTest {
     MvcResult responseResult =
         mockMvc
             .perform(
-                MockMvcRequestBuilders.get("/api/farmers/1ddeab59-8bb1-4292-8fe4-7a6769411fe5"))
+                MockMvcRequestBuilders.get(
+                    "/api/farmers/{farmId}", "1ddeab59-8bb1-4292-8fe4-7a6769411fe5"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andReturn();
@@ -95,7 +96,9 @@ public class WaterDeliveryApiHandlerTest implements AbstractTest {
         mockMvc
             .perform(
                 MockMvcRequestBuilders.get(
-                    "/api/farmers/1ddeab59-8bb1-4292-8fe4-7a6769411fe5/orders/" + requestOrderId))
+                    "/api/farmers/{farmId}/orders/{orderId}",
+                    "1ddeab59-8bb1-4292-8fe4-7a6769411fe5",
+                    requestOrderId))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andReturn();
