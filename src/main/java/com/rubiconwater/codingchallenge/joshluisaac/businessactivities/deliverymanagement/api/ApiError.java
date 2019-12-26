@@ -18,4 +18,7 @@ public class ApiError {
 
   @JsonProperty("error_message")
   private String errorMessage;
+
+  @JsonProperty("path")
+  private String path;
 }

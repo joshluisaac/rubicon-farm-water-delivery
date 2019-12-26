@@ -1,5 +1,6 @@
 package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.domain;
 
+import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.Errors;
 import com.rubiconwater.codingchallenge.joshluisaac.sharedkernel.EntityService;
 import java.util.Collections;
 import java.util.List;
@@ -45,11 +46,7 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryOrder> {
       return requestOrder;
     }
     throw new IllegalArgumentException(
-        String.format(
-            "Cancel order operation not allowed. "
-                + "You cannot cancel what has already been delivered or previously cancelled. "
-                + "Please check order delivery status for orderId (%s)",
-            requestOrder.getId()));
+        String.format(Errors.CANCEL_ORDER_NOT_ALLOWED.getDescription(), requestOrder.getId()));
   }
 
   public List<WaterDeliveryOrder> getDeliveryOrders(UUID farmId) {
@@ -57,24 +54,24 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryOrder> {
     if (result != null) {
       return result;
     }
-    return Collections.emptyList();
+    throw new IllegalArgumentException(
+        String.format(Errors.FARM_ID_NOT_FOUND.getDescription(), farmId));
   }
 
   public WaterDeliveryOrder getDeliveryOrder(UUID farmId, UUID requestOrderId) {
     var result = getDeliveryOrders(farmId);
-    if (result.isEmpty())
-      throw new IllegalArgumentException(String.format("Farm id '%s' not found.", farmId));
     return result
         .stream()
         .filter(entry -> entry.getId().equals(requestOrderId))
         .findFirst()
-        .orElseThrow(() -> new IllegalArgumentException("Order not found."));
+        .orElseThrow(() -> new IllegalArgumentException(Errors.ORDER_NOT_FOUND.getDescription()));
   }
 
   private void checkExitingOrder(WaterDeliveryOrder requestOrder) {
     boolean result =
         checkStream(requestOrder, entry -> entry.getHash().equals(requestOrder.getHash()));
-    if (result) throw new IllegalArgumentException("The requested order exists.");
+    if (result)
+      throw new IllegalArgumentException(Errors.EXISTING_ORDER_DUPLICATION.getDescription());
   }
 
   private void checkTimeFrameCollision(WaterDeliveryOrder requestOrder) {
@@ -82,16 +79,17 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryOrder> {
         checkStream(
             requestOrder,
             entry -> entry.getTimeFrame().isBetweenTimeFrameOf(requestOrder.getTimeFrame()));
-    if (result)
-      throw new IllegalArgumentException(
-          "The requested order falls within the time frame of another order");
+    if (result) throw new IllegalArgumentException(Errors.TIME_FRAME_COLLISION.getDescription());
   }
 
   private boolean checkStream(WaterDeliveryOrder requestOrder, Predicate<WaterDeliveryOrder> pred) {
-    return activeOrderStream(requestOrder).anyMatch(pred);
+    return requestOrderStream(requestOrder).anyMatch(pred);
   }
 
-  private Stream<WaterDeliveryOrder> activeOrderStream(WaterDeliveryOrder requestOrder) {
-    return getDeliveryOrders(requestOrder.getFarmId()).stream();
+  private Stream<WaterDeliveryOrder> requestOrderStream(WaterDeliveryOrder requestOrder) {
+    var requestOrders = repository.find(requestOrder.getFarmId());
+    List<WaterDeliveryOrder> result =
+        (requestOrders != null) ? requestOrders : Collections.emptyList();
+    return result.stream();
   }
 }

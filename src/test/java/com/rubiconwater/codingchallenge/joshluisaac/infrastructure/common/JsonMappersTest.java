@@ -34,7 +34,6 @@ public class JsonMappersTest implements AbstractTest {
         JsonMappers.buildWriter()
             .forType(AcceptOrderRequest.class)
             .writeValueAsString(acceptOrderRequest);
-    System.out.println(jsonText);
     assertThat(jsonText.trim()).isEqualTo(JSON_REQUEST_BODY.trim());
   }
 

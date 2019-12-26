@@ -4,9 +4,9 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import com.rubiconwater.codingchallenge.joshluisaac.AbstractTest;
+import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.Errors;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.UuidUtils;
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Supplier;
@@ -49,25 +49,32 @@ public class WaterDeliveryServiceTest implements AbstractTest {
     Throwable throwable = catchThrowable(() -> waterDeliveryService.cancelOrder(requestOrder));
     assertThat(throwable)
         .isInstanceOf(IllegalArgumentException.class)
-        .hasMessageStartingWith("Cancel order operation not allowed");
+        .hasMessageStartingWith(
+            String.format(Errors.CANCEL_ORDER_NOT_ALLOWED.getDescription(), requestOrder.getId()));
   }
 
   @Test
-  void shouldRejectCancelOrder_WhenOrderDeliveryStatusIsAlreadyCancelled() {
+  void shouldRejectCancelOrder_WhenOrderDeliveryStatusIsCancelled() {
     var requestOrder = setupFakeDeliveryOrder();
     requestOrder.setDeliveryStatus(WaterDeliveryStatus.CANCELLED);
     Throwable throwable = catchThrowable(() -> waterDeliveryService.cancelOrder(requestOrder));
     assertThat(throwable)
         .isInstanceOf(IllegalArgumentException.class)
-        .hasMessageStartingWith("Cancel order operation not allowed");
+        .hasMessageStartingWith(
+            String.format(Errors.CANCEL_ORDER_NOT_ALLOWED.getDescription(), requestOrder.getId()));
   }
 
   @Test
   void shouldReturn_EmptyCollection_WhenOrdersNotFound() {
     var requestOrder = setupFakeDeliveryOrder();
     when(waterDeliveryRepository.find(requestOrder.getFarmId())).thenReturn(null);
-    assertThat(waterDeliveryService.getDeliveryOrders(requestOrder.getFarmId()).size())
-        .isEqualTo(0);
+    Throwable throwable =
+        catchThrowable(() -> waterDeliveryService.getDeliveryOrders(requestOrder.getFarmId()));
+    assertThat(throwable)
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessageStartingWith(
+            String.format(
+                Errors.FARM_ID_NOT_FOUND.getDescription(), "1ddeab59-8bb1-4292-8fe4-7a6769411fe5"));
   }
 
   @Test
@@ -90,19 +97,6 @@ public class WaterDeliveryServiceTest implements AbstractTest {
   }
 
   @Test
-  void shouldThrowException_WhenFarmIdNotFound() {
-    var requestOrder = setupFakeDeliveryOrder();
-    when(waterDeliveryRepository.find(requestOrder.getFarmId()))
-        .thenReturn(Collections.emptyList());
-    Supplier<WaterDeliveryOrder> deliveryOrderSupplier =
-        () -> waterDeliveryService.getDeliveryOrder(requestOrder.getFarmId(), requestOrder.getId());
-    Throwable throwable = catchThrowable(deliveryOrderSupplier::get);
-    assertThat(throwable)
-        .isInstanceOf(IllegalArgumentException.class)
-        .hasMessageStartingWith("Farm id '1ddeab59-8bb1-4292-8fe4-7a6769411fe5' not found.");
-  }
-
-  @Test
   void shouldThrowException_WhenDeliveryOrderIsEmpty() {
     var requestOrder = setupFakeDeliveryOrder();
     when(waterDeliveryRepository.find(requestOrder.getFarmId())).thenReturn(List.of(requestOrder));
@@ -111,7 +105,7 @@ public class WaterDeliveryServiceTest implements AbstractTest {
     Throwable throwable = catchThrowable(deliveryOrderSupplier::get);
     assertThat(throwable)
         .isInstanceOf(IllegalArgumentException.class)
-        .hasMessageStartingWith("Order not found");
+        .hasMessageStartingWith(Errors.ORDER_NOT_FOUND.getDescription());
   }
 
   @Test
@@ -121,7 +115,7 @@ public class WaterDeliveryServiceTest implements AbstractTest {
     Throwable throwable = catchThrowable(() -> waterDeliveryService.acceptOrder(requestOrder));
     assertThat(throwable)
         .isInstanceOf(IllegalArgumentException.class)
-        .hasMessageStartingWith("The requested order exists");
+        .hasMessageStartingWith(Errors.EXISTING_ORDER_DUPLICATION.getDescription());
   }
 
   @Test
@@ -132,7 +126,7 @@ public class WaterDeliveryServiceTest implements AbstractTest {
     Throwable throwable = catchThrowable(() -> waterDeliveryService.acceptOrder(requestOrder));
     assertThat(throwable)
         .isInstanceOf(IllegalArgumentException.class)
-        .hasMessageStartingWith("The requested order falls within the time frame of another order");
+        .hasMessageStartingWith(Errors.TIME_FRAME_COLLISION.getDescription());
   }
 
   private WaterDeliveryOrder setupFakeDeliveryOrder() {

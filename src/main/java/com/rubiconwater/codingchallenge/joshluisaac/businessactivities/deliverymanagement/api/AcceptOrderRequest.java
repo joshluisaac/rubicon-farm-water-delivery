@@ -5,6 +5,8 @@ import com.rubiconwater.codingchallenge.joshluisaac.sharedkernel.BaseEntity;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import lombok.*;
 
 @Getter
@@ -12,6 +14,7 @@ import lombok.*;
 public class AcceptOrderRequest implements BaseEntity {
 
   @JsonProperty("farm_id")
+  @NotNull(message = "Please provide farm_id to create an order")
   private UUID farmId;
 
   private List<Order> orders;
@@ -24,6 +27,7 @@ public class AcceptOrderRequest implements BaseEntity {
     private LocalDateTime orderStartDate;
 
     @JsonProperty("duration")
+    @Min(1)
     private int supplyDuration;
   }
 }

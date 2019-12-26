@@ -3,6 +3,7 @@ package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.delivery
 import static org.assertj.core.api.Assertions.*;
 
 import com.rubiconwater.codingchallenge.joshluisaac.AbstractTest;
+import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.Errors;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.UuidUtils;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.WaterDeliveryUtils;
 import java.time.LocalDateTime;
@@ -34,7 +35,8 @@ public class WaterDeliveryOrderTest implements AbstractTest {
         catchThrowable(() -> createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 4));
     assertThat(throwable)
         .isInstanceOf(IllegalArgumentException.class)
-        .hasMessageStartingWith("Order start date cannot be in the past");
+        .hasMessageStartingWith(
+            String.format(Errors.ORDER_START_DATE_IN_THE_PAST.getDescription(), orderStartDate));
   }
 
   @Test
@@ -45,7 +47,7 @@ public class WaterDeliveryOrderTest implements AbstractTest {
         catchThrowable(() -> createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, -4));
     assertThat(throwable)
         .isInstanceOf(IllegalArgumentException.class)
-        .hasMessageStartingWith("Request supply duration cannot be");
+        .hasMessageStartingWith(Errors.ORDER_DURATION_CONSTRAINT.getDescription());
   }
 
   /**

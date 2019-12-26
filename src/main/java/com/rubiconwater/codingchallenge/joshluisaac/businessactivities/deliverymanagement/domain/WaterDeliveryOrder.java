@@ -1,6 +1,7 @@
 package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.domain;
 
 import com.google.common.base.Preconditions;
+import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.Errors;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.UuidUtils;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.WaterDeliveryUtils;
 import com.rubiconwater.codingchallenge.joshluisaac.sharedkernel.AbstractEntity;
@@ -23,10 +24,7 @@ public class WaterDeliveryOrder extends AbstractEntity {
   @Builder
   @ConstructorProperties({"farmId", "dateReceived", "orderStartDate", "supplyDuration"})
   public WaterDeliveryOrder(
-      @NonNull UUID farmId,
-      @NonNull LocalDateTime dateReceived,
-      @NonNull LocalDateTime orderStartDate,
-      int supplyDuration) {
+      UUID farmId, LocalDateTime dateReceived, LocalDateTime orderStartDate, int supplyDuration) {
     super(UuidUtils.create());
     checkOrderStartDate(dateReceived, orderStartDate);
     checkSupplyDuration(supplyDuration);
@@ -41,12 +39,12 @@ public class WaterDeliveryOrder extends AbstractEntity {
   private void checkOrderStartDate(LocalDateTime dateReceived, LocalDateTime orderStartDate) {
     Preconditions.checkArgument(
         (orderStartDate.isAfter(dateReceived) || orderStartDate.isEqual(dateReceived)),
-        String.format("Order start date cannot be in the past. Please check '%s'", orderStartDate));
+        String.format(Errors.ORDER_START_DATE_IN_THE_PAST.getDescription(), orderStartDate));
   }
 
   private void checkSupplyDuration(int supplyDuration) {
     Preconditions.checkArgument(
-        supplyDuration > 0, "Request supply duration cannot be less than 0");
+        supplyDuration > 0, Errors.ORDER_DURATION_CONSTRAINT.getDescription());
   }
 
   private LocalDateTime deliveryEndDate() {

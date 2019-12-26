@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,26 +34,13 @@ public class WaterDeliveryApiHandler {
    */
   @PostMapping(value = "farmers")
   public ResponseEntity<ApiResponse> placeOrder(
-      @RequestBody AcceptOrderRequest acceptOrderRequest) {
+      @Valid @RequestBody AcceptOrderRequest acceptOrderRequest) {
     var activeOrders =
         doPlaceOrder(acceptOrderRequest)
             .stream()
             .map(ApiMapper::toDeliveryResponse)
             .collect(Collectors.toUnmodifiableList());
     return ApiMapper.buildResponseEntity(activeOrders, HttpStatus.CREATED);
-  }
-
-  private List<WaterDeliveryOrder> doPlaceOrder(AcceptOrderRequest acceptOrderRequest) {
-    List<WaterDeliveryOrder> orders = new ArrayList<>();
-    acceptOrderRequest
-        .getOrders()
-        .forEach(
-            entry -> {
-              WaterDeliveryOrder deliveryOrder =
-                  deliveryService.acceptOrder(apiMapper.toDeliveryOrder(acceptOrderRequest, entry));
-              orders.add(deliveryOrder);
-            });
-    return orders;
   }
 
   /**
@@ -74,20 +62,6 @@ public class WaterDeliveryApiHandler {
     return ApiMapper.buildResponseEntity(cancelledOrders, HttpStatus.OK);
   }
 
-  private List<WaterDeliveryOrder> doCancelOrder(CancelOrderRequest cancelOrderRequest) {
-    List<WaterDeliveryOrder> orders = new ArrayList<>();
-    cancelOrderRequest
-        .getDeliveryIds()
-        .forEach(
-            entry -> {
-              var deliveryOrder =
-                  deliveryService.getDeliveryOrder(cancelOrderRequest.getFarmId(), entry);
-              deliveryService.cancelOrder(deliveryOrder);
-              orders.add(deliveryOrder);
-            });
-    return orders;
-  }
-
   /**
    * Controller endpoint to fetch all orders related to a farmId
    *
@@ -95,7 +69,7 @@ public class WaterDeliveryApiHandler {
    * @return
    */
   @GetMapping(value = "farmers/{farmId}")
-  public ResponseEntity<ApiResponse> getAllFarmOrders(@PathVariable UUID farmId) {
+  public ResponseEntity<ApiResponse> getAllFarmOrders(@NotNull @PathVariable UUID farmId) {
     var farmOrders =
         deliveryService
             .getDeliveryOrders(farmId)
@@ -118,5 +92,32 @@ public class WaterDeliveryApiHandler {
     return ApiMapper.buildResponseEntity(
         List.of(ApiMapper.toDeliveryResponse(deliveryService.getDeliveryOrder(farmId, orderId))),
         HttpStatus.OK);
+  }
+
+  private List<WaterDeliveryOrder> doPlaceOrder(AcceptOrderRequest acceptOrderRequest) {
+    List<WaterDeliveryOrder> orders = new ArrayList<>();
+    acceptOrderRequest
+        .getOrders()
+        .forEach(
+            entry -> {
+              WaterDeliveryOrder deliveryOrder =
+                  deliveryService.acceptOrder(apiMapper.toDeliveryOrder(acceptOrderRequest, entry));
+              orders.add(deliveryOrder);
+            });
+    return orders;
+  }
+
+  private List<WaterDeliveryOrder> doCancelOrder(CancelOrderRequest cancelOrderRequest) {
+    List<WaterDeliveryOrder> orders = new ArrayList<>();
+    cancelOrderRequest
+        .getDeliveryIds()
+        .forEach(
+            entry -> {
+              var deliveryOrder =
+                  deliveryService.getDeliveryOrder(cancelOrderRequest.getFarmId(), entry);
+              deliveryService.cancelOrder(deliveryOrder);
+              orders.add(deliveryOrder);
+            });
+    return orders;
   }
 }

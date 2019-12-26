@@ -13,7 +13,7 @@ import lombok.Getter;
 public class CancelOrderRequest implements BaseEntity {
 
   @JsonProperty("farm_id")
-  @NotNull(message = "Please provide farm_id.")
+  @NotNull(message = "Please provide farm_id to cancel order")
   private UUID farmId;
 
   @JsonProperty("orders")
