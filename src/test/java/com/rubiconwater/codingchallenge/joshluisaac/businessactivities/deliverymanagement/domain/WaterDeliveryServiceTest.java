@@ -6,8 +6,10 @@ import static org.mockito.Mockito.*;
 import com.rubiconwater.codingchallenge.joshluisaac.AbstractTest;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.UuidUtils;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Supplier;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -68,32 +70,49 @@ public class WaterDeliveryServiceTest implements AbstractTest {
         .isEqualTo(0);
   }
 
-  //  @Test
-  //  void shouldThrowException_WhenOrderNotFound() {
-  //    var requestOrder = setupFakeDeliveryOrder();
-  //    when(waterDeliveryRepository.find(requestOrder.getFarmId(), requestOrder.getId()))
-  //        .thenReturn(Optional.ofNullable(null));
-  //    Throwable throwable =
-  //        catchThrowable(
-  //            () ->
-  //                waterDeliveryService.getDeliveryOrder(
-  //                    requestOrder.getFarmId(), requestOrder.getId()));
-  //    assertThat(throwable)
-  //        .isInstanceOf(IllegalArgumentException.class)
-  //        .hasMessageStartingWith("Order not found");
-  //  }
-  //
-  //  @Test
-  //  void shouldReturnDeliveryOrder_OnFind() {
-  //    var requestOrder = setupFakeDeliveryOrder();
-  //    when(waterDeliveryRepository.find(requestOrder.getFarmId(), requestOrder.getId()))
-  //        .thenReturn(Optional.ofNullable(requestOrder));
-  //    assertThat(
-  //            waterDeliveryService
-  //                .getDeliveryOrder(requestOrder.getFarmId(), requestOrder.getId())
-  //                .getFarmId())
-  //        .isEqualTo(UuidUtils.toUuid("1ddeab59-8bb1-4292-8fe4-7a6769411fe5"));
-  //  }
+  @Test
+  void shouldReturn_ListOfOrders() {
+    var requestOrder = setupFakeDeliveryOrder();
+    when(waterDeliveryRepository.find(requestOrder.getFarmId())).thenReturn(List.of(requestOrder));
+    assertThat(waterDeliveryService.getDeliveryOrders(requestOrder.getFarmId()).size())
+        .isEqualTo(1);
+  }
+
+  @Test
+  void shouldReturn_DeliveryOrder() {
+    var requestOrder = setupFakeDeliveryOrder();
+    when(waterDeliveryRepository.find(requestOrder.getFarmId())).thenReturn(List.of(requestOrder));
+    assertThat(
+            waterDeliveryService
+                .getDeliveryOrder(requestOrder.getFarmId(), requestOrder.getId())
+                .getHash())
+        .isEqualTo(requestOrder.getHash());
+  }
+
+  @Test
+  void shouldThrowException_WhenFarmIdNotFound() {
+    var requestOrder = setupFakeDeliveryOrder();
+    when(waterDeliveryRepository.find(requestOrder.getFarmId()))
+        .thenReturn(Collections.emptyList());
+    Supplier<WaterDeliveryOrder> deliveryOrderSupplier =
+        () -> waterDeliveryService.getDeliveryOrder(requestOrder.getFarmId(), requestOrder.getId());
+    Throwable throwable = catchThrowable(deliveryOrderSupplier::get);
+    assertThat(throwable)
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessageStartingWith("Farm id '1ddeab59-8bb1-4292-8fe4-7a6769411fe5' not found.");
+  }
+
+  @Test
+  void shouldThrowException_WhenDeliveryOrderIsEmpty() {
+    var requestOrder = setupFakeDeliveryOrder();
+    when(waterDeliveryRepository.find(requestOrder.getFarmId())).thenReturn(List.of(requestOrder));
+    Supplier<WaterDeliveryOrder> deliveryOrderSupplier =
+        () -> waterDeliveryService.getDeliveryOrder(requestOrder.getFarmId(), null);
+    Throwable throwable = catchThrowable(deliveryOrderSupplier::get);
+    assertThat(throwable)
+        .isInstanceOf(IllegalArgumentException.class)
+        .hasMessageStartingWith("Order not found");
+  }
 
   @Test
   void shouldRejectAcceptOrder_WhenOrderAlreadyExists() {

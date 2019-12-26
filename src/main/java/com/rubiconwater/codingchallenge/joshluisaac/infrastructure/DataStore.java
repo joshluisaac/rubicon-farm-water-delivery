@@ -70,7 +70,11 @@ public class DataStore {
 
   public boolean update(WaterDeliveryOrder updatedRequestOrder) {
     Optional<WaterDeliveryOrder> oldRequestOrder =
-        find(updatedRequestOrder.getFarmId(), updatedRequestOrder.getId());
+        cache
+            .get(updatedRequestOrder.getFarmId())
+            .stream()
+            .filter(entry -> entry.getId().equals(updatedRequestOrder.getId()))
+            .findFirst();
     if (oldRequestOrder.isPresent()) {
       oldRequestOrder.get().setDeliveryStatus(updatedRequestOrder.getDeliveryStatus());
       updateDatabase();

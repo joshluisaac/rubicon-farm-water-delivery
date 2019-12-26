@@ -29,10 +29,8 @@ public class CancelOrderRequestTest {
                 UuidUtils.toUuid("1334d383-78a1-4cd9-ac9d-c5faf980d6b4"),
                 UuidUtils.toUuid("9ef5c0f7-1d1f-4955-a051-ce9ba1eb2812"),
                 UuidUtils.toUuid("736038b4-481a-41a7-96d6-be9f3fd95fc4")));
-
     CancelOrderRequest actual =
         JsonMappers.buildReader().forType(CancelOrderRequest.class).readValue(JSON_REQUEST_BODY);
-
     assertThat(actual.getFarmId()).isEqualTo(expected.getFarmId());
   }
 
@@ -45,10 +43,8 @@ public class CancelOrderRequestTest {
                 UuidUtils.toUuid("1334d383-78a1-4cd9-ac9d-c5faf980d6b4"),
                 UuidUtils.toUuid("9ef5c0f7-1d1f-4955-a051-ce9ba1eb2812"),
                 UuidUtils.toUuid("736038b4-481a-41a7-96d6-be9f3fd95fc4")));
-
     CancelOrderRequest actual =
         JsonMappers.buildReader().forType(CancelOrderRequest.class).readValue(JSON_REQUEST_BODY);
-
     assertThat(actual.getDeliveryIds().size()).isEqualTo(expected.getDeliveryIds().size());
   }
 }

@@ -61,14 +61,14 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryOrder> {
   }
 
   public WaterDeliveryOrder getDeliveryOrder(UUID farmId, UUID requestOrderId) {
-    return getDeliveryOrders(farmId)
+    var result = getDeliveryOrders(farmId);
+    if (result.isEmpty())
+      throw new IllegalArgumentException(String.format("Farm id '%s' not found.", farmId));
+    return result
         .stream()
         .filter(entry -> entry.getId().equals(requestOrderId))
         .findFirst()
         .orElseThrow(() -> new IllegalArgumentException("Order not found."));
-    //    return repository
-    //        .find(farmId, requestOrderId)
-    //        .orElseThrow(() -> new IllegalArgumentException("Order not found."));
   }
 
   private void checkExitingOrder(WaterDeliveryOrder requestOrder) {

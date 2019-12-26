@@ -10,7 +10,6 @@ import java.util.UUID;
 import lombok.*;
 import org.springframework.util.DigestUtils;
 
-// @JsonIgnoreType
 @Getter
 public class WaterDeliveryOrder extends AbstractEntity {
 

@@ -79,7 +79,6 @@ public class WaterDeliveryApiHandlerTest implements AbstractTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andReturn();
-
     String responseBody = responseResult.getResponse().getContentAsString();
     ApiResponse apiResponse =
         JsonMappers.buildReader().forType(ApiResponse.class).readValue(responseBody);
@@ -102,7 +101,6 @@ public class WaterDeliveryApiHandlerTest implements AbstractTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andReturn();
-
     String responseBody = responseResult.getResponse().getContentAsString();
     assertThat(responseBody).contains(requestOrderId.toString());
   }

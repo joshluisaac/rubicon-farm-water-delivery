@@ -97,14 +97,6 @@ public class DataStoreTest implements AbstractTest {
     assertThat(dataStore.findByFarmId(requestOrder.getFarmId()).size()).isEqualTo(2);
   }
 
-  //  @Test
-  //  void testShouldReturn_DeliveryOrder() {
-  //    var requestOrder = setupFakeDeliveryOrder();
-  //    dataStore.add(requestOrder);
-  //    var waterDelivery = dataStore.find(requestOrder.getFarmId(), requestOrder.getId()).get();
-  //    assertThat(waterDelivery.getHash()).isEqualTo(requestOrder.getHash());
-  //  }
-
   @Test
   public void throwIllegalArgumentException_OnURL_NotFound() throws IOException {
     when(resource.getURL()).thenReturn(null);
