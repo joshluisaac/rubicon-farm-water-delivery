@@ -56,4 +56,5 @@ The following invariants and preconditions must be met for `Order` to be in a va
 The following will be written to log file when 
 
 
-1. Document overlapping condition
+1. Document overlapping condition and criteria
+2. Document logging and error handling across the entire infrastructure.
