@@ -1,4 +1,4 @@
-package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement;
+package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.domain;
 
 public enum WaterDeliveryStatus {
   REQUESTED("Requested", true),

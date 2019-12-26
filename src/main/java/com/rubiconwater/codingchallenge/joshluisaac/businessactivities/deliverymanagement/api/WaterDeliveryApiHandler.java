@@ -1,11 +1,12 @@
 package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.api;
 
-import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.WaterDeliveryOrder;
-import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.WaterDeliveryService;
+import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.domain.WaterDeliveryOrder;
+import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.domain.WaterDeliveryService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +34,6 @@ public class WaterDeliveryApiHandler {
   @PostMapping(value = "farmers")
   public ResponseEntity<ApiResponse> placeOrder(
       @RequestBody AcceptOrderRequest acceptOrderRequest) {
-
     var activeOrders =
         doPlaceOrder(acceptOrderRequest)
             .stream()
@@ -63,9 +63,9 @@ public class WaterDeliveryApiHandler {
    * @return
    */
   @PutMapping(value = "farmers")
-  public ResponseEntity<ApiResponse> updateFarmOrder(
-      @RequestBody CancelOrderRequest cancelOrderRequest, @RequestParam boolean cancel) {
-    if (!cancel) throw new IllegalArgumentException("JUN: Consider creating a custom exception");
+  public ResponseEntity<ApiResponse> cancelOrder(
+      @Valid @RequestBody CancelOrderRequest cancelOrderRequest, @RequestParam boolean cancel) {
+    if (!cancel) throw new IllegalArgumentException("The query parameter cancel must be 'true'");
     var cancelledOrders =
         doCancelOrder(cancelOrderRequest)
             .stream()
@@ -96,13 +96,14 @@ public class WaterDeliveryApiHandler {
    */
   @GetMapping(value = "farmers/{farmId}")
   public ResponseEntity<ApiResponse> getAllFarmOrders(@PathVariable UUID farmId) {
-    var activeOrders =
+    var farmOrders =
         deliveryService
             .getDeliveryOrders(farmId)
             .stream()
             .map(ApiMapper::toDeliveryResponse)
             .collect(Collectors.toUnmodifiableList());
-    return ApiMapper.buildResponseEntity(activeOrders, HttpStatus.OK);
+    if (farmOrders.isEmpty()) throw new DeliveryOrderNotFoundException(farmId);
+    return ApiMapper.buildResponseEntity(farmOrders, HttpStatus.OK);
   }
 
   /**

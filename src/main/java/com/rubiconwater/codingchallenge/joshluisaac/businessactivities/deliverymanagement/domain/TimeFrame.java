@@ -1,4 +1,4 @@
-package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement;
+package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import java.time.LocalDateTime;

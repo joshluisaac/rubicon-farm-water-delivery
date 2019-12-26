@@ -1,4 +1,4 @@
-package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement;
+package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.domain;
 
 import com.rubiconwater.codingchallenge.joshluisaac.sharedkernel.EntityService;
 import java.util.Collections;
@@ -47,7 +47,7 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryOrder> {
     throw new IllegalArgumentException(
         String.format(
             "Cancel order operation not allowed. "
-                + "You cannot cancel what has already been delivered or previously cancelled. %n "
+                + "You cannot cancel what has already been delivered or previously cancelled. "
                 + "Please check order delivery status for orderId (%s)",
             requestOrder.getId()));
   }
@@ -61,9 +61,14 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryOrder> {
   }
 
   public WaterDeliveryOrder getDeliveryOrder(UUID farmId, UUID requestOrderId) {
-    return repository
-        .find(farmId, requestOrderId)
+    return getDeliveryOrders(farmId)
+        .stream()
+        .filter(entry -> entry.getId().equals(requestOrderId))
+        .findFirst()
         .orElseThrow(() -> new IllegalArgumentException("Order not found."));
+    //    return repository
+    //        .find(farmId, requestOrderId)
+    //        .orElseThrow(() -> new IllegalArgumentException("Order not found."));
   }
 
   private void checkExitingOrder(WaterDeliveryOrder requestOrder) {

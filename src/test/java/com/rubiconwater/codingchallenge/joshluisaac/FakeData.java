@@ -2,7 +2,7 @@ package com.rubiconwater.codingchallenge.joshluisaac;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.WaterDeliveryOrder;
+import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.domain.WaterDeliveryOrder;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.JsonMappers;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.UuidUtils;
 import java.time.LocalDateTime;

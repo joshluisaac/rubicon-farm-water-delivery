@@ -1,6 +1,6 @@
 package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.api;
 
-import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.WaterDeliveryOrder;
+import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.domain.WaterDeliveryOrder;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.http.HttpStatus;

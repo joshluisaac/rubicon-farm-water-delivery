@@ -1,4 +1,4 @@
-package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement;
+package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.domain;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -8,7 +8,6 @@ import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.DataStore;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.UuidUtils;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -53,14 +52,14 @@ public class WaterDeliveryRepositoryTest implements AbstractTest {
     assertThat(repository.find(requestOrder.getFarmId()).size()).isEqualTo(1);
   }
 
-  @Test
-  void verifyFindOne() {
-    var requestOrder = setupFakeDeliveryOrder();
-    when(dataStore.find(requestOrder.getFarmId(), requestOrder.getId()))
-        .thenReturn(Optional.of(requestOrder));
-    assertThat(repository.find(requestOrder.getFarmId(), requestOrder.getId()).isPresent())
-        .isTrue();
-  }
+  //  @Test
+  //  void verifyFindOne() {
+  //    var requestOrder = setupFakeDeliveryOrder();
+  //    when(dataStore.find(requestOrder.getFarmId(), requestOrder.getId()))
+  //        .thenReturn(Optional.of(requestOrder));
+  //    assertThat(repository.find(requestOrder.getFarmId(), requestOrder.getId()).isPresent())
+  //        .isTrue();
+  //  }
 
   private WaterDeliveryOrder setupFakeDeliveryOrder() {
     LocalDateTime dateOrderReceived = LocalDateTime.parse("2019-09-12T13:45:11");

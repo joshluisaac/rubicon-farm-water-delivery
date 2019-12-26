@@ -1,4 +1,4 @@
-package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement;
+package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.domain;
 
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.DataStore;
 import java.util.*;
@@ -23,11 +23,6 @@ public class WaterDeliveryRepository implements DeliveryRepository<WaterDelivery
   @Override
   public List<WaterDeliveryOrder> find(UUID farmId) {
     return dataStore.findByFarmId(farmId);
-  }
-
-  @Override
-  public Optional<WaterDeliveryOrder> find(UUID farmId, UUID requestOrderId) {
-    return dataStore.find(farmId, requestOrderId);
   }
 
   @Override

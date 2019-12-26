@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.rubiconwater.codingchallenge.joshluisaac.sharedkernel.BaseEntity;
 import java.util.List;
 import java.util.UUID;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -12,6 +13,7 @@ import lombok.Getter;
 public class CancelOrderRequest implements BaseEntity {
 
   @JsonProperty("farm_id")
+  @NotNull(message = "Please provide farm_id.")
   private UUID farmId;
 
   @JsonProperty("orders")

@@ -5,8 +5,8 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.rubiconwater.codingchallenge.joshluisaac.AbstractTest;
-import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.WaterDeliveryOrder;
-import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.WaterDeliveryService;
+import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.domain.WaterDeliveryOrder;
+import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.domain.WaterDeliveryService;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.JsonMappers;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.UuidUtils;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.interceptors.RequestObserver;

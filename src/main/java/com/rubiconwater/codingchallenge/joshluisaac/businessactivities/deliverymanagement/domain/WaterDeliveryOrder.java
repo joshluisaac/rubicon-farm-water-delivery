@@ -1,4 +1,4 @@
-package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement;
+package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.domain;
 
 import com.google.common.base.Preconditions;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.UuidUtils;
@@ -42,7 +42,7 @@ public class WaterDeliveryOrder extends AbstractEntity {
   private void checkOrderStartDate(LocalDateTime dateReceived, LocalDateTime orderStartDate) {
     Preconditions.checkArgument(
         (orderStartDate.isAfter(dateReceived) || orderStartDate.isEqual(dateReceived)),
-        "Order start date cannot be in the past.");
+        String.format("Order start date cannot be in the past. Please check '%s'", orderStartDate));
   }
 
   private void checkSupplyDuration(int supplyDuration) {

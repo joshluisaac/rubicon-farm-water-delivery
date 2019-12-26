@@ -1,7 +1,7 @@
 package com.rubiconwater.codingchallenge.joshluisaac.infrastructure;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.WaterDeliveryOrder;
+import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.domain.WaterDeliveryOrder;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.FileUtils;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.JsonMappers;
 import java.io.File;
@@ -87,13 +87,6 @@ public class DataStore {
    */
   public List<WaterDeliveryOrder> findByFarmId(UUID farmId) {
     return cache.get(farmId);
-  }
-
-  public Optional<WaterDeliveryOrder> find(UUID farmId, UUID requestOrderId) {
-    return findByFarmId(farmId)
-        .stream()
-        .filter(entry -> entry.getId().equals(requestOrderId))
-        .findFirst();
   }
 
   private void doFlushToDisk() {
