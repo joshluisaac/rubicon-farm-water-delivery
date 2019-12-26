@@ -14,7 +14,9 @@ public class Errors {
           "The requested order falls within the time frame of another order");
 
   public static final Error EXISTING_ORDER_DUPLICATION =
-      new Error("EXISTING_ORDER_DUPLICATION", "The requested order exists.");
+      new Error(
+          "EXISTING_ORDER_DUPLICATION",
+          "The requested order exists. Please check and remove (order_start_date: %s and duration: %d)");
 
   public static final Error ORDER_NOT_FOUND = new Error("ORDER_NOT_FOUND", "Order not found.");
 
@@ -34,12 +36,21 @@ public class Errors {
           "Order start date cannot be in the past. Please check '%s'");
 
   // Web layer errors
-  public static final Error REQUEST_BODY_DESERIALIZATION_ERROR =
+  public static final Error REQUEST_BODY_DESERIALIZATION_ERROR_NOT_VALID =
       new Error(
-          "REQUEST_BODY_DESERIALIZATION_ERROR", "Validation error. Please check request body.");
+          "REQUEST_BODY_DESERIALIZATION_ERROR_NOT_VALID",
+          "Request body fails validation. Please check request body.");
+
+  public static final Error REQUEST_BODY_DESERIALIZATION_ERROR_NOT_READABLE =
+      new Error(
+          "REQUEST_BODY_DESERIALIZATION_ERROR_NOT_READABLE",
+          "Request body is not readable. Please check request body.");
 
   public static final Error METHOD_ARGUMENT_TYPE_MISMATCH =
       new Error(
           "METHOD_ARGUMENT_TYPE_MISMATCH",
           "The parameter '%s' of value '%s' could not be converted to '%s'");
+
+  public static final Error CANCEL_NOT_TRUE =
+      new Error("CANCEL_NOT_TRUE", "The query parameter cancel must be 'true'");
 }

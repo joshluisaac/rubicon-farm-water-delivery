@@ -115,7 +115,11 @@ public class WaterDeliveryServiceTest implements AbstractTest {
     Throwable throwable = catchThrowable(() -> waterDeliveryService.acceptOrder(requestOrder));
     assertThat(throwable)
         .isInstanceOf(IllegalArgumentException.class)
-        .hasMessageStartingWith(Errors.EXISTING_ORDER_DUPLICATION.getDescription());
+        .hasMessageStartingWith(
+            String.format(
+                Errors.EXISTING_ORDER_DUPLICATION.getDescription(),
+                requestOrder.getOrderStartDate(),
+                requestOrder.getSupplyDuration()));
   }
 
   @Test

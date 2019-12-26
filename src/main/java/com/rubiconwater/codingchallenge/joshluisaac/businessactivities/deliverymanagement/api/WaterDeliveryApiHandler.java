@@ -2,6 +2,7 @@ package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.delivery
 
 import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.domain.WaterDeliveryOrder;
 import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.domain.WaterDeliveryService;
+import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.Errors;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -53,7 +54,7 @@ public class WaterDeliveryApiHandler {
   @PutMapping(value = "farmers")
   public ResponseEntity<ApiResponse> cancelOrder(
       @Valid @RequestBody CancelOrderRequest cancelOrderRequest, @RequestParam boolean cancel) {
-    if (!cancel) throw new IllegalArgumentException("The query parameter cancel must be 'true'");
+    if (!cancel) throw new IllegalArgumentException(Errors.CANCEL_NOT_TRUE.getDescription());
     var cancelledOrders =
         doCancelOrder(cancelOrderRequest)
             .stream()

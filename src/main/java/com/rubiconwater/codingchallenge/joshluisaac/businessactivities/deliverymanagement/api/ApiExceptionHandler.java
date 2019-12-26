@@ -27,7 +27,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
   }
 
   @ExceptionHandler(IllegalArgumentException.class)
-  public ResponseEntity<Object> handleIllegal(Exception ex, WebRequest request) {
+  public ResponseEntity<Object> handleIllegalArgumentException(Exception ex, WebRequest request) {
     return buildResponseEntityFromApiError(HttpStatus.BAD_REQUEST, ex.getMessage(), request);
   }
 
@@ -75,7 +75,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         .forEach(entry -> System.out.println(entry.getDefaultMessage()));
     return buildResponseEntityFromApiError(
         HttpStatus.BAD_REQUEST,
-        Errors.REQUEST_BODY_DESERIALIZATION_ERROR.getDescription(),
+        Errors.REQUEST_BODY_DESERIALIZATION_ERROR_NOT_VALID.getDescription(),
         request);
   }
 
@@ -87,7 +87,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
       WebRequest request) {
     return buildResponseEntityFromApiError(
         HttpStatus.BAD_REQUEST,
-        Errors.REQUEST_BODY_DESERIALIZATION_ERROR.getDescription(),
+        Errors.REQUEST_BODY_DESERIALIZATION_ERROR_NOT_READABLE.getDescription(),
         request);
   }
 

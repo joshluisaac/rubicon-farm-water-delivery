@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.rubiconwater.codingchallenge.joshluisaac.AbstractTest;
 import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.domain.WaterDeliveryOrder;
 import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.domain.WaterDeliveryService;
+import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.Errors;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.JsonMappers;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.UuidUtils;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.interceptors.RequestObserver;
@@ -22,6 +23,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 @ExtendWith(SpringExtension.class)
@@ -65,6 +67,158 @@ public class WaterDeliveryApiHandlerTest implements AbstractTest {
           + "    \"736038b4-481a-41a7-96d6-be9f3fd95fc4\"\n"
           + "  ]\n"
           + "}";
+
+  private static final String UNREADABLE_REQUEST =
+      "{\n"
+          + "  \"farm_id\": \"975eebdd-b9fa-493b-ac55-273383b02c86\"\n"
+          + "  \"orders\": [\n"
+          + "\n"
+          + "    {\n"
+          + "      \"order_start_date\": \"2019-12-20T06:10:11\",\n"
+          + "      \"duration\": 7\n"
+          + "    },\n"
+          + "\n"
+          + "    {\n"
+          + "      \"order_start_date\": \"2020-01-10T06:10:11\",\n"
+          + "      \"duration\": 4\n"
+          + "    },\n"
+          + "\n"
+          + "    {\n"
+          + "      \"order_start_date\": \"2020-01-15T06:10:11\",\n"
+          + "      \"duration\": 10\n"
+          + "    }\n"
+          + "  ]\n"
+          + "\n"
+          + "}";
+
+  private static final String INVALID_REQUEST = "{}";
+
+  @Test
+  public void shouldReturn_MethodNotAllowed_WhenFarmIdIsEmpty() throws Exception {
+    var requestOrder = setupFakeDeliveryOrder();
+    when(deliveryService.getDeliveryOrders(requestOrder.getFarmId()))
+        .thenReturn(List.of(requestOrder));
+    MvcResult responseResult =
+        mockMvc
+            .perform(MockMvcRequestBuilders.get("/api/farmers/{farmId}", ""))
+            .andExpect(status().isMethodNotAllowed())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andReturn();
+    String responseBody = responseResult.getResponse().getContentAsString();
+    ApiError apiError = JsonMappers.buildReader().forType(ApiError.class).readValue(responseBody);
+    assertThat(apiError.getErrorMessage()).isEqualTo("Request method 'GET' not supported");
+  }
+
+  @Test
+  public void shouldReturn_BadRequest_OnMissingServletRequestParameter() throws Exception {
+    var requestOrder = setupFakeDeliveryOrder();
+    when(deliveryService.getDeliveryOrder(any(), any())).thenReturn(requestOrder);
+    MvcResult responseResult =
+        mockMvc
+            .perform(
+                MockMvcRequestBuilders.put("/api/farmers")
+                    .content(CANCEL_ORDER_REQUEST)
+                    .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isBadRequest())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andReturn();
+    String responseBody = responseResult.getResponse().getContentAsString();
+    ApiError apiError = JsonMappers.buildReader().forType(ApiError.class).readValue(responseBody);
+    assertThat(apiError.getErrorMessage())
+        .isEqualTo("Required boolean parameter 'cancel' is not present");
+  }
+
+  @Test
+  public void shouldReturn_BadRequest_WhenSameOrderIsPlacedTwiceOrMore() throws Exception {
+    var requestOrder = setupFakeDeliveryOrder();
+    when(apiMapper.toDeliveryOrder(any(), any())).thenReturn(requestOrder);
+    when(deliveryService.acceptOrder(any()))
+        .thenThrow(
+            new IllegalArgumentException(
+                String.format(
+                    Errors.EXISTING_ORDER_DUPLICATION.getDescription(),
+                    requestOrder.getOrderStartDate(),
+                    requestOrder.getSupplyDuration())));
+    ResultActions postResultActions = postResultActions();
+    postResultActions.andExpect(status().isBadRequest());
+  }
+
+  private ResultActions postResultActions() throws Exception {
+    return mockMvc.perform(
+        MockMvcRequestBuilders.post("/api/farmers")
+            .content(ACCEPT_ORDER_REQUEST)
+            .contentType(MediaType.APPLICATION_JSON));
+  }
+
+  @Test
+  public void shouldReturn_UnSupportedMediaType_WhenContentTypeIsNotJson() throws Exception {
+    var requestOrder = setupFakeDeliveryOrder();
+    when(apiMapper.toDeliveryOrder(any(), any())).thenReturn(requestOrder);
+    when(deliveryService.acceptOrder(any())).thenReturn(requestOrder);
+    mockMvc
+        .perform(
+            MockMvcRequestBuilders.post("/api/farmers")
+                .content(ACCEPT_ORDER_REQUEST)
+                .contentType(MediaType.TEXT_PLAIN_VALUE))
+        .andExpect(status().isUnsupportedMediaType())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        .andReturn();
+  }
+
+  @Test
+  public void shouldReturn_BadRequest_OnMethodArgumentTypeMismatch() throws Exception {
+    var requestOrder = setupFakeDeliveryOrder();
+    when(deliveryService.getDeliveryOrder(any(), any())).thenReturn(requestOrder);
+    mockMvc
+        .perform(
+            MockMvcRequestBuilders.put("/api/farmers")
+                .param("cancel", "someRandomText")
+                .content(CANCEL_ORDER_REQUEST)
+                .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isBadRequest())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        .andReturn();
+  }
+
+  @Test
+  public void shouldReturn_BadRequest_WhenHttpMessageNotReadable() throws Exception {
+    var requestOrder = setupFakeDeliveryOrder();
+    when(apiMapper.toDeliveryOrder(any(), any())).thenReturn(requestOrder);
+    when(deliveryService.acceptOrder(any())).thenReturn(requestOrder);
+    MvcResult responseResult =
+        mockMvc
+            .perform(
+                MockMvcRequestBuilders.post("/api/farmers")
+                    .content(UNREADABLE_REQUEST)
+                    .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isBadRequest())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andReturn();
+    String responseBody = responseResult.getResponse().getContentAsString();
+    ApiError apiError = JsonMappers.buildReader().forType(ApiError.class).readValue(responseBody);
+    assertThat(apiError.getErrorMessage())
+        .isEqualTo(Errors.REQUEST_BODY_DESERIALIZATION_ERROR_NOT_READABLE.getDescription());
+  }
+
+  @Test
+  public void shouldReturn_BadRequest_WhenRequestBodyIsInvalid() throws Exception {
+    var requestOrder = setupFakeDeliveryOrder();
+    when(apiMapper.toDeliveryOrder(any(), any())).thenReturn(requestOrder);
+    when(deliveryService.acceptOrder(any())).thenReturn(requestOrder);
+    MvcResult responseResult =
+        mockMvc
+            .perform(
+                MockMvcRequestBuilders.post("/api/farmers")
+                    .content(INVALID_REQUEST)
+                    .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isBadRequest())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andReturn();
+    String responseBody = responseResult.getResponse().getContentAsString();
+    ApiError apiError = JsonMappers.buildReader().forType(ApiError.class).readValue(responseBody);
+    assertThat(apiError.getErrorMessage())
+        .isEqualTo(Errors.REQUEST_BODY_DESERIALIZATION_ERROR_NOT_VALID.getDescription());
+  }
 
   @Test
   public void shouldCheckResponse_OnGetAllDeliveryOrders() throws Exception {
@@ -134,6 +288,25 @@ public class WaterDeliveryApiHandlerTest implements AbstractTest {
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andReturn();
     verify(deliveryService, times(3)).cancelOrder(any());
+  }
+
+  @Test
+  public void shouldReturn_BadRequest_WhenCancelRequestParamNotTrue() throws Exception {
+    var requestOrder = setupFakeDeliveryOrder();
+    when(deliveryService.getDeliveryOrder(any(), any())).thenReturn(requestOrder);
+    MvcResult responseResult =
+        mockMvc
+            .perform(
+                MockMvcRequestBuilders.put("/api/farmers")
+                    .param("cancel", "false")
+                    .content(CANCEL_ORDER_REQUEST)
+                    .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isBadRequest())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andReturn();
+    String responseBody = responseResult.getResponse().getContentAsString();
+    ApiError apiError = JsonMappers.buildReader().forType(ApiError.class).readValue(responseBody);
+    assertThat(apiError.getErrorMessage()).isEqualTo(Errors.CANCEL_NOT_TRUE.getDescription());
   }
 
   private WaterDeliveryOrder setupFakeDeliveryOrder() {

@@ -57,4 +57,17 @@ The following will be written to log file when
 
 
 1. Document overlapping condition and criteria
-2. Document logging and error handling across the entire infrastructure.
+2. Document logging and error handling across the entire infrastructure. 
+Maintained a centralised copy of the list of possible errors known to the application aimed at reducing error code duplication.
+Each error object contains a code and the description of the error can be easily retrieved across the entire system without having to duplicate error descriptions.
+This can also be used as a customer reference code for back-office investigation in the event that an error occurred while trying to interact with the APIs.
+
+Errors.java to centralize 
+code and description of 
+
+>> Maintaining multiple copies of anything in especially large systems/code base makes it very hard to introduce changes and therefore stifles evolution.
+>Rather than having multiple copies of error log messages, I created a single unambiguous reference of errors known to the application in Errors.java 
+>This has the following benefits:
+1. Reduced error code duplication
+2. Reduced error code noise and clutter which generally reduces code comprehension
+3. Maintaining a consistent error description across the entire infrastructure without having to change test harness when error description changes.

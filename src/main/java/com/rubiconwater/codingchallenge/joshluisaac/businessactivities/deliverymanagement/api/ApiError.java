@@ -2,10 +2,12 @@ package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.delivery
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDateTime;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
-@Data
+@Getter
+@Setter
 public class ApiError {
 
   private HttpStatus status;

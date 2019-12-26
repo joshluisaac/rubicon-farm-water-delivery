@@ -58,6 +58,7 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryOrder> {
         String.format(Errors.FARM_ID_NOT_FOUND.getDescription(), farmId));
   }
 
+  //JUN: Change IllegalArgumentException -> DeliveryOrderNotFoundException
   public WaterDeliveryOrder getDeliveryOrder(UUID farmId, UUID requestOrderId) {
     var result = getDeliveryOrders(farmId);
     return result
@@ -71,7 +72,11 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryOrder> {
     boolean result =
         checkStream(requestOrder, entry -> entry.getHash().equals(requestOrder.getHash()));
     if (result)
-      throw new IllegalArgumentException(Errors.EXISTING_ORDER_DUPLICATION.getDescription());
+      throw new IllegalArgumentException(
+          String.format(
+              Errors.EXISTING_ORDER_DUPLICATION.getDescription(),
+              requestOrder.getOrderStartDate(),
+              requestOrder.getSupplyDuration()));
   }
 
   private void checkTimeFrameCollision(WaterDeliveryOrder requestOrder) {
