@@ -10,6 +10,11 @@ covering the specification of the requirements described [here](RubiconCodingCha
 
 The application features a couple of endpoints for ordering water, querying existing orders and cancelling an order.
 
+The application allows you to add,modify and delete existing customers and contact details. These three operations has side effects on the data structure of an in-memory [DataStore](src/main/java/au/com/belong/codingtest/joshluisaac/infrastructure/DataStore.java)
+which internally uses a [ConcurrentHashMap<K,​V>] while keeping track of these changes.
+These changes are also flushed/written to disk to prevent lost updates on next application restart and to keep both the in-memory cache and dataset in a eventually consistent state.
+The dataset path is located here [here](config/CustomerDataSet.json). On startup, the application gets preloaded and initialized with a set of customers from the same JSON dataset.
+
 
 
 
@@ -125,8 +130,7 @@ Code coverage was both executed as part of maven build cycle using [JaCoCo](http
 ![alt text][codecoverage]
 
 ### Coverall report
-Executing the following command will generate Jacoco and [coveralls coverage reports](https://coveralls.io/jobs/56914384
-).
+Executing the following command will generate Jacoco and [coveralls coverage reports](https://coveralls.io/github/joshluisaac/FarmWaterDelivery?branch=master).
 ```bash
 mvn clean test jacoco:report coveralls:report
 ```
