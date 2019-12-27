@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import com.rubiconwater.codingchallenge.joshluisaac.AbstractTest;
-import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.DataStore;
+import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.PersistenceMechanism;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.UuidUtils;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,21 +20,21 @@ public class WaterDeliveryRepositoryTest implements AbstractTest {
 
   @InjectMocks private WaterDeliveryRepository repository;
 
-  @Mock private DataStore dataStore;
+  @Mock private PersistenceMechanism persistenceMechanism;
 
   @Test
   void verifyUpdate() {
     var requestOrder = setupFakeDeliveryOrder();
     repository.update(requestOrder);
-    verify(dataStore, times(1)).update(requestOrder);
+    verify(persistenceMechanism, times(1)).update(requestOrder);
   }
 
   @Test
   void verifySave() {
     var requestOrder = setupFakeDeliveryOrder();
-    when(dataStore.add(requestOrder)).thenReturn(requestOrder);
+    when(persistenceMechanism.add(requestOrder)).thenReturn(requestOrder);
     var actual = repository.save(requestOrder);
-    verify(dataStore, times(1)).add(requestOrder);
+    verify(persistenceMechanism, times(1)).add(requestOrder);
     assertThat(actual.getHash()).isEqualTo(requestOrder.getHash());
   }
 
@@ -42,13 +42,14 @@ public class WaterDeliveryRepositoryTest implements AbstractTest {
   void verifyDelete() {
     var requestOrder = setupFakeDeliveryOrder();
     repository.delete(requestOrder);
-    verify(dataStore, times(1)).delete(requestOrder);
+    verify(persistenceMechanism, times(1)).delete(requestOrder);
   }
 
   @Test
   void verifyFindAll() {
     var requestOrder = setupFakeDeliveryOrder();
-    when(dataStore.findByFarmId(requestOrder.getFarmId())).thenReturn(List.of(requestOrder));
+    when(persistenceMechanism.findByFarmId(requestOrder.getFarmId()))
+        .thenReturn(List.of(requestOrder));
     assertThat(repository.find(requestOrder.getFarmId()).size()).isEqualTo(1);
   }
 

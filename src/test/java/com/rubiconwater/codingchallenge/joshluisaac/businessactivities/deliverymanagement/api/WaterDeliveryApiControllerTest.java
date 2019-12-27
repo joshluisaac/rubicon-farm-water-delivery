@@ -27,8 +27,8 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(WaterDeliveryApiHandler.class)
-public class WaterDeliveryApiHandlerTest implements AbstractTest {
+@WebMvcTest(WaterDeliveryApiController.class)
+public class WaterDeliveryApiControllerTest implements AbstractTest {
 
   @MockBean private WaterDeliveryService deliveryService;
   @MockBean private ApiMapper apiMapper;

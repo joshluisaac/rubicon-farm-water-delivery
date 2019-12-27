@@ -8,21 +8,22 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+@Validated
 @RestController
 @RequestMapping("/api/")
-public class WaterDeliveryApiHandler {
+public class WaterDeliveryApiController {
 
   private final WaterDeliveryService deliveryService;
   private final ApiMapper apiMapper;
 
   @Autowired
-  public WaterDeliveryApiHandler(WaterDeliveryService deliveryService, ApiMapper apiMapper) {
+  public WaterDeliveryApiController(WaterDeliveryService deliveryService, ApiMapper apiMapper) {
     this.deliveryService = deliveryService;
     this.apiMapper = apiMapper;
   }
@@ -70,7 +71,7 @@ public class WaterDeliveryApiHandler {
    * @return
    */
   @GetMapping(value = "farmers/{farmId}")
-  public ResponseEntity<ApiResponse> getAllFarmOrders(@NotNull @PathVariable UUID farmId) {
+  public ResponseEntity<ApiResponse> getAllFarmOrders(@PathVariable("farmId") UUID farmId) {
     var farmOrders =
         deliveryService
             .getDeliveryOrders(farmId)
@@ -89,7 +90,7 @@ public class WaterDeliveryApiHandler {
    */
   @GetMapping(value = "farmers/{farmId}/orders/{orderId}")
   public ResponseEntity<ApiResponse> getFarmOrder(
-      @PathVariable UUID farmId, @PathVariable UUID orderId) {
+      @PathVariable("farmId") UUID farmId, @PathVariable("orderId") UUID orderId) {
     return ApiMapper.buildResponseEntity(
         List.of(ApiMapper.toDeliveryResponse(deliveryService.getDeliveryOrder(farmId, orderId))),
         HttpStatus.OK);

@@ -58,7 +58,7 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryOrder> {
         String.format(Errors.FARM_ID_NOT_FOUND.getDescription(), farmId));
   }
 
-  //JUN: Change IllegalArgumentException -> DeliveryOrderNotFoundException
+  // JUN: Change IllegalArgumentException -> DeliveryOrderNotFoundException
   public WaterDeliveryOrder getDeliveryOrder(UUID farmId, UUID requestOrderId) {
     var result = getDeliveryOrders(farmId);
     return result

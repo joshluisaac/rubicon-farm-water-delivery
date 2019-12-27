@@ -17,8 +17,7 @@
         </filter>
         <file>Application.log</file>
         <encoder>
-            <pattern>%d{ISO8601} %-5p
-                %m%n
+            <pattern>%d{ISO8601} %-5p %m%n
             </pattern>
         </encoder>
     </appender>
@@ -28,8 +27,7 @@
         </filter>
         <file>ApplicationError.log</file>
         <encoder>
-            <pattern>%d{ISO8601}
-                %-5p %m%n
+            <pattern>%d{ISO8601} %-5p %m%n
             </pattern>
         </encoder>
     </appender>

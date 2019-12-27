@@ -18,9 +18,9 @@ import org.springframework.stereotype.Service;
 
 /** The responsibility of this class is to store delivery requests. */
 @Service(value = "DataBaseService")
-public class DataStore {
+public class PersistenceMechanism {
 
-  private static final Logger LOG = LoggerFactory.getLogger(DataStore.class);
+  private static final Logger LOG = LoggerFactory.getLogger(PersistenceMechanism.class);
 
   @Value("file:data/DeliveryOrderDataSet.json")
   private Resource resource;

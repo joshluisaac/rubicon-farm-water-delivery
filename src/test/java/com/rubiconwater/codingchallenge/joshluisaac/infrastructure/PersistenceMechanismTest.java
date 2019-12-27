@@ -22,9 +22,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.core.io.Resource;
 
 @ExtendWith(MockitoExtension.class)
-public class DataStoreTest implements AbstractTest {
+public class PersistenceMechanismTest implements AbstractTest {
 
-  @InjectMocks DataStore dataStore;
+  @InjectMocks PersistenceMechanism persistenceMechanism;
 
   @Mock Resource resource;
 
@@ -39,31 +39,31 @@ public class DataStoreTest implements AbstractTest {
     when(resource.getInputStream()).thenReturn(inputStream);
     when(resource.getURL()).thenReturn(url);
     when(resource.getFile()).thenReturn(new File("TestDeliveryOrderDataSet.json"));
-    dataStore.setResource(resource);
-    dataStore.load();
+    persistenceMechanism.setResource(resource);
+    persistenceMechanism.load();
   }
 
   @Test
   void testShould_AddDeliveryOrderToCache() {
     var requestOrder = setupFakeDeliveryOrder();
-    dataStore.add(requestOrder);
-    assertThat(dataStore.findByFarmId(requestOrder.getFarmId()).size()).isEqualTo(1);
+    persistenceMechanism.add(requestOrder);
+    assertThat(persistenceMechanism.findByFarmId(requestOrder.getFarmId()).size()).isEqualTo(1);
   }
 
   @Test
   void testShould_DeleteWaterDeliveryOrder() {
     var requestOrder = setupFakeDeliveryOrder();
-    dataStore.add(requestOrder);
-    boolean result = dataStore.delete(requestOrder);
+    persistenceMechanism.add(requestOrder);
+    boolean result = persistenceMechanism.delete(requestOrder);
     assertThat(result).isTrue();
   }
 
   @Test
   void testShould_UpdateWaterDeliveryOrder() {
     var requestOrder = setupFakeDeliveryOrder();
-    dataStore.add(requestOrder);
+    persistenceMechanism.add(requestOrder);
     requestOrder.setDeliveryStatus(WaterDeliveryStatus.CANCELLED);
-    boolean result = dataStore.update(requestOrder);
+    boolean result = persistenceMechanism.update(requestOrder);
     assertThat(result).isTrue();
   }
 
@@ -76,9 +76,9 @@ public class DataStoreTest implements AbstractTest {
             .farmId(UuidUtils.toUuid("cc6b1ab4-249d-11ea-978f-2e728ce88125"))
             .supplyDuration(8)
             .build();
-    dataStore.add(delivery);
+    persistenceMechanism.add(delivery);
     boolean result =
-        dataStore.update(
+        persistenceMechanism.update(
             WaterDeliveryOrder.builder()
                 .dateReceived(LocalDateTime.parse("2019-09-12T13:45:11"))
                 .orderStartDate(LocalDateTime.parse("2019-10-10T06:10:11"))
@@ -91,16 +91,16 @@ public class DataStoreTest implements AbstractTest {
   @Test
   void testShouldReturn_AllByFarmId() {
     var requestOrder = setupFakeDeliveryOrder();
-    dataStore.add(requestOrder);
+    persistenceMechanism.add(requestOrder);
     var requestOrder2 = setupFakeDeliveryOrder();
-    dataStore.add(requestOrder2);
-    assertThat(dataStore.findByFarmId(requestOrder.getFarmId()).size()).isEqualTo(2);
+    persistenceMechanism.add(requestOrder2);
+    assertThat(persistenceMechanism.findByFarmId(requestOrder.getFarmId()).size()).isEqualTo(2);
   }
 
   @Test
   public void throwIllegalArgumentException_OnURL_NotFound() throws IOException {
     when(resource.getURL()).thenReturn(null);
-    Throwable thrown = catchThrowable(() -> dataStore.load());
+    Throwable thrown = catchThrowable(() -> persistenceMechanism.load());
     assertThat(thrown).isInstanceOf(IllegalArgumentException.class);
   }
 
