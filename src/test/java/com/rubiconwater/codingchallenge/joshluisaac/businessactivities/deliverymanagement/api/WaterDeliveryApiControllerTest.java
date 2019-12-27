@@ -124,7 +124,6 @@ public class WaterDeliveryApiControllerTest implements AbstractTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andReturn();
     String responseBody = responseResult.getResponse().getContentAsString();
-    System.out.println(responseBody);
     ApiError apiError = JsonMappers.buildReader().forType(ApiError.class).readValue(responseBody);
     assertThat(apiError.getErrorMessage()).contains("975eebdd-b9fa-493b-ac55-273383b02c86");
   }
