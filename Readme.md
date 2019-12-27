@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/joshluisaac/FarmWaterDelivery.svg?branch=master)](https://travis-ci.org/joshluisaac/FarmWaterDelivery)
-
+[![Coverage Status](https://coveralls.io/repos/github/joshluisaac/FarmWaterDelivery/badge.svg?branch=master)](https://coveralls.io/github/joshluisaac/FarmWaterDelivery?branch=master)
 
 ## Application layers
 
