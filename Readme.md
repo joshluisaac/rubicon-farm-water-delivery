@@ -1,9 +1,22 @@
 [![Build Status](https://travis-ci.org/joshluisaac/FarmWaterDelivery.svg?branch=master)](https://travis-ci.org/joshluisaac/FarmWaterDelivery)
 [![Coverage Status](https://coveralls.io/repos/github/joshluisaac/FarmWaterDelivery/badge.svg?branch=master)](https://coveralls.io/github/joshluisaac/FarmWaterDelivery?branch=master)
 
+
+
+# Farm Water Delivery - Water Ordering API
+
+This application is a water ordering API which provides a set of endpoints
+covering the specification of the requirements described [here](RubiconCodingChallenge.pdf).
+
+The application features a couple of endpoints for ordering water, querying existing orders and cancelling an order.
+
+
 ## Application layers
 
 The application is made of up three core layers.
+
+
+RubiconCodingChallenge.pdf
 
 [businessactivities](src/main/java/com/rubiconwater/codingchallenge/joshluisaac/businessactivities)
 
