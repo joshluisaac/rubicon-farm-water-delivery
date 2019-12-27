@@ -126,8 +126,13 @@ Port number is configurable. Just in case you have another app/service running o
 While the goal of the test harness is to cover as much edge and corner cases, that naturally led to a wider coverage of over 85%.
 Code coverage was both executed as part of maven build cycle using [JaCoCo](https://github.com/jacoco/jacoco)  and from IDE
 
-![alt text][codeCoverageJacoco]
+
 ![alt text][codecoverage]
+
+![alt text][codeCoverage_Ide2]
+
+![alt text][codeCoverageJacoco]
+
 
 ### Coverall report
 Executing the following command will generate Jacoco and [coveralls coverage reports](https://coveralls.io/github/joshluisaac/FarmWaterDelivery?branch=master).
@@ -143,5 +148,6 @@ Source code was formatted using [google-java-format](https://github.com/google/g
 
 
 [codecoverage]: screenshots/codeCoverage_Ide.png "codeCoverage_Ide"
+[codeCoverage_Ide2]: screenshots/codeCoverage_Ide2.png "codeCoverage_Ide2"
 [codeCoverageJacoco]: screenshots/codeCoverageJacoco.png "codeCoverageJacoco"
 [coverallReport]: screenshots/coverallReport.png "coverallReport"
