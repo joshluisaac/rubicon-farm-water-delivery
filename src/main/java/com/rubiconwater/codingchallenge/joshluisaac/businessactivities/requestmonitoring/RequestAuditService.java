@@ -1,5 +1,6 @@
 package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.requestmonitoring;
 
+import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.Errors;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.UuidUtils;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.interceptors.RequestAction;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.interceptors.RequestObserver;
@@ -28,6 +29,8 @@ public class RequestAuditService {
         .filter(entry -> entry.getRequestId().equals(UuidUtils.toUuid(requestId)))
         .findFirst()
         .orElseThrow(
-            () -> new IllegalArgumentException(String.format("Request (%s) not found", requestId)));
+            () ->
+                new IllegalArgumentException(
+                    String.format(Errors.REQUEST_LOG_NOT_FOUND.getDescription(), requestId)));
   }
 }

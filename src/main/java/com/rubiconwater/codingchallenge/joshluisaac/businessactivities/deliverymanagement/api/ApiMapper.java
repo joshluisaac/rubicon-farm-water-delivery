@@ -12,14 +12,10 @@ public class ApiMapper {
 
   public static ResponseEntity<ApiResponse> buildResponseEntity(
       List<WaterDeliveryResponse> activeOrders, HttpStatus status) {
-    return new ResponseEntity<>(
-        ApiResponse.builder()
-            .waterDeliveryResponses(activeOrders)
-            .status(status.getReasonPhrase())
-            .httpResponseCode(status.value())
-            .requestDate(LocalDateTime.now())
-            .build(),
-        status);
+    ApiResponse apiResponse =
+        new ApiResponse(
+            status.getReasonPhrase(), status.value(), LocalDateTime.now(), activeOrders);
+    return new ResponseEntity<>(apiResponse, status);
   }
 
   // takes an API request and returns a delivery request
@@ -35,12 +31,11 @@ public class ApiMapper {
 
   // takes in a delivery order and returns an API response
   public static WaterDeliveryResponse toDeliveryResponse(WaterDeliveryOrder deliveryOrder) {
-    return WaterDeliveryResponse.builder()
-        .deliveryStatus(deliveryOrder.getDeliveryStatus().getDescription())
-        .deliveryStartDate(deliveryOrder.getTimeFrame().getStartDate())
-        .deliveryEndDate(deliveryOrder.getTimeFrame().getEndDate())
-        .duration(deliveryOrder.getSupplyDuration())
-        .orderId(deliveryOrder.getId())
-        .build();
+    return new WaterDeliveryResponse(
+        deliveryOrder.getId(),
+        deliveryOrder.getDeliveryStatus().getDescription(),
+        deliveryOrder.getTimeFrame().getStartDate(),
+        deliveryOrder.getTimeFrame().getEndDate(),
+        deliveryOrder.getSupplyDuration());
   }
 }

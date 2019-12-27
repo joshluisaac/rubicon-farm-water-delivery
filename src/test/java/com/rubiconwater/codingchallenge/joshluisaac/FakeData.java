@@ -1,37 +1,31 @@
 package com.rubiconwater.codingchallenge.joshluisaac;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.domain.WaterDeliveryOrder;
-import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.JsonMappers;
-import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.UuidUtils;
-import java.time.LocalDateTime;
 import java.util.*;
 
 public class FakeData implements AbstractTest {
 
-  private static final UUID FARM_ID = UuidUtils.toUuid("1ddeab59-8bb1-4292-8fe4-7a6769411fe5");
-  private static final LocalDateTime ORDER_RECEIVED_DATE =
-      LocalDateTime.parse("2019-01-12T13:45:11");
-  Map<UUID, List<WaterDeliveryOrder>> cache = new HashMap<>();
-
-  void createData() throws JsonProcessingException {
-    LocalDateTime orderStartDate = LocalDateTime.parse("2019-10-10T06:10:11");
-    var requestOrder = createOrderRequest(FARM_ID, ORDER_RECEIVED_DATE, orderStartDate, 4);
-    List<WaterDeliveryOrder> farmRequests = new ArrayList<>();
-    farmRequests.add(requestOrder);
-    cache.put(requestOrder.getFarmId(), farmRequests);
-
-    String text =
-        JsonMappers.buildWriter()
-            .forType(new TypeReference<Map<UUID, List<WaterDeliveryOrder>>>() {})
-            .writeValueAsString(cache);
-
-    System.out.println(text);
-  }
-
-  public static void main(String[] args) throws JsonProcessingException {
-
-    new FakeData().createData();
-  }
+  public static final String REQUEST_LOG =
+      "[{\n"
+          + "  \"requestId\" : \"92693768-9fdd-494f-b79b-778d64e4ec2f\",\n"
+          + "  \"contentType\" : \"application/json\",\n"
+          + "  \"queryString\" : \"NoQueryString\",\n"
+          + "  \"method\" : \"POST\",\n"
+          + "  \"remoteAddress\" : \"0:0:0:0:0:0:0:1\",\n"
+          + "  \"requestUri\" : \"/api/farmers\",\n"
+          + "  \"requestUrl\" : \"http://localhost:8887/api/farmers\",\n"
+          + "  \"requestDateTime\" : \"27-12-2019 @ 13:42:56 pm\",\n"
+          + "  \"runningTime\" : 142,\n"
+          + "  \"httpStatus\" : 400\n"
+          + "}, {\n"
+          + "  \"requestId\" : \"943d1664-19c2-4fcf-ae73-b53eed31c9c5\",\n"
+          + "  \"contentType\" : null,\n"
+          + "  \"queryString\" : \"NoQueryString\",\n"
+          + "  \"method\" : \"GET\",\n"
+          + "  \"remoteAddress\" : \"0:0:0:0:0:0:0:1\",\n"
+          + "  \"requestUri\" : \"/api/farmers/975eebdd-b9fa-493b-ac55-273383b02c86\",\n"
+          + "  \"requestUrl\" : \"http://localhost:8887/api/farmers/975eebdd-b9fa-493b-ac55-273383b02c86\",\n"
+          + "  \"requestDateTime\" : \"27-12-2019 @ 13:43:20 pm\",\n"
+          + "  \"runningTime\" : 80,\n"
+          + "  \"httpStatus\" : 200\n"
+          + "} ]";
 }

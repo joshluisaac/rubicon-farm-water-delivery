@@ -20,17 +20,6 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
   public void addInterceptors(InterceptorRegistry registry) {
     registry
         .addInterceptor(requestInterceptor)
-        .addPathPatterns(
-            List.of(
-                "/api/customers",
-                "/api/customer/*",
-                "/newCustomer",
-                "/customers",
-                "/customerEdit",
-                "/customerDestroy",
-                "/contacts",
-                "/contact",
-                "/customer/*",
-                "/contact/*"));
+        .addPathPatterns(List.of("/api/farmers/**", "/api/farmers"));
   }
 }

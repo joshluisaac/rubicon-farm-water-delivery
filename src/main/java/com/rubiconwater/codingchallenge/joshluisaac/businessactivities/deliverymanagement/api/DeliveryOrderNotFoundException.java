@@ -6,6 +6,6 @@ import java.util.UUID;
 public class DeliveryOrderNotFoundException extends RuntimeException {
 
   public DeliveryOrderNotFoundException(UUID id) {
-    super(String.format("%s : (%s)", Errors.ORDER_NOT_FOUND.getDescription(), id));
+    super(String.format("%s : '%s'", Errors.ORDER_NOT_FOUND.getDescription(), id));
   }
 }

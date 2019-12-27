@@ -1,5 +1,6 @@
 package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.domain;
 
+import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.api.DeliveryOrderNotFoundException;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.Errors;
 import com.rubiconwater.codingchallenge.joshluisaac.sharedkernel.EntityService;
 import java.util.Collections;
@@ -65,7 +66,7 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryOrder> {
         .stream()
         .filter(entry -> entry.getId().equals(requestOrderId))
         .findFirst()
-        .orElseThrow(() -> new IllegalArgumentException(Errors.ORDER_NOT_FOUND.getDescription()));
+        .orElseThrow(() -> new DeliveryOrderNotFoundException(requestOrderId));
   }
 
   private void checkExitingOrder(WaterDeliveryOrder requestOrder) {

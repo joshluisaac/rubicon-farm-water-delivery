@@ -3,11 +3,9 @@ package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.delivery
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDateTime;
 import java.util.UUID;
-import lombok.Builder;
-import lombok.Value;
+import lombok.AllArgsConstructor;
 
-@Builder
-@Value
+@AllArgsConstructor
 public class WaterDeliveryResponse {
 
   @JsonProperty(value = "order_id")

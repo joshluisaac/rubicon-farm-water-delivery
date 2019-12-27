@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import com.rubiconwater.codingchallenge.joshluisaac.AbstractTest;
+import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.api.DeliveryOrderNotFoundException;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.Errors;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.UuidUtils;
 import java.time.LocalDateTime;
@@ -103,9 +104,9 @@ public class WaterDeliveryServiceTest implements AbstractTest {
     Supplier<WaterDeliveryOrder> deliveryOrderSupplier =
         () -> waterDeliveryService.getDeliveryOrder(requestOrder.getFarmId(), null);
     Throwable throwable = catchThrowable(deliveryOrderSupplier::get);
-    assertThat(throwable)
-        .isInstanceOf(IllegalArgumentException.class)
-        .hasMessageStartingWith(Errors.ORDER_NOT_FOUND.getDescription());
+    assertThat(throwable).isInstanceOf(DeliveryOrderNotFoundException.class)
+    // .hasMessageStartingWith(Errors.ORDER_NOT_FOUND.getDescription())
+    ;
   }
 
   @Test

@@ -3,12 +3,10 @@ package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.delivery
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDateTime;
 import java.util.List;
-import lombok.Builder;
-import lombok.Singular;
-import lombok.Value;
+import lombok.*;
 
-@Builder
-@Value
+@Getter
+@AllArgsConstructor
 public class ApiResponse {
 
   @JsonProperty("http_status")

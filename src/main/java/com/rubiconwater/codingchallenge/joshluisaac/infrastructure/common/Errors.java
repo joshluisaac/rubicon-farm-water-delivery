@@ -18,7 +18,7 @@ public class Errors {
           "EXISTING_ORDER_DUPLICATION",
           "The requested order exists. Please check and remove (order_start_date: %s and duration: %d)");
 
-  public static final Error ORDER_NOT_FOUND = new Error("ORDER_NOT_FOUND", "Order not found.");
+  public static final Error ORDER_NOT_FOUND = new Error("ORDER_NOT_FOUND", "Order not found");
 
   public static final Error FARM_ID_NOT_FOUND =
       new Error("FARM_ID_NOT_FOUND", "Farm id '%s' not found.");
@@ -34,6 +34,9 @@ public class Errors {
       new Error(
           "ORDER_START_DATE_IN_THE_PAST",
           "Order start date cannot be in the past. Please check '%s'");
+
+  public static final Error REQUEST_LOG_NOT_FOUND =
+      new Error("REQUEST_LOG_NOT_FOUND", "Request '%s' not found");
 
   // Web layer errors
   public static final Error REQUEST_BODY_DESERIALIZATION_ERROR_NOT_VALID =

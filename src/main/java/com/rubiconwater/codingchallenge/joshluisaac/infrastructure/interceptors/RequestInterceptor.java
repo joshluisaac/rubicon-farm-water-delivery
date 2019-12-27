@@ -38,8 +38,13 @@ public final class RequestInterceptor extends HandlerInterceptorAdapter {
       HttpServletResponse response,
       Object handler,
       @Nullable ModelAndView modelAndView)
+      throws Exception {}
+
+  @Override
+  public void afterCompletion(
+      HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
       throws Exception {
-    RequestAction requestAction = createRequestAction(request);
+    RequestAction requestAction = createRequestAction(request, response);
     notifyRequestObserver(requestAction);
   }
 
@@ -63,14 +68,18 @@ public final class RequestInterceptor extends HandlerInterceptorAdapter {
     request.setAttribute("RequestAction", requestActionBuilder);
   }
 
-  private RequestAction createRequestAction(HttpServletRequest request) {
+  private RequestAction createRequestAction(
+      HttpServletRequest request, HttpServletResponse response) {
     long requestResponseDuration =
         Duration.between(
                 (LocalDateTime) request.getAttribute("accessedDateTime"), LocalDateTime.now())
             .toMillis();
     RequestAction.RequestActionBuilder requestActionBuilder =
         (RequestAction.RequestActionBuilder) request.getAttribute("RequestAction");
-    return requestActionBuilder.runningTime(requestResponseDuration).build();
+    return requestActionBuilder
+        .runningTime(requestResponseDuration)
+        .httpStatus(response.getStatus())
+        .build();
   }
 
   private void notifyRequestObserver(RequestAction action) throws IOException {

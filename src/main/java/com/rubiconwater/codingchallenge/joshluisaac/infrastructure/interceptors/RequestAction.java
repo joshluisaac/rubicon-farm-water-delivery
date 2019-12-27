@@ -18,6 +18,7 @@ public class RequestAction {
   private String requestUrl;
   private String requestDateTime;
   private long runningTime;
+  private int httpStatus;
 
   @ConstructorProperties({
     "requestId",
@@ -28,7 +29,8 @@ public class RequestAction {
     "requestUri",
     "requestUrl",
     "requestDateTime",
-    "runningTime"
+    "runningTime",
+    "httpStatus"
   })
   public RequestAction(
       UUID requestId,
@@ -39,7 +41,8 @@ public class RequestAction {
       String requestUri,
       String requestUrl,
       String requestDateTime,
-      long runningTime) {
+      long runningTime,
+      int httpStatus) {
     this.requestId = requestId;
     this.contentType = contentType;
     this.queryString = queryString;
@@ -49,5 +52,6 @@ public class RequestAction {
     this.requestUrl = requestUrl;
     this.requestDateTime = requestDateTime;
     this.runningTime = runningTime;
+    this.httpStatus = httpStatus;
   }
 }

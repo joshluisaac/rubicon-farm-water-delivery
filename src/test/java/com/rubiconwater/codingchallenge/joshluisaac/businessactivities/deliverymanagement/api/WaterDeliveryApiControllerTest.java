@@ -12,6 +12,7 @@ import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.JsonMa
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.UuidUtils;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.interceptors.RequestObserver;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
@@ -107,6 +108,25 @@ public class WaterDeliveryApiControllerTest implements AbstractTest {
     String responseBody = responseResult.getResponse().getContentAsString();
     ApiError apiError = JsonMappers.buildReader().forType(ApiError.class).readValue(responseBody);
     assertThat(apiError.getErrorMessage()).isEqualTo("Request method 'GET' not supported");
+  }
+
+  @Test
+  public void shouldReturn_NotFound_WhenFarmOrdersIsEmpty() throws Exception {
+    var requestOrder = setupFakeDeliveryOrder();
+    when(deliveryService.getDeliveryOrders(requestOrder.getFarmId()))
+        .thenReturn(Collections.emptyList());
+    MvcResult responseResult =
+        mockMvc
+            .perform(
+                MockMvcRequestBuilders.get(
+                    "/api/farmers/{farmId}", "975eebdd-b9fa-493b-ac55-273383b02c86"))
+            .andExpect(status().isNotFound())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andReturn();
+    String responseBody = responseResult.getResponse().getContentAsString();
+    System.out.println(responseBody);
+    ApiError apiError = JsonMappers.buildReader().forType(ApiError.class).readValue(responseBody);
+    assertThat(apiError.getErrorMessage()).contains("975eebdd-b9fa-493b-ac55-273383b02c86");
   }
 
   @Test
