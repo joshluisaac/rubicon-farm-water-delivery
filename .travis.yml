@@ -1,0 +1,6 @@
+language: java
+
+script: mvn clean compile
+
+after_success:
+  - mvn test jacoco:report coveralls:report
