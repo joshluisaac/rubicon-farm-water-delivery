@@ -71,7 +71,11 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryOrder> {
 
   private void checkExitingOrder(WaterDeliveryOrder requestOrder) {
     boolean result =
-        checkStream(requestOrder, entry -> entry.getHash().equals(requestOrder.getHash()));
+        checkStream(
+            requestOrder,
+            entry ->
+                (entry.getHash().equals(requestOrder.getHash()))
+                    && (entry.getDeliveryStatus() != WaterDeliveryStatus.CANCELLED));
     if (result)
       throw new IllegalArgumentException(
           String.format(
@@ -84,7 +88,9 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryOrder> {
     boolean result =
         checkStream(
             requestOrder,
-            entry -> entry.getTimeFrame().isBetweenTimeFrameOf(requestOrder.getTimeFrame()));
+            entry ->
+                (entry.getTimeFrame().isBetweenTimeFrameOf(requestOrder.getTimeFrame()))
+                    && (entry.getDeliveryStatus() != WaterDeliveryStatus.CANCELLED));
     if (result) throw new IllegalArgumentException(Errors.TIME_FRAME_COLLISION.getDescription());
   }
 

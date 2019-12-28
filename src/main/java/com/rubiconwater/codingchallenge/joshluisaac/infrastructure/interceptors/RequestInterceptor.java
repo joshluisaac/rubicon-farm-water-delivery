@@ -24,6 +24,16 @@ public final class RequestInterceptor extends HandlerInterceptorAdapter {
     this.requestObserver = requestObserver;
   }
 
+  /**
+   * Intercepts with the request partially builds a {@code RequestAction} and accessed date before
+   * it is sent to the controller.
+   *
+   * @param request
+   * @param response
+   * @param handler
+   * @return
+   * @throws Exception
+   */
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
       throws Exception {
@@ -40,6 +50,16 @@ public final class RequestInterceptor extends HandlerInterceptorAdapter {
       @Nullable ModelAndView modelAndView)
       throws Exception {}
 
+  /**
+   * Builds the {@code RequestAction} and notifies a request observer after completing request and
+   * response.
+   *
+   * @param request
+   * @param response
+   * @param handler
+   * @param ex
+   * @throws Exception
+   */
   @Override
   public void afterCompletion(
       HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
