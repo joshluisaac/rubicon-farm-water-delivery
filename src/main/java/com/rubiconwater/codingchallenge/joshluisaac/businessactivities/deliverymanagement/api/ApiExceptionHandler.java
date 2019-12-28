@@ -24,12 +24,12 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
   @ExceptionHandler(DeliveryOrderNotFoundException.class)
   public ResponseEntity<Object> handleOrderNotFound(Exception ex, WebRequest request) {
-    return buildResponseEntityFromApiError(HttpStatus.NOT_FOUND, ex.getMessage(), request);
+    return buildResponseEntityFromErrorResponse(HttpStatus.NOT_FOUND, ex.getMessage(), request);
   }
 
   @ExceptionHandler(IllegalArgumentException.class)
   public ResponseEntity<Object> handleIllegalArgumentException(Exception ex, WebRequest request) {
-    return buildResponseEntityFromApiError(HttpStatus.BAD_REQUEST, ex.getMessage(), request);
+    return buildResponseEntityFromErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), request);
   }
 
   @ExceptionHandler(MethodArgumentTypeMismatchException.class)
@@ -41,7 +41,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
             ex.getName(),
             ex.getValue(),
             Objects.requireNonNull(ex.getRequiredType()).getSimpleName());
-    return buildResponseEntityFromApiError(HttpStatus.BAD_REQUEST, formattedMessage, request);
+    return buildResponseEntityFromErrorResponse(HttpStatus.BAD_REQUEST, formattedMessage, request);
   }
 
   @Override
@@ -50,7 +50,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
       HttpHeaders headers,
       HttpStatus status,
       WebRequest request) {
-    return buildResponseEntityFromApiError(
+    return buildResponseEntityFromErrorResponse(
         HttpStatus.UNSUPPORTED_MEDIA_TYPE,
         String.format("%s. Please use '%s'", ex.getMessage(), MediaType.APPLICATION_JSON),
         request);
@@ -62,7 +62,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
       HttpHeaders headers,
       HttpStatus status,
       WebRequest request) {
-    return buildResponseEntityFromApiError(HttpStatus.BAD_REQUEST, ex.getMessage(), request);
+    return buildResponseEntityFromErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), request);
   }
 
   @Override
@@ -71,7 +71,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
       HttpHeaders headers,
       HttpStatus status,
       WebRequest request) {
-    return buildResponseEntityFromApiError(
+    return buildResponseEntityFromErrorResponse(
         HttpStatus.BAD_REQUEST,
         Errors.REQUEST_BODY_DESERIALIZATION_ERROR_NOT_VALID.getDescription(),
         request,
@@ -84,7 +84,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
       HttpHeaders headers,
       HttpStatus status,
       WebRequest request) {
-    return buildResponseEntityFromApiError(
+    return buildResponseEntityFromErrorResponse(
         HttpStatus.BAD_REQUEST,
         Errors.REQUEST_BODY_DESERIALIZATION_ERROR_NOT_READABLE.getDescription(),
         request);
@@ -96,15 +96,15 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
       HttpHeaders headers,
       HttpStatus status,
       WebRequest request) {
-    return buildResponseEntityFromApiError(HttpStatus.METHOD_NOT_ALLOWED, ex.getMessage(), request);
+    return buildResponseEntityFromErrorResponse(HttpStatus.METHOD_NOT_ALLOWED, ex.getMessage(), request);
   }
 
-  private static ResponseEntity<Object> buildResponseEntityFromApiError(
+  private static ResponseEntity<Object> buildResponseEntityFromErrorResponse(
       HttpStatus httpStatus, String message, WebRequest request) {
-    return buildResponseEntityFromApiError(httpStatus, message, request, null);
+    return buildResponseEntityFromErrorResponse(httpStatus, message, request, null);
   }
 
-  private static ResponseEntity<Object> buildResponseEntityFromApiError(
+  private static ResponseEntity<Object> buildResponseEntityFromErrorResponse(
       HttpStatus httpStatus, String message, WebRequest request, BindingResult bindingResult) {
     ServletWebRequest servletWebRequest = (ServletWebRequest) request;
     ApiErrorResponse apiErrorResponse = new ApiErrorResponse();
