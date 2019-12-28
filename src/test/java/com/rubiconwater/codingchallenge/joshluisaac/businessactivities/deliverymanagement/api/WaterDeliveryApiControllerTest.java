@@ -49,8 +49,9 @@ public class WaterDeliveryApiControllerTest implements AbstractTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andReturn();
     String responseBody = responseResult.getResponse().getContentAsString();
-    ApiError apiError = JsonMappers.buildReader().forType(ApiError.class).readValue(responseBody);
-    assertThat(apiError.getErrorMessage()).isEqualTo("Request method 'GET' not supported");
+    ApiErrorResponse apiErrorResponse =
+        JsonMappers.buildReader().forType(ApiErrorResponse.class).readValue(responseBody);
+    assertThat(apiErrorResponse.getErrorMessage()).isEqualTo("Request method 'GET' not supported");
   }
 
   @Test
@@ -67,8 +68,9 @@ public class WaterDeliveryApiControllerTest implements AbstractTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andReturn();
     String responseBody = responseResult.getResponse().getContentAsString();
-    ApiError apiError = JsonMappers.buildReader().forType(ApiError.class).readValue(responseBody);
-    assertThat(apiError.getErrorMessage()).contains("975eebdd-b9fa-493b-ac55-273383b02c86");
+    ApiErrorResponse apiErrorResponse =
+        JsonMappers.buildReader().forType(ApiErrorResponse.class).readValue(responseBody);
+    assertThat(apiErrorResponse.getErrorMessage()).contains("975eebdd-b9fa-493b-ac55-273383b02c86");
   }
 
   @Test
@@ -85,8 +87,9 @@ public class WaterDeliveryApiControllerTest implements AbstractTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andReturn();
     String responseBody = responseResult.getResponse().getContentAsString();
-    ApiError apiError = JsonMappers.buildReader().forType(ApiError.class).readValue(responseBody);
-    assertThat(apiError.getErrorMessage())
+    ApiErrorResponse apiErrorResponse =
+        JsonMappers.buildReader().forType(ApiErrorResponse.class).readValue(responseBody);
+    assertThat(apiErrorResponse.getErrorMessage())
         .isEqualTo("Required boolean parameter 'cancel' is not present");
   }
 
@@ -157,8 +160,9 @@ public class WaterDeliveryApiControllerTest implements AbstractTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andReturn();
     String responseBody = responseResult.getResponse().getContentAsString();
-    ApiError apiError = JsonMappers.buildReader().forType(ApiError.class).readValue(responseBody);
-    assertThat(apiError.getErrorMessage())
+    ApiErrorResponse apiErrorResponse =
+        JsonMappers.buildReader().forType(ApiErrorResponse.class).readValue(responseBody);
+    assertThat(apiErrorResponse.getErrorMessage())
         .isEqualTo(Errors.REQUEST_BODY_DESERIALIZATION_ERROR_NOT_READABLE.getDescription());
   }
 
@@ -177,8 +181,9 @@ public class WaterDeliveryApiControllerTest implements AbstractTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andReturn();
     String responseBody = responseResult.getResponse().getContentAsString();
-    ApiError apiError = JsonMappers.buildReader().forType(ApiError.class).readValue(responseBody);
-    assertThat(apiError.getErrorMessage())
+    ApiErrorResponse apiErrorResponse =
+        JsonMappers.buildReader().forType(ApiErrorResponse.class).readValue(responseBody);
+    assertThat(apiErrorResponse.getErrorMessage())
         .isEqualTo(Errors.REQUEST_BODY_DESERIALIZATION_ERROR_NOT_VALID.getDescription());
   }
 
@@ -267,8 +272,10 @@ public class WaterDeliveryApiControllerTest implements AbstractTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andReturn();
     String responseBody = responseResult.getResponse().getContentAsString();
-    ApiError apiError = JsonMappers.buildReader().forType(ApiError.class).readValue(responseBody);
-    assertThat(apiError.getErrorMessage()).isEqualTo(Errors.CANCEL_NOT_TRUE.getDescription());
+    ApiErrorResponse apiErrorResponse =
+        JsonMappers.buildReader().forType(ApiErrorResponse.class).readValue(responseBody);
+    assertThat(apiErrorResponse.getErrorMessage())
+        .isEqualTo(Errors.CANCEL_NOT_TRUE.getDescription());
   }
 
   private WaterDeliveryOrder setupFakeDeliveryOrder() {

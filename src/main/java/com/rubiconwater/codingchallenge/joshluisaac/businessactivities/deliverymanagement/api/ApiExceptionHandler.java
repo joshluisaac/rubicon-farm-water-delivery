@@ -107,13 +107,14 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
   private static ResponseEntity<Object> buildResponseEntityFromApiError(
       HttpStatus httpStatus, String message, WebRequest request, BindingResult bindingResult) {
     ServletWebRequest servletWebRequest = (ServletWebRequest) request;
-    ApiError apiError = new ApiError();
-    apiError.setStatus(httpStatus);
-    apiError.setHttpStatusValue(httpStatus.value());
-    apiError.setDateErrorOccurred(LocalDateTime.now());
-    apiError.setErrorMessage(message);
-    apiError.setPath(servletWebRequest.getRequest().getServletPath());
-    apiError.withBindingResult(bindingResult);
-    return new ResponseEntity<>(apiError, apiError.getStatus());
+    ApiErrorResponse apiErrorResponse = new ApiErrorResponse();
+    apiErrorResponse.setStatus(httpStatus);
+    apiErrorResponse.setHttpStatusValue(httpStatus.value());
+    apiErrorResponse.setDateErrorOccurred(LocalDateTime.now());
+    apiErrorResponse.setErrorMessage(message);
+    apiErrorResponse.setPath(servletWebRequest.getRequest().getServletPath());
+    if (bindingResult != null) apiErrorResponse.withBindingResult(bindingResult);
+
+    return new ResponseEntity<>(apiErrorResponse, apiErrorResponse.getStatus());
   }
 }

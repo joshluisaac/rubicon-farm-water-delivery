@@ -11,7 +11,7 @@ import org.springframework.validation.FieldError;
 
 @Getter
 @Setter
-public class ApiError {
+public class ApiErrorResponse {
 
   private HttpStatus status;
 
