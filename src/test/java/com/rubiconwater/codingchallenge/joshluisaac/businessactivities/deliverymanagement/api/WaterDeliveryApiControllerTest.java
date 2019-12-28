@@ -5,6 +5,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.rubiconwater.codingchallenge.joshluisaac.AbstractTest;
+import com.rubiconwater.codingchallenge.joshluisaac.FakeData;
 import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.domain.WaterDeliveryOrder;
 import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.domain.WaterDeliveryService;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.Errors;
@@ -36,64 +37,6 @@ public class WaterDeliveryApiControllerTest implements AbstractTest {
   @MockBean private RequestObserver requestObserver;
   @Autowired private MockMvc mockMvc;
 
-  private static final String ACCEPT_ORDER_REQUEST =
-      "{\n"
-          + "  \"farm_id\": \"975eebdd-b9fa-493b-ac55-273383b02c86\",\n"
-          + "  \"orders\": [\n"
-          + "\n"
-          + "    {\n"
-          + "      \"order_start_date\": \"2019-12-20T06:10:11\",\n"
-          + "      \"duration\": 7\n"
-          + "    },\n"
-          + "\n"
-          + "    {\n"
-          + "      \"order_start_date\": \"2020-01-10T06:10:11\",\n"
-          + "      \"duration\": 4\n"
-          + "    },\n"
-          + "\n"
-          + "    {\n"
-          + "      \"order_start_date\": \"2020-01-15T06:10:11\",\n"
-          + "      \"duration\": 10\n"
-          + "    }\n"
-          + "  ]\n"
-          + "\n"
-          + "}";
-
-  private static final String CANCEL_ORDER_REQUEST =
-      "{\n"
-          + "  \"farm_id\": \"975eebdd-b9fa-493b-ac55-273383b02c86\",\n"
-          + "  \"orders\": [\n"
-          + "    \"1334d383-78a1-4cd9-ac9d-c5faf980d6b4\",\n"
-          + "    \"9ef5c0f7-1d1f-4955-a051-ce9ba1eb2812\",\n"
-          + "    \"736038b4-481a-41a7-96d6-be9f3fd95fc4\"\n"
-          + "  ]\n"
-          + "}";
-
-  private static final String UNREADABLE_REQUEST =
-      "{\n"
-          + "  \"farm_id\": \"975eebdd-b9fa-493b-ac55-273383b02c86\"\n"
-          + "  \"orders\": [\n"
-          + "\n"
-          + "    {\n"
-          + "      \"order_start_date\": \"2019-12-20T06:10:11\",\n"
-          + "      \"duration\": 7\n"
-          + "    },\n"
-          + "\n"
-          + "    {\n"
-          + "      \"order_start_date\": \"2020-01-10T06:10:11\",\n"
-          + "      \"duration\": 4\n"
-          + "    },\n"
-          + "\n"
-          + "    {\n"
-          + "      \"order_start_date\": \"2020-01-15T06:10:11\",\n"
-          + "      \"duration\": 10\n"
-          + "    }\n"
-          + "  ]\n"
-          + "\n"
-          + "}";
-
-  private static final String INVALID_REQUEST = "{}";
-
   @Test
   public void shouldReturn_MethodNotAllowed_WhenFarmIdIsEmpty() throws Exception {
     var requestOrder = setupFakeDeliveryOrder();
@@ -124,7 +67,6 @@ public class WaterDeliveryApiControllerTest implements AbstractTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andReturn();
     String responseBody = responseResult.getResponse().getContentAsString();
-    System.out.println(responseBody);
     ApiError apiError = JsonMappers.buildReader().forType(ApiError.class).readValue(responseBody);
     assertThat(apiError.getErrorMessage()).contains("975eebdd-b9fa-493b-ac55-273383b02c86");
   }
@@ -137,7 +79,7 @@ public class WaterDeliveryApiControllerTest implements AbstractTest {
         mockMvc
             .perform(
                 MockMvcRequestBuilders.put("/api/farmers")
-                    .content(CANCEL_ORDER_REQUEST)
+                    .content(FakeData.CANCEL_ORDER_REQUEST)
                     .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isBadRequest())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -166,7 +108,7 @@ public class WaterDeliveryApiControllerTest implements AbstractTest {
   private ResultActions postResultActions() throws Exception {
     return mockMvc.perform(
         MockMvcRequestBuilders.post("/api/farmers")
-            .content(ACCEPT_ORDER_REQUEST)
+            .content(FakeData.ACCEPT_ORDER_REQUEST)
             .contentType(MediaType.APPLICATION_JSON));
   }
 
@@ -178,7 +120,7 @@ public class WaterDeliveryApiControllerTest implements AbstractTest {
     mockMvc
         .perform(
             MockMvcRequestBuilders.post("/api/farmers")
-                .content(ACCEPT_ORDER_REQUEST)
+                .content(FakeData.ACCEPT_ORDER_REQUEST)
                 .contentType(MediaType.TEXT_PLAIN_VALUE))
         .andExpect(status().isUnsupportedMediaType())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -193,7 +135,7 @@ public class WaterDeliveryApiControllerTest implements AbstractTest {
         .perform(
             MockMvcRequestBuilders.put("/api/farmers")
                 .param("cancel", "someRandomText")
-                .content(CANCEL_ORDER_REQUEST)
+                .content(FakeData.CANCEL_ORDER_REQUEST)
                 .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isBadRequest())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -209,7 +151,7 @@ public class WaterDeliveryApiControllerTest implements AbstractTest {
         mockMvc
             .perform(
                 MockMvcRequestBuilders.post("/api/farmers")
-                    .content(UNREADABLE_REQUEST)
+                    .content(FakeData.UNREADABLE_REQUEST)
                     .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isBadRequest())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -229,7 +171,7 @@ public class WaterDeliveryApiControllerTest implements AbstractTest {
         mockMvc
             .perform(
                 MockMvcRequestBuilders.post("/api/farmers")
-                    .content(INVALID_REQUEST)
+                    .content(FakeData.INVALID_REQUEST)
                     .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isBadRequest())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -287,7 +229,7 @@ public class WaterDeliveryApiControllerTest implements AbstractTest {
     mockMvc
         .perform(
             MockMvcRequestBuilders.post("/api/farmers")
-                .content(ACCEPT_ORDER_REQUEST)
+                .content(FakeData.ACCEPT_ORDER_REQUEST)
                 .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isCreated())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -302,7 +244,7 @@ public class WaterDeliveryApiControllerTest implements AbstractTest {
         .perform(
             MockMvcRequestBuilders.put("/api/farmers")
                 .param("cancel", "true")
-                .content(CANCEL_ORDER_REQUEST)
+                .content(FakeData.CANCEL_ORDER_REQUEST)
                 .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -319,7 +261,7 @@ public class WaterDeliveryApiControllerTest implements AbstractTest {
             .perform(
                 MockMvcRequestBuilders.put("/api/farmers")
                     .param("cancel", "false")
-                    .content(CANCEL_ORDER_REQUEST)
+                    .content(FakeData.CANCEL_ORDER_REQUEST)
                     .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isBadRequest())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))

@@ -51,6 +51,8 @@ target
 /.nb-gradle/
 /build/
 
+TestDeliveryOrderDataSet.json
+TestRequestLog.json
 
 .mvn
 .DS_Store
