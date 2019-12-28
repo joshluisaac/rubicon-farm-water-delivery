@@ -113,6 +113,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         apiError.setDateErrorOccurred(LocalDateTime.now());
         apiError.setErrorMessage(message);
         apiError.setPath(servletWebRequest.getRequest().getServletPath());
+        apiError.withBindingResult(bindingResult);
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 
