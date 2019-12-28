@@ -3,7 +3,6 @@ package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.delivery
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDateTime;
 import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
@@ -28,10 +27,8 @@ public class ApiError {
   @JsonProperty("path")
   private String path;
 
-
-  public void withBindingResult(BindingResult bindingResult){
-      int errorCount = bindingResult.getErrorCount();
-      List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-
+  public void withBindingResult(BindingResult bindingResult) {
+    int errorCount = bindingResult.getErrorCount();
+    List<FieldError> fieldErrors = bindingResult.getFieldErrors();
   }
 }

@@ -74,7 +74,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     return buildResponseEntityFromApiError(
         HttpStatus.BAD_REQUEST,
         Errors.REQUEST_BODY_DESERIALIZATION_ERROR_NOT_VALID.getDescription(),
-        request, ex.getBindingResult());
+        request,
+        ex.getBindingResult());
   }
 
   @Override
@@ -100,22 +101,19 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
   private static ResponseEntity<Object> buildResponseEntityFromApiError(
       HttpStatus httpStatus, String message, WebRequest request) {
-    return buildResponseEntityFromApiError(httpStatus,message,request,null);
+    return buildResponseEntityFromApiError(httpStatus, message, request, null);
   }
 
-
-    private static ResponseEntity<Object> buildResponseEntityFromApiError(
-            HttpStatus httpStatus, String message, WebRequest request, BindingResult bindingResult) {
-        ServletWebRequest servletWebRequest = (ServletWebRequest) request;
-        ApiError apiError = new ApiError();
-        apiError.setStatus(httpStatus);
-        apiError.setHttpStatusValue(httpStatus.value());
-        apiError.setDateErrorOccurred(LocalDateTime.now());
-        apiError.setErrorMessage(message);
-        apiError.setPath(servletWebRequest.getRequest().getServletPath());
-        apiError.withBindingResult(bindingResult);
-        return new ResponseEntity<>(apiError, apiError.getStatus());
-    }
-
-
+  private static ResponseEntity<Object> buildResponseEntityFromApiError(
+      HttpStatus httpStatus, String message, WebRequest request, BindingResult bindingResult) {
+    ServletWebRequest servletWebRequest = (ServletWebRequest) request;
+    ApiError apiError = new ApiError();
+    apiError.setStatus(httpStatus);
+    apiError.setHttpStatusValue(httpStatus.value());
+    apiError.setDateErrorOccurred(LocalDateTime.now());
+    apiError.setErrorMessage(message);
+    apiError.setPath(servletWebRequest.getRequest().getServletPath());
+    apiError.withBindingResult(bindingResult);
+    return new ResponseEntity<>(apiError, apiError.getStatus());
+  }
 }
