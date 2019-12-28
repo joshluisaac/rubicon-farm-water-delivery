@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -70,13 +71,10 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
       HttpHeaders headers,
       HttpStatus status,
       WebRequest request) {
-    ex.getBindingResult()
-        .getFieldErrors()
-        .forEach(entry -> System.out.println(entry.getDefaultMessage()));
     return buildResponseEntityFromApiError(
         HttpStatus.BAD_REQUEST,
         Errors.REQUEST_BODY_DESERIALIZATION_ERROR_NOT_VALID.getDescription(),
-        request);
+        request, ex.getBindingResult());
   }
 
   @Override
@@ -102,13 +100,21 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
   private static ResponseEntity<Object> buildResponseEntityFromApiError(
       HttpStatus httpStatus, String message, WebRequest request) {
-    ServletWebRequest servletWebRequest = (ServletWebRequest) request;
-    ApiError apiError = new ApiError();
-    apiError.setStatus(httpStatus);
-    apiError.setHttpStatusValue(httpStatus.value());
-    apiError.setDateErrorOccurred(LocalDateTime.now());
-    apiError.setErrorMessage(message);
-    apiError.setPath(servletWebRequest.getRequest().getServletPath());
-    return new ResponseEntity<>(apiError, apiError.getStatus());
+    return buildResponseEntityFromApiError(httpStatus,message,request,null);
   }
+
+
+    private static ResponseEntity<Object> buildResponseEntityFromApiError(
+            HttpStatus httpStatus, String message, WebRequest request, BindingResult bindingResult) {
+        ServletWebRequest servletWebRequest = (ServletWebRequest) request;
+        ApiError apiError = new ApiError();
+        apiError.setStatus(httpStatus);
+        apiError.setHttpStatusValue(httpStatus.value());
+        apiError.setDateErrorOccurred(LocalDateTime.now());
+        apiError.setErrorMessage(message);
+        apiError.setPath(servletWebRequest.getRequest().getServletPath());
+        return new ResponseEntity<>(apiError, apiError.getStatus());
+    }
+
+
 }
