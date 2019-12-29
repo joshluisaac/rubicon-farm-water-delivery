@@ -3,6 +3,7 @@ plugins {
     id 'org.springframework.boot' version '2.2.2.RELEASE'
     id 'io.spring.dependency-management' version '1.0.7.RELEASE'
     id "io.freefair.lombok" version "4.1.6"
+    id 'jacoco'
 }
 
 //https://github.com/freefair/gradle-plugins/issues/31
