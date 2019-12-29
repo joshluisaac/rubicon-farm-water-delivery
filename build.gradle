@@ -12,8 +12,9 @@ plugins {
 generateLombokConfig.enabled  = false
 
 ext {
-    springBootVersion = '2.2.2.RELEASE'
+    springBootVersion = "2.2.2.RELEASE"
     jacksonCoreVersion = "2.10.0"
+    swagger2Version = "2.9.2"
 }
 
 repositories {
@@ -58,6 +59,10 @@ dependencies {
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: "$jacksonCoreVersion"
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "$jacksonCoreVersion"
     compile group: 'com.google.guava', name: 'guava', version: '27.1-jre'
+
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: "$swagger2Version"
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: "$swagger2Version"
+    compile group: 'io.springfox', name: 'springfox-bean-validators', version: "$swagger2Version"
 
     //test dependencies
     testImplementation "org.springframework.boot:spring-boot-starter-test"
