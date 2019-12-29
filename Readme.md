@@ -22,6 +22,7 @@ The project source code is partitioned into 3 packages as follows:
 3. **sharedkernel**:
 
 ![alt text][codeCoverage_Ide2]
+
 Figure 1: Project package structure
 
 ## Prerequisites
