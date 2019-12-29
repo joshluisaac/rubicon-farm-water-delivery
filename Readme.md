@@ -23,7 +23,7 @@ The dataset path is located here [here](config/CustomerDataSet.json). On startup
 - Adopt/Open/Oracle JDK 11+ or higher (One of Adopt, Open or Oracle JDK)
 - Apache Maven v3.6.1 or Gradle v6.0.1 (SDKMAN makes it very easy to set up these build tools). You can follow the steps here on how to setup [SDKMAN](https://sdkman.io/install) and to install gradle using SDKMAN refer to this [link](https://gradle.org/install/)
 
-__Some notes about Gradle and gradle wrapper__
+**Some notes about Gradle and gradle wrapper**
 The application comes bundled with Gradle wrapper which makes it easy to compile, test, build and run the application without having to worry about downloading Gradle. The [gradle wrapper scripts](gradlew) *nix or [Windows](gradlew.bat) will take care of this.
 
 ## Maven/Gradle - Running the test suite
