@@ -38,6 +38,8 @@ test {
     useJUnitPlatform()
 }
 
+archivesBaseName = rootProject.name
+
 dependencies {
     //compile and runtime dependencies
     compile("org.springframework.boot:spring-boot-starter-web") {
