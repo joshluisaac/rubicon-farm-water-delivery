@@ -25,7 +25,7 @@ You can follow the steps here on how to setup [SDKMAN](https://sdkman.io/install
 
 ## Gradle and gradle wrapper
 
-The application comes bundled with Gradle wrapper which makes it easy to compile, test, build and run the application without having to worry about downloading Gradle. The [gradle wrapper scripts](gradlew) *nix or [Windows](gradlew.bat) will take care of this.
+The application comes bundled with Gradle wrapper which makes it easy to compile, test, build and run the application without having to worry about downloading Gradle. The gradle wrapper scripts [*nix](gradlew) or on [Windows](gradlew.bat) will take care of this.
 
 ## Maven/Gradle - Running the test suite
 
