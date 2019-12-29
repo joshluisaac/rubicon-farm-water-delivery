@@ -3,6 +3,7 @@ package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.delivery
 import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.domain.WaterDeliveryOrder;
 import com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.domain.WaterDeliveryService;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.Errors;
+import io.swagger.annotations.ApiOperation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -35,6 +36,7 @@ public class WaterDeliveryApiController {
    * @return
    */
   @PostMapping(value = "farmers")
+  @ApiOperation(value = "Place/create a delivery order", response = ApiResponse.class)
   public ResponseEntity<ApiResponse> placeOrder(
       @Valid @RequestBody AcceptOrderRequest acceptOrderRequest) {
     var activeOrders =
@@ -53,6 +55,7 @@ public class WaterDeliveryApiController {
    * @return
    */
   @PutMapping(value = "farmers")
+  @ApiOperation(value = "Cancel an order", response = ApiResponse.class)
   public ResponseEntity<ApiResponse> cancelOrder(
       @Valid @RequestBody CancelOrderRequest cancelOrderRequest, @RequestParam boolean cancel) {
     if (!cancel) throw new IllegalArgumentException(Errors.CANCEL_NOT_TRUE.getDescription());
@@ -71,6 +74,7 @@ public class WaterDeliveryApiController {
    * @return
    */
   @GetMapping(value = "farmers/{farmId}")
+  @ApiOperation(value = "View a list of all delivery orders", response = ApiResponse.class)
   public ResponseEntity<ApiResponse> getAllFarmOrders(@PathVariable("farmId") UUID farmId) {
     var farmOrders =
         deliveryService
@@ -89,6 +93,7 @@ public class WaterDeliveryApiController {
    * @return
    */
   @GetMapping(value = "farmers/{farmId}/orders/{orderId}")
+  @ApiOperation(value = "Get an order by farmId and orderId", response = ApiResponse.class)
   public ResponseEntity<ApiResponse> getFarmOrder(
       @PathVariable("farmId") UUID farmId, @PathVariable("orderId") UUID orderId) {
     return ApiMapper.buildResponseEntity(

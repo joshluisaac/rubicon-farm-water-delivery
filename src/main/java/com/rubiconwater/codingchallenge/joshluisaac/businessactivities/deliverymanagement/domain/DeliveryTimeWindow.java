@@ -14,9 +14,11 @@ public class DeliveryTimeWindow {
 
   public boolean isBetweenTimeFrameOf(DeliveryTimeWindow deliveryTimeWindow) {
     boolean startDateOverlaps =
-        isEqualOrAfter(deliveryTimeWindow.getStartDate()) && isEqualOrBefore(deliveryTimeWindow.getStartDate());
+        isEqualOrAfter(deliveryTimeWindow.getStartDate())
+            && isEqualOrBefore(deliveryTimeWindow.getStartDate());
     boolean endDateOverlaps =
-        isEqualOrAfter(deliveryTimeWindow.getEndDate()) && isEqualOrBefore(deliveryTimeWindow.getEndDate());
+        isEqualOrAfter(deliveryTimeWindow.getEndDate())
+            && isEqualOrBefore(deliveryTimeWindow.getEndDate());
     return (startDateOverlaps || endDateOverlaps);
   }
 

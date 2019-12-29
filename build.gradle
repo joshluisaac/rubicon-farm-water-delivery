@@ -52,7 +52,6 @@ dependencies {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
     }
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-jetty', version: "$springBootVersion"
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: "$springBootVersion"
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: "$springBootVersion"
     compile group: 'net.sourceforge.nekohtml', name: 'nekohtml', version: '1.9.22'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: "$jacksonCoreVersion"

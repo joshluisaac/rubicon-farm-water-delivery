@@ -96,7 +96,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
       HttpHeaders headers,
       HttpStatus status,
       WebRequest request) {
-    return buildResponseEntityFromErrorResponse(HttpStatus.METHOD_NOT_ALLOWED, ex.getMessage(), request);
+    return buildResponseEntityFromErrorResponse(
+        HttpStatus.METHOD_NOT_ALLOWED, ex.getMessage(), request);
   }
 
   private static ResponseEntity<Object> buildResponseEntityFromErrorResponse(

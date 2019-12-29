@@ -12,6 +12,10 @@ The application features a couple of endpoints for ordering water, querying exis
 These changes are also flushed/written to disk to prevent lost updates on next application restart and to keep both the in-memory cache and dataset in a eventually consistent state.
 The dataset path is located here [here](data/DeliveryOrderDataSet.json). On startup, the application gets preloaded and initialized with a set of delivery orders from the same JSON dataset.
 
+## Deliverables
+
+1. **Swagger2 API documentation**: The project comes shipped with swagger which documents the API contracts and allows the user to interact with the various endpoints.
+2. **Sample request and response documentation**: Sample request and response snippets 
 
 ## Package structure
 
@@ -24,6 +28,10 @@ The project source code is partitioned into 3 packages as follows:
 ![alt text][codeCoverage_Ide2]
 
 Figure 1: Project package structure
+
+## Swagger - Generated API Documentation
+
+The project has got a dependency on Swagger2 which facilitated the generation of API docs.
 
 ## Prerequisites
 
@@ -44,6 +52,7 @@ The following libraries and dependencies were used to develop this project
 1. **Lombok** : Used to auto generate getters, setters, constructors and builders for entity and value objects.
 1. **FasterXML Jackson**: For deserialization of request body and serialization of response.
 1. **Google Guava**:
+1. **Swagger2**: API documentation.
 
 ## Maven/Gradle - Running the test suite
 
