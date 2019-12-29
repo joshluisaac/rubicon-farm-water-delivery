@@ -27,6 +27,15 @@ You can follow the steps here on how to setup [SDKMAN](https://sdkman.io/install
 
 The application comes bundled with Gradle wrapper which makes it easy to compile, test, build and run the application without having to worry about downloading Gradle. The gradle wrapper scripts [*nix](gradlew) or on [Windows](gradlew.bat) will take care of this.
 
+## Framework stack
+
+The following libraries and dependencies were used to develop this project
+
+1. **Hibernate validator**: For validating HTTP request body and cascading validation constraints.
+1. **Lombok** : Used to auto generate getters, setters, constructors and builders for entity and value objects.
+1. **FasterXML Jackson**: For deserialization of request body and serialization of response.
+1. **Google Guava**:
+
 ## Maven/Gradle - Running the test suite
 
 Running this command will compile as well as run all tests
@@ -148,6 +157,11 @@ Executing the following command will generate Jacoco and [coveralls coverage rep
 ```bash
 mvn clean test jacoco:report coveralls:report
 ```
+
+```bash
+./gradlew build jacocoTestReport
+```
+
 
 ![alt text][coverallReport]
 
