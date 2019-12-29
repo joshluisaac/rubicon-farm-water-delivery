@@ -20,10 +20,10 @@ The dataset path is located here [here](config/CustomerDataSet.json). On startup
 
 ## Prerequisites
 
-- JDK 11+ or higher
-- Maven
+- Adopt/Open/Oracle JDK 11+ or higher (One of Adopt, Open or Oracle JDK)
+- Apache Maven v3.6.1 or Gradle v6.0.1 (SDKMAN makes it very easy to set up these build tools). You can follow the steps here on how to setup [SDKMAN](https://sdkman.io/install) and to install gradle using SDKMAN refer to this [link](https://gradle.org/install/)
 
-## Running the test suite
+## Maven/Gradle - Running the test suite
 
 Running this command will compile as well as run all tests
 
@@ -31,7 +31,13 @@ Running this command will compile as well as run all tests
 mvn compile test
 ```
 
-Executing this command will yield the following console output
+or using Gradle
+
+```bash
+gradle test
+```
+
+Executing this command using maven will yield the following console output
 
 
 ```log
@@ -57,17 +63,22 @@ Executing this command will yield the following console output
 [INFO] ------------------------------------------------------------------------
 ```
 
+## Maven/Gradle - Building the source
 
-## Building the source
-
-This will download all the required dependencies and create an executable JAR file in the target directory.
+The following commands will download all the required dependencies and create an executable JAR file in the target directory.
 The executable JAR was created using [Spring Boot Maven Plugin](https://docs.spring.io/spring-boot/docs/current/maven-plugin/index.html)
 
 ```bash
 mvn clean install
 ```
 
-## Running the app from terminal
+or using Gradle
+
+```bash
+gradle clean build
+```
+
+## Maven/Gradle - Building and running the app from terminal in one command
 
 Execute the below command to build and execute the app from terminal.
 
@@ -75,9 +86,21 @@ Execute the below command to build and execute the app from terminal.
 mvn clean install && java -jar target/farm-water-delivery-0.0.1-SNAPSHOT.jar
 ```
 
-## Running the app from spring boot
+or using Gradle
 
-Execute `mvn spring-boot:run` from terminal. You should see the following logged to console.
+```bash
+gradle clean build && java -jar build/libs/FarmWaterDelivery-0.0.1-SNAPSHOT.jar
+```
+
+## Maven - Running the app from spring boot
+
+Execute `mvn spring-boot:run` from terminal.
+
+Or using Gradle `gradle clean bootRun`
+
+These commands would run the application in-place without actually building a target JAR file
+
+You should see the following logged to console.
 
 ```log
 2019-12-27 23:58:38,459 INFO  Starting FarmWaterRequestApplication on xubuntuVostro with PID 21847 (/media/joshua/martian/jobs/WaterDelivery/target/farm-water-delivery-0.0.1-SNAPSHOT.jar started by joshua in /media/joshua/martian/jobs/WaterDelivery)
@@ -109,6 +132,7 @@ Using generated security password: 3468afad-3caf-4ede-832a-8a751845103f
 2019-12-27 23:58:40,744 INFO  Jetty started on port(s) 8887 (http/1.1) with context path '/'
 2019-12-27 23:58:40,749 INFO  Started FarmWaterRequestApplication in 2.782 seconds (JVM running for 3.606)
 ```
+
 
 ## Accessing the application
 
