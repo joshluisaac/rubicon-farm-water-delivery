@@ -57,3 +57,4 @@ TestRequestLog.json
 
 .mvn
 .DS_Store
+.gradle
