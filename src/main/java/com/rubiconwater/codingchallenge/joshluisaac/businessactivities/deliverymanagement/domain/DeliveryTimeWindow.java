@@ -7,16 +7,16 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @JsonIgnoreType
-public class TimeFrame {
+public class DeliveryTimeWindow {
 
   private LocalDateTime startDate;
   private LocalDateTime endDate;
 
-  public boolean isBetweenTimeFrameOf(TimeFrame timeFrame) {
+  public boolean isBetweenTimeFrameOf(DeliveryTimeWindow deliveryTimeWindow) {
     boolean startDateOverlaps =
-        isEqualOrAfter(timeFrame.getStartDate()) && isEqualOrBefore(timeFrame.getStartDate());
+        isEqualOrAfter(deliveryTimeWindow.getStartDate()) && isEqualOrBefore(deliveryTimeWindow.getStartDate());
     boolean endDateOverlaps =
-        isEqualOrAfter(timeFrame.getEndDate()) && isEqualOrBefore(timeFrame.getEndDate());
+        isEqualOrAfter(deliveryTimeWindow.getEndDate()) && isEqualOrBefore(deliveryTimeWindow.getEndDate());
     return (startDateOverlaps || endDateOverlaps);
   }
 

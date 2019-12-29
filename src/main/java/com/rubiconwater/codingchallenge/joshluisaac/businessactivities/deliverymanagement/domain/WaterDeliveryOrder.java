@@ -60,7 +60,7 @@ public class WaterDeliveryOrder extends AbstractEntity {
     return DigestUtils.md5DigestAsHex(stringBuilder.toString().getBytes());
   }
 
-  public TimeFrame getTimeFrame() {
-    return new TimeFrame(orderStartDate, deliveryEndDate());
+  public DeliveryTimeWindow getTimeFrame() {
+    return new DeliveryTimeWindow(orderStartDate, deliveryEndDate());
   }
 }
