@@ -28,7 +28,6 @@ public class JsonMappersTest implements AbstractTest {
     AcceptOrderRequest.Order aOrder = new AcceptOrderRequest.Order();
     aOrder.setOrderStartDate(LocalDateTime.parse("2019-05-10T06:10:11"));
     aOrder.setSupplyDuration(100);
-
     var acceptOrderRequest = new AcceptOrderRequest(FARM_ID, List.of(aOrder));
     String jsonText =
         JsonMappers.buildWriter()
@@ -42,7 +41,6 @@ public class JsonMappersTest implements AbstractTest {
     AcceptOrderRequest.Order aOrder = new AcceptOrderRequest.Order();
     aOrder.setOrderStartDate(LocalDateTime.parse("2019-05-10T06:10:11"));
     aOrder.setSupplyDuration(100);
-
     AcceptOrderRequest acceptOrderRequest =
         JsonMappers.buildReader().forType(AcceptOrderRequest.class).readValue(JSON_REQUEST_BODY);
     var expected = new AcceptOrderRequest(FARM_ID, List.of(aOrder));
