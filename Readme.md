@@ -16,8 +16,6 @@ These changes are also flushed/written to disk to prevent lost updates on next a
 The dataset path is located here [here](config/CustomerDataSet.json). On startup, the application gets preloaded and initialized with a set of customers from the same JSON dataset.
 
 
-
-
 ## Prerequisites
 
 - Adopt/Open/Oracle JDK 11+ or higher (One of Adopt, Open or Oracle JDK)
@@ -40,15 +38,14 @@ mvn compile test
 or using Gradle
 
 ```bash
-gradle test
+./gradlew test
 ```
 
 Executing this command using maven will yield the following console output
 
 
 
-Figure : Gradle test summary
-
+Figure 1: Gradle test summary
 
 ```log
 [INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.284 s - in com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.api.WaterDeliveryApiControllerTest
@@ -85,7 +82,7 @@ mvn clean install
 or using Gradle
 
 ```bash
-gradle clean build
+./gradlew clean build
 ```
 
 ## Maven/Gradle - Building and running the app from terminal in one command
@@ -99,50 +96,27 @@ mvn clean install && java -jar target/farm-water-delivery-0.0.1-SNAPSHOT.jar
 or using Gradle
 
 ```bash
-gradle clean build && java -jar build/libs/FarmWaterDelivery-0.0.1-SNAPSHOT.jar
+./gradlew clean build && java -jar build/libs/FarmWaterDelivery-0.0.1-SNAPSHOT.jar
 ```
 
-## Maven - Running the app from spring boot
+## Maven/Gradle - Running the app from spring boot
 
 Execute `mvn spring-boot:run` from terminal.
 
-Or using Gradle `gradle clean bootRun`
+Or using Gradle `./gradlew bootRun`
 
 These commands would run the application in-place without actually building a target JAR file
 
 You should see the following logged to console.
 
 ```log
-2019-12-27 23:58:38,459 INFO  Starting FarmWaterRequestApplication on xubuntuVostro with PID 21847 (/media/joshua/martian/jobs/WaterDelivery/target/farm-water-delivery-0.0.1-SNAPSHOT.jar started by joshua in /media/joshua/martian/jobs/WaterDelivery)
-2019-12-27 23:58:38,463 INFO  No active profile set, falling back to default profiles: default
-2019-12-27 23:58:39,643 INFO  Logging initialized @2500ms to org.eclipse.jetty.util.log.Slf4jLog
-2019-12-27 23:58:39,721 INFO  Server initialized with port: 8887
-2019-12-27 23:58:39,726 INFO  jetty-9.4.20.v20190813; built: 2019-08-13T21:28:18.144Z; git: 84700530e645e812b336747464d6fbbf370c9a20; jvm 11.0.3+7
-2019-12-27 23:58:39,766 INFO  Initializing Spring embedded WebApplicationContext
-2019-12-27 23:58:39,767 INFO  Root WebApplicationContext: initialization completed in 1229 ms
-2019-12-27 23:58:39,919 INFO  DefaultSessionIdManager workerName=node0
-2019-12-27 23:58:39,920 INFO  No SessionScavenger set, using defaults
-2019-12-27 23:58:39,921 INFO  node0 Scavenging every 600000ms
-2019-12-27 23:58:39,939 INFO  Started o.s.b.w.e.j.JettyEmbeddedWebAppContext@77d67cf3{application,/,[file:///tmp/jetty-docbase.16048742091121362980.8887/],AVAILABLE}
-2019-12-27 23:58:39,940 INFO  Started @2797ms
-2019-12-27 23:58:40,089 INFO  Loaded and initialized request dataset from  /media/joshua/martian/jobs/WaterDelivery/data/RequestLog.json
-2019-12-27 23:58:40,136 INFO  Loaded and initialized dataset from  /media/joshua/martian/jobs/WaterDelivery/data/DeliveryOrderDataSet.json
-2019-12-27 23:58:40,239 INFO  
-
-Using generated security password: 3468afad-3caf-4ede-832a-8a751845103f
-
-2019-12-27 23:58:40,357 INFO  Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4fad94a7, org.springframework.security.web.context.SecurityContextPersistenceFilter@62e70ea3, org.springframework.security.web.header.HeaderWriterFilter@4052274f, org.springframework.security.web.authentication.logout.LogoutFilter@bcec031, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@fd0e5b6, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@675d8c96, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@68d6972f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@475835b1, org.springframework.security.web.session.SessionManagementFilter@7a7471ce, org.springframework.security.web.access.ExceptionTranslationFilter@2e029d61, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2c1b9e4b]
-2019-12-27 23:58:40,473 INFO  Initializing ExecutorService 'applicationTaskExecutor'
-2019-12-27 23:58:40,625 WARN  Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
-2019-12-27 23:58:40,626 WARN  [THYMELEAF][main] Template Mode 'LEGACYHTML5' is deprecated. Using Template Mode 'HTML' instead.
-2019-12-27 23:58:40,689 INFO  Initializing Spring DispatcherServlet 'dispatcherServlet'
-2019-12-27 23:58:40,689 INFO  Initializing Servlet 'dispatcherServlet'
+2019-12-27 23:58:38,459 INFO  Starting FarmWaterRequestApplication on xubuntuVostro with PID 21847 (/media/joshua/martian/jobs/
+...........
 2019-12-27 23:58:40,696 INFO  Completed initialization in 7 ms
 2019-12-27 23:58:40,742 INFO  Started ServerConnector@16c63f5{HTTP/1.1,[http/1.1]}{0.0.0.0:8887}
 2019-12-27 23:58:40,744 INFO  Jetty started on port(s) 8887 (http/1.1) with context path '/'
 2019-12-27 23:58:40,749 INFO  Started FarmWaterRequestApplication in 2.782 seconds (JVM running for 3.606)
 ```
-
 
 ## Accessing the application
 
@@ -170,9 +144,11 @@ Code coverage was both executed as part of maven build cycle using [JaCoCo](http
 
 ### Coverall report
 Executing the following command will generate Jacoco and [coveralls coverage reports](https://coveralls.io/github/joshluisaac/FarmWaterDelivery?branch=master).
+
 ```bash
 mvn clean test jacoco:report coveralls:report
 ```
+
 ![alt text][coverallReport]
 
 
