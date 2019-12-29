@@ -8,13 +8,22 @@
 This application is a water ordering API which provides a set of endpoints
 covering the specification of the requirements described [here](RubiconCodingChallenge.pdf).
 
-The application features a couple of endpoints for ordering water, querying existing orders and cancelling an order.
-
-The application allows you to add,modify and delete existing customers and contact details. These three operations has side effects on the data structure of an in-memory [DataStore](src/main/java/au/com/belong/codingtest/joshluisaac/infrastructure/DataStore.java)
-which internally uses a [ConcurrentHashMap<K,​V>] while keeping track of these changes.
+The application features a couple of endpoints for ordering water, querying existing orders and cancelling an order. These operations has side effects on the data structure of an in-memory [PersistenceMechanism](src/main/java/com/rubiconwater/codingchallenge/joshluisaac/infrastructure/PersistenceMechanism.java) which internally uses a `Map<K,​V>` data structure while keeping track of these changes.
 These changes are also flushed/written to disk to prevent lost updates on next application restart and to keep both the in-memory cache and dataset in a eventually consistent state.
-The dataset path is located here [here](config/CustomerDataSet.json). On startup, the application gets preloaded and initialized with a set of customers from the same JSON dataset.
+The dataset path is located here [here](data/DeliveryOrderDataSet.json). On startup, the application gets preloaded and initialized with a set of delivery orders from the same JSON dataset.
 
+
+## Package structure
+
+The project source code is partitioned into 3 packages as follows:
+
+1. **businessactivities**: This package contains all business domain and API related source files
+2. **infrastructure**
+3. **sharedkernel**:
+
+![alt text][codeCoverage_Ide2]
+
+Figure 1: Project package structure
 
 ## Prerequisites
 
@@ -53,8 +62,8 @@ or using Gradle
 Executing this command using maven will yield the following console output
 
 
-
-Figure 1: Gradle test summary
+![alt text][testSummary]
+Figure 2: Gradle test summary
 
 ```log
 [INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.284 s - in com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.api.WaterDeliveryApiControllerTest
@@ -146,8 +155,6 @@ Code coverage was both executed as part of maven build cycle using [JaCoCo](http
 
 ![alt text][codecoverage]
 
-![alt text][codeCoverage_Ide2]
-
 ![alt text][codeCoverageJacoco]
 
 
@@ -175,3 +182,4 @@ Source code was formatted using [google-java-format](https://github.com/google/g
 [codeCoverage_Ide2]: screenshots/codeCoverage_Ide2.png "codeCoverage_Ide2"
 [codeCoverageJacoco]: screenshots/codeCoverageJacoco.png "codeCoverageJacoco"
 [coverallReport]: screenshots/coverallReport.png "coverallReport"
+[testSummary]: screenshots/testSummary.png "testSummary"
