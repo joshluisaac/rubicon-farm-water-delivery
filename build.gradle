@@ -59,7 +59,6 @@ dependencies {
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: "$jacksonCoreVersion"
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "$jacksonCoreVersion"
     compile group: 'com.google.guava', name: 'guava', version: '27.1-jre'
-
     compile group: 'io.springfox', name: 'springfox-swagger2', version: "$swagger2Version"
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version: "$swagger2Version"
     compile group: 'io.springfox', name: 'springfox-bean-validators', version: "$swagger2Version"
