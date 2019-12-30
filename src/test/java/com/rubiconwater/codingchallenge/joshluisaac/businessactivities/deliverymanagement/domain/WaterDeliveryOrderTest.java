@@ -35,7 +35,10 @@ public class WaterDeliveryOrderTest implements AbstractTest {
     assertThat(throwable)
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessageStartingWith(
-            String.format(Errors.ORDER_START_DATE_IN_THE_PAST.getDescription(), orderStartDate, ORDER_RECEIVED_DATE));
+            String.format(
+                Errors.ORDER_START_DATE_IN_THE_PAST.getDescription(),
+                orderStartDate,
+                ORDER_RECEIVED_DATE));
   }
 
   @Test

@@ -11,5 +11,4 @@ import lombok.Setter;
 public class BatchDate {
 
   private LocalDateTime batchDate;
-
 }

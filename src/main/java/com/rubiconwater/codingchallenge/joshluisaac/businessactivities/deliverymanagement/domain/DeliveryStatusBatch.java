@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-/**
- * Order delivery status batch
- */
+/** Order delivery status batch */
 @Slf4j
 @Component
 public class DeliveryStatusBatch {
@@ -21,28 +19,28 @@ public class DeliveryStatusBatch {
   private BatchDate batchDate;
 
   @Autowired
-  public DeliveryStatusBatch(PersistenceMechanism persistenceMechanism,BatchDate batchDate) {
+  public DeliveryStatusBatch(PersistenceMechanism persistenceMechanism, BatchDate batchDate) {
     this.persistenceMechanism = persistenceMechanism;
     this.batchDate = batchDate;
   }
 
-
   @Scheduled(fixedRate = 120000)
   public void invoke() {
     log.info(
-        "Processing delivery status batch for {}", WaterDeliveryUtils.toIsoLocalDateTime(batchDate.getBatchDate()));
+        "Processing delivery status batch for {}",
+        WaterDeliveryUtils.toIsoLocalDateTime(batchDate.getBatchDate()));
 
     processEntries(
         this::isRequestedAndPastDeliveryDate,
         entry -> entry.setDeliveryStatus(WaterDeliveryStatus.CANCELLED));
 
-      processEntries(
-              this::isRequestedAndWithInDeliveryWindow,
-              entry -> entry.setDeliveryStatus(WaterDeliveryStatus.IN_PROGRESS));
+    processEntries(
+        this::isRequestedAndWithInDeliveryWindow,
+        entry -> entry.setDeliveryStatus(WaterDeliveryStatus.IN_PROGRESS));
 
     processEntries(
-            this::isInProgressAndPastDeliveryDate,
-            entry -> entry.setDeliveryStatus(WaterDeliveryStatus.DELIVERED));
+        this::isInProgressAndPastDeliveryDate,
+        entry -> entry.setDeliveryStatus(WaterDeliveryStatus.DELIVERED));
 
     persistenceMechanism.updateDatabase();
     batchDate.setBatchDate(LocalDateTime.now());
@@ -52,11 +50,20 @@ public class DeliveryStatusBatch {
       Predicate<WaterDeliveryOrder> pred, Consumer<WaterDeliveryOrder> action) {
     persistenceMechanism
         .getAll()
-        .forEach((key, value) -> value.stream().filter(pred).forEach(e -> {
-
-          action.accept(e);
-          log.info("Updated requestId {} of farmId {} to {}", e.getId(), e.getFarmId(), e.getDeliveryStatus());
-        }));
+        .forEach(
+            (key, value) ->
+                value
+                    .stream()
+                    .filter(pred)
+                    .forEach(
+                        e -> {
+                          action.accept(e);
+                          log.info(
+                              "Updated requestId {} of farmId {} to {}",
+                              e.getId(),
+                              e.getFarmId(),
+                              e.getDeliveryStatus());
+                        }));
   }
 
   private boolean isRequestedAndPastDeliveryDate(WaterDeliveryOrder requestOrder) {
@@ -72,10 +79,6 @@ public class DeliveryStatusBatch {
 
   private boolean isInProgressAndPastDeliveryDate(WaterDeliveryOrder requestOrder) {
     return WaterDeliveryUtils.isInProgress(requestOrder)
-            && WaterDeliveryUtils.isPastDeliveryDueDate(requestOrder, batchDate.getBatchDate());
+        && WaterDeliveryUtils.isPastDeliveryDueDate(requestOrder, batchDate.getBatchDate());
   }
-
-
-
-
 }

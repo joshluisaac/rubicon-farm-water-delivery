@@ -38,7 +38,8 @@ public class WaterDeliveryOrder extends AbstractEntity {
   private void checkOrderStartDate(LocalDateTime dateReceived, LocalDateTime orderStartDate) {
     Preconditions.checkArgument(
         (orderStartDate.isAfter(dateReceived) || orderStartDate.isEqual(dateReceived)),
-        String.format(Errors.ORDER_START_DATE_IN_THE_PAST.getDescription(), orderStartDate, dateReceived));
+        String.format(
+            Errors.ORDER_START_DATE_IN_THE_PAST.getDescription(), orderStartDate, dateReceived));
   }
 
   private void checkSupplyDuration(int supplyDuration) {

@@ -50,7 +50,6 @@ public class PersistenceMechanismTest implements AbstractTest {
     assertThat(persistenceMechanism.findByFarmId(requestOrder.getFarmId()).size()).isEqualTo(1);
   }
 
-
   @Test
   void testShould_DeleteWaterDeliveryOrder() {
     var requestOrder = setupFakeDeliveryOrder();
@@ -60,7 +59,7 @@ public class PersistenceMechanismTest implements AbstractTest {
   }
 
   @Test
-  public void testShouldReturnSizeOfCache(){
+  public void testShouldReturnSizeOfCache() {
     var requestOrder = setupFakeDeliveryOrder();
     persistenceMechanism.add(requestOrder);
     assertThat(persistenceMechanism.getAll().size()).isEqualTo(1);
