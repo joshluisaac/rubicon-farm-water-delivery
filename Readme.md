@@ -14,7 +14,7 @@ The dataset path is located here [here](data/DeliveryOrderDataSet.json). On star
 
 ## Deliverables
 
-1. [Swagger2 API documentation](http://localhost:8887/swagger-ui.html)
+1. Swagger2 API documentation
 2. [Sample request and response documentation](apiDocumentationContract.md): Sample request and response snippets 
 1. [Source code](src/main/java/com/rubiconwater/codingchallenge/joshluisaac)
 2. [Documentation](Readme.pdf)
