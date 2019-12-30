@@ -19,7 +19,6 @@ The dataset path is located [here](data/DeliveryOrderDataSet.json). On startup t
 2. [Sample request and response documentation](apiDocumentationContract.md): Sample request and response snippets 
 1. [Source code](src/main/java/com/rubiconwater/codingchallenge/joshluisaac)
 2. [Documentation](Readme.pdf)
-3. [Exception documentation and recovery strategies](exceptionsAndRecoveryStrategies.pdf)
 4. [Test harness](src/test/java/com/rubiconwater/codingchallenge/joshluisaac)
 5. [Test coverage](https://coveralls.io/github/joshluisaac/FarmWaterDelivery?branch=master)
 
