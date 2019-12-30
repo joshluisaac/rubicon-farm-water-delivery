@@ -131,11 +131,11 @@ __Response body__
 
 __Request endpoint__
 
-     `PUT /api/farmers?cancel=true`
+`PUT /api/farmers?cancel=true`
 
 __Request body__
 
-    ```json
+```json
     {
         "farm_id": "975eebdd-b9fa-493b-ac55-273383b02c86",
         "orders": [
@@ -144,5 +144,5 @@ __Request body__
           "736038b4-481a-41a7-96d6-be9f3fd95fc4"
         ]
     }
-    ```
+```
 

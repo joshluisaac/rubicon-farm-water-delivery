@@ -20,6 +20,7 @@ Figure 1: Class diagram
 
 **Error handling**
 >Maintained a centralised copy of the list of possible errors known to the application aimed at reducing error code duplication.
+>This can be found in [Errors.java](src/main/java/com/rubiconwater/codingchallenge/joshluisaac/infrastructure/common/Errors.java) 
 Each error object contains a code and the description of the error can be easily retrieved across the entire system without having to duplicate error descriptions.
 This can also be used as a customer reference code for back-office investigation in the event that an error occurred while trying to interact with the APIs.
 
