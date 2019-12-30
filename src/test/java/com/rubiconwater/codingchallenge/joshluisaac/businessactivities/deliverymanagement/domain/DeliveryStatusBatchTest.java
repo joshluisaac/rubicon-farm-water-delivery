@@ -26,11 +26,11 @@ public class DeliveryStatusBatchTest implements AbstractTest {
   @Mock private PersistenceMechanism persistenceMechanism;
   @Mock private BatchDate batchDate;
   @InjectMocks DeliveryStatusBatch deliveryStatusBatch;
-  private static final String BATCH_PROCESSING_DATE = "2018-10-10T09:09:09";
+
 
   @Test
   void shouldCancelRequestedOrder_WhenItIsPastDeliveryEndDate() {
-
+      String evaluationDate = "2018-10-10T09:09:09";
     UUID farmIdA = UuidUtils.create();
     WaterDeliveryOrder aRequestOrder1 =
         createOrderRequest(
@@ -59,7 +59,7 @@ public class DeliveryStatusBatchTest implements AbstractTest {
     aRequestOrder3.setDeliveryStatus(WaterDeliveryStatus.CANCELLED);
     aRequestOrder4.setDeliveryStatus(WaterDeliveryStatus.DELIVERED);
 
-    LocalDateTime processingDate = LocalDateTime.parse(BATCH_PROCESSING_DATE);
+    LocalDateTime processingDate = LocalDateTime.parse(evaluationDate);
     when(batchDate.getBatchDate()).thenReturn(processingDate);
     when(persistenceMechanism.getAll())
         .thenReturn(
@@ -72,7 +72,7 @@ public class DeliveryStatusBatchTest implements AbstractTest {
 
     @Test
     void shouldChangeRequested_To_InProgress_WhenWithinDeliveryWindow() {
-
+        String evaluationDate = "2018-10-10T09:09:09";
         UUID farmIdA = UuidUtils.create();
         WaterDeliveryOrder aRequestOrder1 =
                 createOrderRequest(
@@ -86,7 +86,7 @@ public class DeliveryStatusBatchTest implements AbstractTest {
                         LocalDateTime.parse("2017-10-11T09:09:09"),
                         LocalDateTime.parse("2017-10-11T09:09:09"),
                         2);
-        LocalDateTime processingDate = LocalDateTime.parse(BATCH_PROCESSING_DATE);
+        LocalDateTime processingDate = LocalDateTime.parse(evaluationDate);
         when(batchDate.getBatchDate()).thenReturn(processingDate);
         when(persistenceMechanism.getAll())
                 .thenReturn(
@@ -98,12 +98,55 @@ public class DeliveryStatusBatchTest implements AbstractTest {
     }
 
 
+    @Test
+    void shouldNotChangeStatusFor_OrdersAfterBatchDate() {
+        String evaluationDate = "2018-10-10T09:09:09";
+        UUID farmIdA = UuidUtils.create();
+        WaterDeliveryOrder aRequestOrder1 =
+                createOrderRequest(
+                        farmIdA,
+                        LocalDateTime.parse("2017-10-10T09:09:09"),
+                        LocalDateTime.parse("2018-10-11T09:09:09"),
+                        200);
+        LocalDateTime processingDate = LocalDateTime.parse(evaluationDate);
+        when(batchDate.getBatchDate()).thenReturn(processingDate);
+        when(persistenceMechanism.getAll())
+                .thenReturn(
+                        Map.of(
+                                farmIdA, List.of(aRequestOrder1)));
+        deliveryStatusBatch.invoke();
+        assertThat(aRequestOrder1.getDeliveryStatus())
+                .isEqualByComparingTo(WaterDeliveryStatus.REQUESTED);
+    }
 
 
-
-
+    /**
+     * When an order is in-progress and past it's delivery end date,
+     * It is marked as delivered when next the batch is executed
+     */
   @Test
-  void shouldSkipCancelRequestedOrder_WhenDeliveryEndDateInFuture() {}
+  void markInProgressToDelivered_WhenOrderIsPastDeliveryEndDate() {
+      String evaluationDate = "2018-10-13T09:09:09";
+      UUID farmIdA = UuidUtils.create();
+      WaterDeliveryOrder aRequestOrder1 =
+              createOrderRequest(
+                      farmIdA,
+                      LocalDateTime.parse("2017-10-10T09:09:09"),
+                      LocalDateTime.parse("2018-10-11T09:09:09"),
+                      3);
+      LocalDateTime processingDate = LocalDateTime.parse(evaluationDate);
+      when(batchDate.getBatchDate()).thenReturn(processingDate);
+      when(persistenceMechanism.getAll())
+              .thenReturn(
+                      Map.of(
+                              farmIdA, List.of(aRequestOrder1)));
+      aRequestOrder1.setDeliveryStatus(WaterDeliveryStatus.IN_PROGRESS);
+      deliveryStatusBatch.invoke();
+      assertThat(aRequestOrder1.getDeliveryStatus())
+              .isEqualByComparingTo(WaterDeliveryStatus.DELIVERED);
+
+
+  }
 
 
 }

@@ -50,12 +50,20 @@ public class PersistenceMechanismTest implements AbstractTest {
     assertThat(persistenceMechanism.findByFarmId(requestOrder.getFarmId()).size()).isEqualTo(1);
   }
 
+
   @Test
   void testShould_DeleteWaterDeliveryOrder() {
     var requestOrder = setupFakeDeliveryOrder();
     persistenceMechanism.add(requestOrder);
     boolean result = persistenceMechanism.delete(requestOrder);
     assertThat(result).isTrue();
+  }
+
+  @Test
+  public void testShouldReturnSizeOfCache(){
+    var requestOrder = setupFakeDeliveryOrder();
+    persistenceMechanism.add(requestOrder);
+    assertThat(persistenceMechanism.getAll().size()).isEqualTo(1);
   }
 
   @Test
@@ -68,7 +76,7 @@ public class PersistenceMechanismTest implements AbstractTest {
   }
 
   @Test
-  void testShould_SKipUpdate_WhenOrderNotFound() {
+  void testShould_SkipUpdate_WhenOrderNotFound() {
     var delivery =
         WaterDeliveryOrder.builder()
             .dateReceived(LocalDateTime.parse("2019-09-12T13:45:11"))

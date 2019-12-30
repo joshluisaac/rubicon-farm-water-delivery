@@ -33,7 +33,7 @@ public class Errors {
   public static final Error ORDER_START_DATE_IN_THE_PAST =
       new Error(
           "ORDER_START_DATE_IN_THE_PAST",
-          "Order start date cannot be in the past. Please check '%s'");
+          "Order start date cannot be in the past. Please check start date '%s' against date received '%s'");
 
   public static final Error REQUEST_LOG_NOT_FOUND =
       new Error("REQUEST_LOG_NOT_FOUND", "Request '%s' not found");

@@ -20,6 +20,10 @@ public class WaterDeliveryUtils {
     return (requestOrder.getDeliveryStatus() == WaterDeliveryStatus.REQUESTED);
   }
 
+  public static boolean isInProgress(WaterDeliveryOrder requestOrder) {
+    return (requestOrder.getDeliveryStatus() == WaterDeliveryStatus.IN_PROGRESS);
+  }
+
   public static String toIsoLocalDateTime(LocalDateTime dateTime) {
     return dateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
   }

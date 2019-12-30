@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+/**
+ * Order delivery status batch
+ */
 @Slf4j
 @Component
 public class DeliveryStatusBatch {
@@ -23,10 +26,11 @@ public class DeliveryStatusBatch {
     this.batchDate = batchDate;
   }
 
-  @Scheduled(fixedRate = 2000)
+  //120000
+  @Scheduled(fixedRate = 10000)
   public void invoke() {
     log.info(
-        "Processing batch for {}", WaterDeliveryUtils.toIsoLocalDateTime(batchDate.getBatchDate()));
+        "Processing delivery status batch for {}", WaterDeliveryUtils.toIsoLocalDateTime(batchDate.getBatchDate()));
 
     processEntries(
         this::isRequestedAndPastDeliveryDate,
@@ -35,13 +39,24 @@ public class DeliveryStatusBatch {
       processEntries(
               this::isRequestedAndWithInDeliveryWindow,
               entry -> entry.setDeliveryStatus(WaterDeliveryStatus.IN_PROGRESS));
+
+    processEntries(
+            this::isInProgressAndPastDeliveryDate,
+            entry -> entry.setDeliveryStatus(WaterDeliveryStatus.DELIVERED));
+
+    persistenceMechanism.updateDatabase();
+    batchDate.setBatchDate(LocalDateTime.now());
   }
 
   private void processEntries(
       Predicate<WaterDeliveryOrder> pred, Consumer<WaterDeliveryOrder> action) {
     persistenceMechanism
         .getAll()
-        .forEach((key, value) -> value.stream().filter(pred).forEach(action));
+        .forEach((key, value) -> value.stream().filter(pred).forEach(e -> {
+
+          action.accept(e);
+          log.info("Updated requestId {} of farmId {} to {}", e.getId(), e.getFarmId(), e.getDeliveryStatus());
+        }));
   }
 
   private boolean isRequestedAndPastDeliveryDate(WaterDeliveryOrder requestOrder) {
@@ -54,4 +69,13 @@ public class DeliveryStatusBatch {
         && (requestOrder.getTimeFrame().getStartDate().isBefore(batchDate.getBatchDate())
             && requestOrder.getTimeFrame().getEndDate().isAfter(batchDate.getBatchDate()));
   }
+
+  private boolean isInProgressAndPastDeliveryDate(WaterDeliveryOrder requestOrder) {
+    return WaterDeliveryUtils.isInProgress(requestOrder)
+            && WaterDeliveryUtils.isPastDeliveryDueDate(requestOrder, batchDate.getBatchDate());
+  }
+
+
+
+
 }
