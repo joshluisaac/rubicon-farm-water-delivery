@@ -1,6 +1,9 @@
 # Design and design decisions
 
 
+## Design diagram
+
+
 ## Some design decisions
 
 **Representation of dates**
@@ -24,5 +27,5 @@ This can also be used as a customer reference code for back-office investigation
 >are automatically marked as `WaterDeliveryStatus.CANCELLED`
 
 **Orders in REQUESTED state but are within DeliveryTimeWindow**
->When the application starts up, those orders which are in a `WaterDeliveryStatus.REQUESTED` state but are within the `DeliveryTimeWindow` 
+>When the application starts up and during execution, those orders which are in a `WaterDeliveryStatus.REQUESTED` state but are within the `DeliveryTimeWindow` 
 >are automatically marked as `WaterDeliveryStatus.IN_PROGRESS`
