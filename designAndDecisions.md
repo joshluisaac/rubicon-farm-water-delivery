@@ -28,5 +28,5 @@ This can also be used as a customer reference code for back-office investigation
 
 **Orders in REQUESTED state but are within DeliveryTimeWindow**
 >When the application starts up and during execution, those orders which are in a `WaterDeliveryStatus.REQUESTED` state but are within the `DeliveryTimeWindow` 
->are automatically marked as `WaterDeliveryStatus.IN_PROGRESS`. For example, if the system is actively running from 27-Dec-2019 to 30-Dec-2019, those orders which are active within 
+>are automatically marked as `WaterDeliveryStatus.IN_PROGRESS`. For example, if the system is actively running from 27-Dec-2019 @ 10:45am to 30-Dec-2019 @ 09:10am, those orders which are active within 
 >that time frame is marked as `WaterDeliveryStatus.IN_PROGRESS`
