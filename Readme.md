@@ -11,6 +11,11 @@ These operations have side effects on the data structure of an in-memory [Persis
 These changes are also written to disk to prevent lost updates on next application restart and to keep both the in-memory cache and dataset in a eventually consistent state.
 The dataset path is located [here](data/DeliveryOrderDataSet.json). On startup the application gets preloaded and initialized with a set of delivery orders from the same JSON dataset.
 
+## Datasets
+
+Create order dataset: [SampleAcceptOrderRequest.json](data/SampleAcceptOrderRequest.json)
+Cancel order dataset: [SampleCancelOrderRequest.json](data/SampleCancelOrderRequest.json)
+
 ## Deliverables
 
 1. Swagger2 API documentation
