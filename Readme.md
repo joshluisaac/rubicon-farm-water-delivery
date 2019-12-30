@@ -14,8 +14,33 @@ The dataset path is located here [here](data/DeliveryOrderDataSet.json). On star
 
 ## Deliverables
 
-1. **Swagger2 API documentation**: The project comes shipped with swagger which documents the API contracts and allows the user to interact with the various endpoints.
-2. **Sample request and response documentation**: Sample request and response snippets 
+1. [Swagger2 API documentation](http://localhost:8887/swagger-ui.html)
+2. [Sample request and response documentation](apiDocumentationContract.md): Sample request and response snippets 
+1. [Source code](src/main/java/com/rubiconwater/codingchallenge/joshluisaac)
+2. [Documentation](Readme.pdf)
+3. [Exception documentation and recovery strategies](exceptionsAndRecoveryStrategies.pdf)
+4. [Test harness](src/test/java/com/rubiconwater/codingchallenge/joshluisaac)
+5. [Test coverage](https://coveralls.io/github/joshluisaac/FarmWaterDelivery?branch=master)
+
+# Table of Contents
+1. [Application design and some design decisions](#application-design-and-some-design-decisions)
+1. [Package structure](#package-structure)
+1. [Swagger - Generated API Documentation](#swagger---generated-api-documentation)
+1. [Prerequisites](#prerequisites)
+1. [Gradle and gradle wrapper](#gradle-and-gradle-wrapper)
+1. [Framework stack](#framework-stack)
+1. [Maven/Gradle - Running the test suite](#mavengradle---running-the-test-suite)
+1. [Maven/Gradle - Building the source](#mavengradle---building-the-source)
+1. [Maven/Gradle - Building and running the app from terminal in one command](#mavengradle---building-and-running-the-app-from-terminal-in-one-command)
+1. [Maven/Gradle - Running the app from spring boot](#mavengradle---running-the-app-from-spring-boot)
+1. [Accessing the application](#accessing-the-application)
+1. [Code coverage](#code-coverage)
+1. [Code formatting](#code-formatting)
+
+## Application design and some design decisions
+
+A class diagram showing how the various pieces and components fits together can be found [here](screenshots/classDiagram.png).
+Public interface methods to the system contains code documentation describing the operation.
 
 ## Package structure
 
@@ -31,7 +56,7 @@ Figure 1: Project package structure
 
 ## Swagger - Generated API Documentation
 
-The project has got a dependency on Swagger2 which facilitated the generation of API docs.
+The project has got a dependency on Swagger2 which facilitated the generation of API docs. This documents the API contracts and allows the user to interact with the various endpoints. This could be accessed using `http://localhost:8887/swagger-ui.html`
 
 ## Prerequisites
 
@@ -72,6 +97,7 @@ Executing this command using maven will yield the following console output
 
 
 ![alt text][testSummary]
+
 Figure 2: Gradle test summary
 
 ```log
@@ -164,7 +190,11 @@ Code coverage was both executed as part of maven build cycle using [JaCoCo](http
 
 ![alt text][codecoverage]
 
+Figure 3: IntelliJ code coverage report
+
 ![alt text][codeCoverageJacoco]
+
+Figure 4: Jacoco code coverage report
 
 
 ### Coverall report
@@ -180,6 +210,8 @@ mvn clean test jacoco:report coveralls:report
 
 
 ![alt text][coverallReport]
+
+Figure 5: Coveralls
 
 
 ## Code formatting
