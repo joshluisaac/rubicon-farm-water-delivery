@@ -66,7 +66,7 @@ __Response body__
 }
 ```
 
-##Querying an existing order API by FarmId
+## Querying existing orders API by FarmId: Collection of orders
 
 __Request endpoint__
 
@@ -99,7 +99,7 @@ __Response body__
 }
 ```
 
-##Querying an existing order API by FarmId and orderId
+## Querying an existing order API by FarmId and orderId: Single order item
 
 __Request endpoint__
 
