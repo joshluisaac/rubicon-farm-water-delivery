@@ -1,14 +1,12 @@
 [![Build Status](https://travis-ci.org/joshluisaac/FarmWaterDelivery.svg?branch=master)](https://travis-ci.org/joshluisaac/FarmWaterDelivery)
 [![Coverage Status](https://coveralls.io/repos/github/joshluisaac/FarmWaterDelivery/badge.svg?branch=master)](https://coveralls.io/github/joshluisaac/FarmWaterDelivery?branch=master)
 
-
-
 # Farm Water Delivery - Water Ordering API
 
 This application is a water ordering API which provides a set of endpoints
 covering the specification of the requirements described [here](RubiconCodingChallenge.pdf).
 
-The application features multiple endpoints for ordering water, querying existing orders and cancelling an order. 
+The application features multiple endpoints for ordering water, querying existing orders and cancelling an order.
 These operations have side effects on the data structure of an in-memory [PersistenceMechanism](src/main/java/com/rubiconwater/codingchallenge/joshluisaac/infrastructure/PersistenceMechanism.java) which internally uses a `Map<K,​V>` data structure while keeping track of these changes.
 These changes are also written to disk to prevent lost updates on next application restart and to keep both the in-memory cache and dataset in a eventually consistent state.
 The dataset path is located [here](data/DeliveryOrderDataSet.json). On startup the application gets preloaded and initialized with a set of delivery orders from the same JSON dataset.
@@ -16,26 +14,33 @@ The dataset path is located [here](data/DeliveryOrderDataSet.json). On startup t
 ## Deliverables
 
 1. Swagger2 API documentation
-2. [Sample request and response documentation](apiDocumentationContract.md): Sample request and response snippets 
-1. [Source code](src/main/java/com/rubiconwater/codingchallenge/joshluisaac)
-2. [Documentation](Readme.pdf)
-4. [Test harness](src/test/java/com/rubiconwater/codingchallenge/joshluisaac)
-5. [Test coverage](https://coveralls.io/github/joshluisaac/FarmWaterDelivery?branch=master)
+2. [Sample request and response documentation](apiDocumentationContract.md): Sample request and response snippets
+3. [Source code](src/main/java/com/rubiconwater/codingchallenge/joshluisaac)
+4. [Documentation](Readme.pdf)
+5. [Test harness](src/test/java/com/rubiconwater/codingchallenge/joshluisaac)
+6. [Test coverage](https://coveralls.io/github/joshluisaac/FarmWaterDelivery?branch=master)
 
 # Table of Contents
-1. [Application design and some design decisions](#application-design-and-some-design-decisions)
-1. [Package structure](#package-structure)
-1. [Swagger - Generated API Documentation](#swagger---generated-api-documentation)
-1. [Prerequisites](#prerequisites)
-1. [Gradle and gradle wrapper](#gradle-and-gradle-wrapper)
-1. [Framework stack](#framework-stack)
-1. [Maven/Gradle - Running the test suite](#mavengradle---running-the-test-suite)
-1. [Maven/Gradle - Building the source](#mavengradle---building-the-source)
-1. [Maven/Gradle - Building and running the app from terminal in one command](#mavengradle---building-and-running-the-app-from-terminal-in-one-command)
-1. [Maven/Gradle - Running the app from spring boot](#mavengradle---running-the-app-from-spring-boot)
-1. [Accessing the application](#accessing-the-application)
-1. [Code coverage](#code-coverage)
-1. [Code formatting](#code-formatting)
+
+- [Farm Water Delivery - Water Ordering API](#farm-water-delivery---water-ordering-api)
+  - [Deliverables](#deliverables)
+- [Table of Contents](#table-of-contents)
+  - [Application design and some design decisions](#application-design-and-some-design-decisions)
+  - [Package structure](#package-structure)
+  - [Swagger - Generated API Documentation](#swagger---generated-api-documentation)
+  - [Prerequisites](#prerequisites)
+  - [Gradle and gradle wrapper](#gradle-and-gradle-wrapper)
+  - [Framework stack](#framework-stack)
+  - [Testing stack](#testing-stack)
+  - [Maven/Gradle - Running the test suite](#mavengradle---running-the-test-suite)
+  - [Maven/Gradle - Building the source](#mavengradle---building-the-source)
+  - [Maven/Gradle - Building and running the app from terminal in one command](#mavengradle---building-and-running-the-app-from-terminal-in-one-command)
+  - [Maven/Gradle - Running the app from spring boot](#mavengradle---running-the-app-from-spring-boot)
+  - [Accessing the application](#accessing-the-application)
+  - [Code coverage](#code-coverage)
+    - [Jacoco code coverage](#jacoco-code-coverage)
+    - [Coverall report](#coverall-report)
+  - [Code formatting](#code-formatting)
 
 ## Application design and some design decisions
 
@@ -50,7 +55,7 @@ The project source code is partitioned into three packages as follows:
 2. **infrastructure**: Framework-level source files, utilities and configuration source files.
 3. **sharedkernel**: Shared domain entities.
 
-![alt text][packageStructure]
+![alt text][packagestructure]
 
 Figure 1: Project package structure
 
@@ -67,18 +72,26 @@ You can follow the steps here on how to setup [SDKMAN](https://sdkman.io/install
 
 ## Gradle and gradle wrapper
 
-The application comes bundled with Gradle wrapper which makes it easy to compile, test, build and run the application without having to worry about downloading Gradle. 
-The following gradle wrapper scripts [*nix](gradlew) or on [Windows](gradlew.bat) will take care of this.
+The application comes bundled with Gradle wrapper which makes it easy to compile, test, build and run the application without having to worry about downloading Gradle.
+The following gradle wrapper scripts [\*nix](gradlew) or on [Windows](gradlew.bat) will take care of this.
 
 ## Framework stack
 
 The following libraries and dependencies were used to develop this project:
 
+1. **SpringBoot**: Web MVC and DI framework.
 1. **Hibernate validator**: For validating HTTP request body and cascading validation constraints.
 1. **Lombok** : Used to auto generate getters, setters, constructors and builders for entity and value objects.
 1. **FasterXML Jackson**: For deserialization of request body and serialization of response.
-1. **Google Guava**:
+1. **Google Guava**: For manipulating collections.
 1. **Swagger2**: API documentation.
+
+## Testing stack
+
+1. **Mockito**
+2. **Junit5**
+3. **AssertJ**
+4. **MockMvc**
 
 ## Maven/Gradle - Running the test suite
 
@@ -96,8 +109,7 @@ or using Gradle
 
 Executing this command using maven will yield the following console output:
 
-
-![alt text][testSummary]
+![alt text][testsummary]
 
 Figure 2: Gradle test summary
 
@@ -107,12 +119,12 @@ Figure 2: Gradle test summary
 [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 s - in com.rubiconwater.codingchallenge.joshluisaac.businessactivities.deliverymanagement.api.CancelOrderRequestTest
 2019-12-27 23:49:30,099 INFO  Shutting down ExecutorService 'applicationTaskExecutor'
 2019-12-27 23:49:30,099 INFO  Shutting down ExecutorService 'applicationTaskExecutor'
-[INFO] 
+[INFO]
 [INFO] Results:
-[INFO] 
+[INFO]
 [INFO] Tests run: 54, Failures: 0, Errors: 0, Skipped: 0
-[INFO] 
-[INFO] 
+[INFO]
+[INFO]
 [INFO] --- jacoco-maven-plugin:0.8.2:report (report) @ farm-water-delivery ---
 [INFO] Loading execution data file /media/joshua/martian/jobs/WaterDelivery/target/jacoco.exec
 [INFO] Analyzed bundle 'Farm Water Delivery' with 37 classes
@@ -181,24 +193,23 @@ Port number is configurable. Just in case you have another service running on po
 
 **`server.port=YOUR_NEW_PORT_NUMBER`**
 
-
 ## Code coverage
 
 ### Jacoco code coverage
-While the goal of the test harness was to cover most edge and corner cases, that naturally led to a wider coverage of over 85%.
-Code coverage was both executed as part of maven build cycle using [JaCoCo](https://github.com/jacoco/jacoco)  and from IntelliJ IDE.
 
+While the goal of the test harness was to cover most edge and corner cases, that naturally led to a wider coverage of over 85%.
+Code coverage was both executed as part of maven build cycle using [JaCoCo](https://github.com/jacoco/jacoco) and from IntelliJ IDE.
 
 ![alt text][codecoverage]
 
 Figure 3: IntelliJ code coverage report
 
-![alt text][codeCoverageJacoco]
+![alt text][codecoveragejacoco]
 
 Figure 4: Jacoco code coverage report
 
-
 ### Coverall report
+
 Executing the following command will generate Jacoco and [coveralls coverage reports](https://coveralls.io/github/joshluisaac/FarmWaterDelivery?branch=master).
 
 ```bash
@@ -209,19 +220,16 @@ mvn clean test jacoco:report coveralls:report
 ./gradlew build jacocoTestReport
 ```
 
-
-![alt text][coverallReport]
+![alt text][coverallreport]
 
 Figure 5: Coveralls
 
-
 ## Code formatting
+
 Source code was formatted using [google-java-format](https://github.com/google/google-java-format)
 
-
-
 [codecoverage]: screenshots/codeCoverage_Ide.png "codeCoverage_Ide"
-[packageStructure]: screenshots/packageStructure.png "packageStructure"
-[codeCoverageJacoco]: screenshots/codeCoverageJacoco.png "codeCoverageJacoco"
-[coverallReport]: screenshots/coverallReport.png "coverallReport"
-[testSummary]: screenshots/testSummary.png "testSummary"
+[packagestructure]: screenshots/packageStructure.png "packageStructure"
+[codecoveragejacoco]: screenshots/codeCoverageJacoco.png "codeCoverageJacoco"
+[coverallreport]: screenshots/coverallReport.png "coverallReport"
+[testsummary]: screenshots/testSummary.png "testSummary"
