@@ -13,8 +13,8 @@ The dataset path is located [here](data/DeliveryOrderDataSet.json). On startup t
 
 ## Datasets
 
-Create order dataset: [SampleAcceptOrderRequest.json](data/SampleAcceptOrderRequest.json)
-Cancel order dataset: [SampleCancelOrderRequest.json](data/SampleCancelOrderRequest.json)
+1. Create order dataset: [SampleAcceptOrderRequest.json](data/SampleAcceptOrderRequest.json)
+2. Cancel order dataset: [SampleCancelOrderRequest.json](data/SampleCancelOrderRequest.json)
 
 ## Deliverables
 
