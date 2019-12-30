@@ -46,9 +46,9 @@ Public interface methods to the system contain code documentation describing the
 
 The project source code is partitioned into three packages as follows:
 
-1. **businessactivities**: This package contains all business domain and API related source files
-2. **infrastructure**
-3. **sharedkernel**:
+1. **businessactivities**: This package contains all business domain and API related source files.
+2. **infrastructure**: Framework-level source files, utilities and configuration source files.
+3. **sharedkernel**: Shared domain entities.
 
 ![alt text][packageStructure]
 
