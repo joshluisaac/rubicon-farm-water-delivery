@@ -6,12 +6,10 @@
 **Representation of dates**
 >Dates across the entire system is Java's `LocalDateTime` and when printed or serialized is represented in [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601) format.
 
-
 **Water delivery status**
-> [WaterDeliveryStatus](src/main/java/com/rubiconwater/codingchallenge/joshluisaac/businessactivities/deliverymanagement/domain/WaterDeliveryStatus) is represented as an enum
+> [WaterDeliveryStatus](src/main/java/com/rubiconwater/codingchallenge/joshluisaac/businessactivities/deliverymanagement/domain/WaterDeliveryStatus.java) is represented as an enum
 >with an `allowCancel` attribute. This attribute indicates which statues can be cancelled, taking away the complexities of if/else conditional statements.
 > It also makes it easy to add new delivery statues without having to change business logic. 
-
 
 **Error handling**
 >Maintained a centralised copy of the list of possible errors known to the application aimed at reducing error code duplication.
