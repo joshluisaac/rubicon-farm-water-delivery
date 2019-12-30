@@ -26,8 +26,8 @@ public class DeliveryStatusBatch {
     this.batchDate = batchDate;
   }
 
-  //120000
-  @Scheduled(fixedRate = 10000)
+
+  @Scheduled(fixedRate = 120000)
   public void invoke() {
     log.info(
         "Processing delivery status batch for {}", WaterDeliveryUtils.toIsoLocalDateTime(batchDate.getBatchDate()));
