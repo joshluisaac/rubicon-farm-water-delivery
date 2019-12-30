@@ -47,6 +47,10 @@ public class PersistenceMechanism {
     }
   }
 
+  public Map<UUID, List<WaterDeliveryOrder>> getAll() {
+    return cache;
+  }
+
   public WaterDeliveryOrder add(WaterDeliveryOrder requestOrder) {
     boolean farmRecordExists = cache.containsKey(requestOrder.getFarmId());
     if (farmRecordExists) {

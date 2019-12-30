@@ -3,7 +3,6 @@ package com.rubiconwater.codingchallenge.joshluisaac.businessactivities.delivery
 import com.google.common.base.Preconditions;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.Errors;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.UuidUtils;
-import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.WaterDeliveryUtils;
 import com.rubiconwater.codingchallenge.joshluisaac.sharedkernel.AbstractEntity;
 import java.beans.ConstructorProperties;
 import java.time.LocalDateTime;

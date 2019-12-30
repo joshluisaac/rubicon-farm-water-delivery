@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.*;
 import com.rubiconwater.codingchallenge.joshluisaac.AbstractTest;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.Errors;
 import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.UuidUtils;
-import com.rubiconwater.codingchallenge.joshluisaac.infrastructure.common.WaterDeliveryUtils;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import org.junit.jupiter.api.DisplayName;

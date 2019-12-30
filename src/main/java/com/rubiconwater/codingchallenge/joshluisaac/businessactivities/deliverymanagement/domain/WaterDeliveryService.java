@@ -52,6 +52,7 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryOrder> {
 
   /**
    * Retrieves all orders associated to a farmId
+   *
    * @param farmId
    * @return
    */
@@ -66,6 +67,7 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryOrder> {
 
   /**
    * Retrieves order by farmId and requestOrderId
+   *
    * @param farmId
    * @param requestOrderId
    * @return
@@ -85,7 +87,7 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryOrder> {
             requestOrder,
             entry ->
                 (entry.getHash().equals(requestOrder.getHash()))
-                    && isNotCancelled(entry));
+                    && WaterDeliveryUtils.isNotCancelled(entry));
     if (result)
       throw new IllegalArgumentException(
           String.format(
@@ -100,7 +102,7 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryOrder> {
             requestOrder,
             entry ->
                 (entry.getTimeFrame().isBetweenTimeFrameOf(requestOrder.getTimeFrame()))
-                    && isNotCancelled(entry));
+                    && WaterDeliveryUtils.isNotCancelled(entry));
     if (result) throw new IllegalArgumentException(Errors.TIME_FRAME_COLLISION.getDescription());
   }
 
@@ -113,9 +115,5 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryOrder> {
     List<WaterDeliveryOrder> result =
         (requestOrders != null) ? requestOrders : Collections.emptyList();
     return result.stream();
-  }
-
-  private static boolean isNotCancelled(WaterDeliveryOrder entry){
-    return (entry.getDeliveryStatus() != WaterDeliveryStatus.CANCELLED);
   }
 }

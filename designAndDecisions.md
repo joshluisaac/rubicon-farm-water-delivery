@@ -35,6 +35,8 @@ This can also be used as a customer reference code for back-office investigation
 >are automatically marked as `WaterDeliveryStatus.IN_PROGRESS`. For example, if the system is actively running from 27-Dec-2019 @ 10:45am to 30-Dec-2019 @ 09:10am, those orders which are active within 
 >that time frame is marked as `WaterDeliveryStatus.IN_PROGRESS`
 
-
+**Batch Date**
+When developing state machines or systems that are clock/time dependent.
+There's the notion of a configurable BatchDate. The reasonaing behind this is to make delivery order batch processing to be independent of the application. In the event that the system/application fails you still want to process those delivery backlogs that couldn't be processed because of system downtime.
 
 [classDiagram]: screenshots/classDiagram.png "classDiagram"
