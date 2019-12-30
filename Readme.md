@@ -50,7 +50,7 @@ The project source code is partitioned into 3 packages as follows:
 2. **infrastructure**
 3. **sharedkernel**:
 
-![alt text][codeCoverage_Ide2]
+![alt text][packageStructure]
 
 Figure 1: Project package structure
 
@@ -220,7 +220,7 @@ Source code was formatted using [google-java-format](https://github.com/google/g
 
 
 [codecoverage]: screenshots/codeCoverage_Ide.png "codeCoverage_Ide"
-[codeCoverage_Ide2]: screenshots/codeCoverage_Ide2.png "codeCoverage_Ide2"
+[packageStructure]: screenshots/packageStructure.png "packageStructure"
 [codeCoverageJacoco]: screenshots/codeCoverageJacoco.png "codeCoverageJacoco"
 [coverallReport]: screenshots/coverallReport.png "coverallReport"
 [testSummary]: screenshots/testSummary.png "testSummary"
