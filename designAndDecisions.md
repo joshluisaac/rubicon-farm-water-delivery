@@ -19,7 +19,7 @@ Each error object contains a code and the description of the error can be easily
 This can also be used as a customer reference code for back-office investigation in the event that an error occurred while trying to interact with the APIs.
 
 **Bulk placing of orders**
->In the event that one or more entries is invalid while performing bulk placing/cancelling of orders, only those invalid entries would be rejected
+>In the event that one or more entries is invalid while performing bulk placing/cancelling of orders, those valid entries before the rejected entry would be accepted and processed.
 
 **Orders in REQUESTED state but past delivery end date**
 >When the application starts up, those orders which are in a `WaterDeliveryStatus.REQUESTED` state but are past `DeliveryTimeWindow.endDate` 
