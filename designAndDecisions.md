@@ -20,3 +20,11 @@ This can also be used as a customer reference code for back-office investigation
 
 **Bulk placing of orders**
 >In the event that one or more entries is invalid while performing bulk placing/cancelling of orders, only those invalid entries would be rejected
+
+**Orders in REQUESTED state but past delivery end date**
+>When the application starts up, those orders which are in a `WaterDeliveryStatus.REQUESTED` state but are past `DeliveryTimeWindow.endDate` 
+>are automatically marked as `WaterDeliveryStatus.CANCELLED`
+
+**Orders in REQUESTED state but are within DeliveryTimeWindow**
+>When the application starts up, those orders which are in a `WaterDeliveryStatus.REQUESTED` state but are within the `DeliveryTimeWindow` 
+>are automatically marked as `WaterDeliveryStatus.IN_PROGRESS`
