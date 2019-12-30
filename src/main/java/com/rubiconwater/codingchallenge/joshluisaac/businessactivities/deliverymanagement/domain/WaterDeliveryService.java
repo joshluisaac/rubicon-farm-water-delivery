@@ -50,6 +50,11 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryOrder> {
         String.format(Errors.CANCEL_ORDER_NOT_ALLOWED.getDescription(), requestOrder.getId()));
   }
 
+  /**
+   * Retrieves all orders associated to a farmId
+   * @param farmId
+   * @return
+   */
   public List<WaterDeliveryOrder> getDeliveryOrders(UUID farmId) {
     var result = repository.find(farmId);
     if (result != null) {
@@ -59,7 +64,12 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryOrder> {
         String.format(Errors.FARM_ID_NOT_FOUND.getDescription(), farmId));
   }
 
-  // JUN: Change IllegalArgumentException -> DeliveryOrderNotFoundException
+  /**
+   * Retrieves order by farmId and requestOrderId
+   * @param farmId
+   * @param requestOrderId
+   * @return
+   */
   public WaterDeliveryOrder getDeliveryOrder(UUID farmId, UUID requestOrderId) {
     var result = getDeliveryOrders(farmId);
     return result
@@ -75,7 +85,7 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryOrder> {
             requestOrder,
             entry ->
                 (entry.getHash().equals(requestOrder.getHash()))
-                    && (entry.getDeliveryStatus() != WaterDeliveryStatus.CANCELLED));
+                    && isNotCancelled(entry));
     if (result)
       throw new IllegalArgumentException(
           String.format(
@@ -90,7 +100,7 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryOrder> {
             requestOrder,
             entry ->
                 (entry.getTimeFrame().isBetweenTimeFrameOf(requestOrder.getTimeFrame()))
-                    && (entry.getDeliveryStatus() != WaterDeliveryStatus.CANCELLED));
+                    && isNotCancelled(entry));
     if (result) throw new IllegalArgumentException(Errors.TIME_FRAME_COLLISION.getDescription());
   }
 
@@ -103,5 +113,9 @@ public class WaterDeliveryService implements EntityService<WaterDeliveryOrder> {
     List<WaterDeliveryOrder> result =
         (requestOrders != null) ? requestOrders : Collections.emptyList();
     return result.stream();
+  }
+
+  private static boolean isNotCancelled(WaterDeliveryOrder entry){
+    return (entry.getDeliveryStatus() != WaterDeliveryStatus.CANCELLED);
   }
 }
