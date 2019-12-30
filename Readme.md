@@ -39,7 +39,7 @@ The dataset path is located here [here](data/DeliveryOrderDataSet.json). On star
 
 ## Application design and some design decisions
 
-A class diagram showing how the various pieces and components fits together can be found [here](screenshots/classDiagram.png).
+A class diagram showing how the various pieces and components fits together can be found [here](designAndDecisions.md).
 Public interface methods to the system contains code documentation describing the operation.
 
 ## Package structure
