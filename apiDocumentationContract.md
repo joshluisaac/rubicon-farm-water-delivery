@@ -127,9 +127,6 @@ __Response body__
 }
 ```
 
-
-
-
 ## Bulk order cancellation API
 
 __Request endpoint__
@@ -148,5 +145,4 @@ __Request body__
         ]
     }
     ```
-__Response body__
 
