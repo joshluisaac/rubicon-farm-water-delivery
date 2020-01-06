@@ -4,6 +4,7 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.7.RELEASE'
     id "io.freefair.lombok" version "4.1.6"
     id 'jacoco'
+    id "org.sonarqube" version "2.7"
 }
 
 //https://github.com/freefair/gradle-plugins/issues/31
