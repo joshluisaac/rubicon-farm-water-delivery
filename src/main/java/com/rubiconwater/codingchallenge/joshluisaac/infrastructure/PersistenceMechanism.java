@@ -105,7 +105,7 @@ public class PersistenceMechanism {
               .writeValueAsString(cache);
       File file = resource.getFile();
       FileUtils.flushToDisk(jsonValue, file);
-      //LOG.info("Wrote updates to data store @ {}", file.getAbsolutePath());
+      // LOG.info("Wrote updates to data store @ {}", file.getAbsolutePath());
     } catch (IOException ex) {
       // catching and re-throwing as runtime exception
       // because occurrence of this exception should abort the current unit of work
