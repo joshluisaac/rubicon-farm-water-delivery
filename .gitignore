@@ -59,3 +59,10 @@ TestRequestLog.json
 .DS_Store
 .gradle
 .vscode
+
+
+*_REMOTE_*
+*_BASE_*
+*_BACKUP_*
+*_LOCAL_*
+*.orig
