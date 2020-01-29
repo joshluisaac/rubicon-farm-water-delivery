@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+
+  farm-water-delivery:
+    build: ../rubicon-farm-water-delivery
+
+  web:
+    image: nginx
+    volumes:
+     - ./mysite.template:/etc/nginx/conf.d/mysite.template
+    ports:
+     - "8089:80"
+
+  redisDatabase:
+    image: redis
+
+  redis-sentinel:
+    image: bitnami/redis-sentinel:5.0
+
+  redis:
+    image: bitnami/redis:5.0
+    environment:
+     - ALLOW_EMPTY_PASSWORD=yes
+
+  mountebank:
+    image: andyrbell/mountebank
